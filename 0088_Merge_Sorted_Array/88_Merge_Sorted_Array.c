@@ -48,3 +48,15 @@ public:
         nums1 = nums3;
     }
 };
+
+
+//Runtime: 0 ms, faster than 100.00% of C++ online submissions for Merge Sorted Array.
+//Memory Usage: 9.1 MB, less than 30.61% of C++ online submissions for Merge Sorted Array.
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        nums1.resize(m);
+        nums1.insert(nums1.begin(), nums2.begin(), nums2.end());
+        sort(nums1.begin(), nums1.end());
+    }
+};
