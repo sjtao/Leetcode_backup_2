@@ -61,7 +61,7 @@ public:
         if(l2){
             temp->next = l2;
         }
-        
+        //temp->next = (l1 == NULL) ? l2 : l1; similar runtime
         return merge->next;
         
     }
