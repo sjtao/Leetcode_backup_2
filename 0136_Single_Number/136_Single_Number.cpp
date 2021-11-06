@@ -20,3 +20,18 @@ public:
         return nums[i];
     }
 };
+
+//Runtime: 12 ms, faster than 97.69% of C++ online submissions for Single Number.
+//Memory Usage: 17 MB, less than 49.30% of C++ online submissions for Single Number.
+//bitwise operation
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int ans = 0;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            ans ^= nums[i];
+        }
+        return ans;
+    }
+};
