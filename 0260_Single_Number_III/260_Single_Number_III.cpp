@@ -26,3 +26,30 @@ public:
         
     }
 };
+
+//Runtime: 8 ms, faster than 85.25% of C++ online submissions for Single Number III.
+//Memory Usage: 9.8 MB, less than 99.94% of C++ online submissions for Single Number III.
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        if(nums.size() == 2) return nums;
+        
+        vector<int> ans;
+        sort(nums.begin(), nums.end());
+        int i = 0;
+        int find = 0;
+        while(i < nums.size()-1){
+            if(nums[i] != nums[i+1]){
+                ans.push_back(nums[i]);
+                find += 1;
+                i+=1;
+            }
+            else
+            {
+                i+=2;
+            }
+        }
+        if (find == 1) ans.push_back(nums[i]);
+        return ans;
+    }
+};
