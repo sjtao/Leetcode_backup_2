@@ -102,3 +102,41 @@ public:
         return c;
     }
 };
+
+//Runtime: 6 ms, faster than 17.81% of C++ online submissions for Add Binary.
+//Memory Usage: 6.5 MB, less than 41.10% of C++ online submissions for Add Binary.
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        
+        int ai = a.length();
+        int bi = b.length();
+        int size = max(ai, bi);
+        string c (size, ' ');
+    
+        //make a, b have the same length
+        if(size > ai){
+            for(int i = ai; i < size; i++){
+                a.insert(a.begin(),'0');
+            }
+        }
+        if(size > bi){
+            for(int i = bi; i < size; i++){
+                b.insert(b.begin(),'0');
+            }
+        }
+        
+        //add
+        int cr = 0;
+        int s  = 0;
+        for(int i = size-1; i >= 0; i--){
+            s = a[i] - '0' + b[i] - '0' + cr;
+            c[i] = s % 2 + '0';
+            cr   = s / 2;
+        }
+     
+        if(cr == 1) c.insert(c.begin(), '1');
+         
+        return c;
+    }
+};
