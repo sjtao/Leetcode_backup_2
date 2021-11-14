@@ -30,3 +30,17 @@ public:
         return ans;
     }
 };
+
+//Runtime: 12 ms, faster than 45.04% of C++ online submissions for Concatenation of Array.
+//Memory Usage: 13 MB, less than 17.52% of C++ online submissions for Concatenation of Array.
+class Solution {
+public:
+    vector<int> getConcatenation(vector<int>& nums) {
+        
+        int n = nums.size();
+        for(int i = 0; i < n; i++)
+            nums.push_back(nums[i]);
+        
+        return nums;
+    }
+};
