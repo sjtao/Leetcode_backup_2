@@ -23,3 +23,15 @@ public:
         return;
     }
 };
+
+
+//Runtime: 26 ms, faster than 35.92% of C++ online submissions for Reverse String.
+//Memory Usage: 23.3 MB, less than 40.19% of C++ online submissions for Reverse String.
+class Solution {
+public:
+
+    void reverseString(vector<char>& s) {
+        if(s.size() > 1)
+            reverse(s.begin(), s.end());
+    }
+};
