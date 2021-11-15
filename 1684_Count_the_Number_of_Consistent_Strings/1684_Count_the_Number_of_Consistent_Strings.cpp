@@ -28,3 +28,32 @@ public:
         return number;
     }
 };
+
+//Runtime: 36 ms, faster than 99.44% of C++ online submissions for Count the Number of Consistent Strings.
+//Memory Usage: 30.2 MB, less than 62.02% of C++ online submissions for Count the Number of Consistent Strings.
+class Solution {
+public:
+    int countConsistentStrings(string allowed, vector<string>& words) {
+        
+        vector<int> alw(26,0);
+        for(int i = 0; i < allowed.length(); i++){
+            alw[allowed[i]-'a'] = 1;
+        }
+        
+        int number = 0;
+        bool find;
+        for(int i = 0; i < words.size(); i++){
+            find = 1;
+            for(int j = 0; j < words[i].length(); j++){
+                if(alw[words[i][j]-'a']==0){
+                    find = 0;
+                    break;
+                }
+            }
+            if(find)
+                number += 1;
+        }
+        
+        return number;
+    }
+};
