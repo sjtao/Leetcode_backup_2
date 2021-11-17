@@ -19,3 +19,29 @@ public:
     }
 };
 
+//Runtime: 20 ms, faster than 51.61% of C++ online submissions for Ransom Note.
+//Memory Usage: 8.9 MB, less than 14.51% of C++ online submissions for Ransom Note.
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        unordered_map <char, int> ran;
+        
+        for(int i = 0; i < magazine.length(); i++){
+            ran[magazine[i]]++;
+        }
+        
+        for(int i = 0; i < ransomNote.length(); i++){
+            if(ran.find(ransomNote[i]) == ran.end()){
+                return false;
+            }
+            else{
+                ran[ransomNote[i]]--;
+                if(ran[ransomNote[i]] < 0){
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+};
