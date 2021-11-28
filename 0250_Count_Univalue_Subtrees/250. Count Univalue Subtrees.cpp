@@ -45,3 +45,29 @@ public:
         return num;
     }
 };
+
+
+/**
+Runtime: 8 ms, faster than 39.71% of C++ online submissions for Count Univalue Subtrees.
+Memory Usage: 16.5 MB, less than 21.77% of C++ online submissions for Count Univalue Subtrees.
+ */
+class Solution {
+public:
+
+    bool SubtreesHelper(TreeNode* root, int& num){
+        if(!root) return true;
+        bool l = SubtreesHelper(root->left, num);
+        bool r = SubtreesHelper(root->right, num);
+        bool res=l && r && (!root->left || root->val==root->left->val) 
+                   && (!root->right||root->val==root->right->val); 
+        num+=res;
+        return res;
+    }
+    
+    int countUnivalSubtrees(TreeNode* root) {
+        if(!root) return 0;
+        int num = 0;
+        SubtreesHelper(root, num);
+        return num;
+    }
+};
