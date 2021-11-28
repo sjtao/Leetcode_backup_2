@@ -33,3 +33,25 @@ public:
         return true;
     }
 };
+
+/**
+Runtime: 32 ms, faster than 42.72% of C++ online submissions for Valid Mountain Array.
+Memory Usage: 22.5 MB, less than 46.58% of C++ online submissions for Valid Mountain Array.
+*/
+class Solution {
+public:
+    bool validMountainArray(vector<int>& arr) {
+        int s = arr.size();
+        if(s < 3) return false;
+        
+        //left of i: strictly increase
+        //right of i: strictly decrease
+        int i = 0;
+        int j = s-1;
+        while(i < s-1 && arr[i] < arr[i+1]) i++;
+        while(j > 0 && arr[j] < arr[j-1])   j--;
+        
+        return i>0 && j<s-1 && i==j;
+
+    }
+};
