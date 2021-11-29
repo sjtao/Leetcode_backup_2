@@ -34,3 +34,32 @@ public:
         return mx;
     }
 };
+
+/**
+Runtime: 36 ms, faster than 70.91% of C++ online submissions for Max Consecutive Ones II.
+Memory Usage: 36.2 MB, less than 26.97% of C++ online submissions for Max Consecutive Ones II.
+*/
+class Solution {
+public:
+    int findMaxConsecutiveOnes(vector<int>& nums) {
+        
+        if(nums.size() == 1) return 1;
+        
+        int one = 0;
+        int one_zero = 0;
+        int mx = -1;
+        for(int i : nums){
+            if(i == 1){
+                one ++;
+                one_zero ++;
+            }
+            else{
+                one_zero = one + 1;
+                one = 0;
+            }
+            mx = max(mx, one_zero);
+        }
+ 
+        return mx;
+    }
+};
