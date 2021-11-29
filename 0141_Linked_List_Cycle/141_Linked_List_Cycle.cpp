@@ -32,3 +32,29 @@ public:
         
     }
 };
+
+/**
+Runtime: 12 ms, faster than 71.12% of C++ online submissions for Linked List Cycle.
+Memory Usage: 8.1 MB, less than 57.85% of C++ online submissions for Linked List Cycle.
+*/
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        //Floyd's Cycle Finding Algorithm
+        if(head == NULL) return false;
+        
+        ListNode *fast = head->next;
+        ListNode *slow = head;
+        
+        while(fast && fast->next){
+            if(fast == slow){
+                return true;
+            }
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        
+        return false;
+        
+    }
+};
