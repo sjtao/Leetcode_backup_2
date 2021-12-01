@@ -41,3 +41,34 @@ public:
     }
     
 };
+
+
+/**
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Plus One.
+Memory Usage: 8.8 MB, less than 60.94% of C++ online submissions for Plus One.
+*/
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int n = digits.size();
+        int carry = 1, res;
+        for(int i = n-1; i >= 0; i--){
+            res = digits[i] + carry;
+            digits[i] = res % 10;
+            carry = res / 10;
+            if(carry == 0){
+                break;
+            }
+        }
+        if(carry){
+            vector<int> ans;
+            ans.push_back(carry);
+            for(int d : digits){
+                ans.push_back(d);
+            }
+            return ans;
+        }
+
+        return digits;
+    }
+};
