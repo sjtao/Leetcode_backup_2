@@ -17,7 +17,7 @@ public:
 
 //Runtime: 0 ms, faster than 100.00% of C++ online submissions for Climbing Stairs.
 //Memory Usage: 6.5 MB, less than 13.41% of C++ online submissions for Climbing Stairs.
-//adding memoization --> DP
+//adding memoization --> DP O(n)
 class Solution {
 private:
     unordered_map<int,int> s;
