@@ -35,3 +35,26 @@ public:
             reverse(s.begin(), s.end());
     }
 };
+
+/**
+Runtime: 20 ms, faster than 79.70% of C++ online submissions for Reverse String.
+Memory Usage: 23.2 MB, less than 40.05% of C++ online submissions for Reverse String.
+*/
+class Solution {
+public:
+    void reverseHelper(vector<char>& s, int left, int right){
+        if(left >= right){
+            return;
+        }
+        
+        char temp = s[left];
+        s[left] = s[right];
+        s[right] = temp;
+        left++;
+        right--;
+        reverseHelper(s, left, right);
+    }
+    void reverseString(vector<char>& s) {
+        reverseHelper(s, 0, s.size()-1);
+    }
+};
