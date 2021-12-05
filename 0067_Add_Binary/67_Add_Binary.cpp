@@ -140,3 +140,31 @@ public:
         return c;
     }
 };
+
+/**
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Add Binary.
+Memory Usage: 6.2 MB, less than 84.21% of C++ online submissions for Add Binary.
+*/
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int na = a.length()-1;
+        int nb = b.length()-1;
+        int carry = 0, sum = 0;
+        string result;
+        while(na >= 0 || nb >= 0){
+            sum = carry;
+            if(na >= 0)
+                sum += a[na--] - '0';
+            if(nb >= 0)
+                sum += b[nb--] - '0';
+            carry = sum/2;
+            result += ('0' + sum % 2);
+        }
+        if(carry)
+            result += ('0' + carry);
+        
+        reverse(result.begin(), result.end());
+        return result;
+    }
+};
