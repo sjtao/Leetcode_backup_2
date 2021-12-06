@@ -1,3 +1,8 @@
+/**
+Runtime: 12 ms, faster than 27.82% of C++ online submissions for Reverse Words in a String.
+Memory Usage: 20.7 MB, less than 23.31% of C++ online submissions for Reverse Words in a String.
+*/
+
 class Solution {
 public:
     string reverseWords(string s) {
