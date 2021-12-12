@@ -47,3 +47,15 @@ public:
         return left;
     }
 };
+
+/**
+Runtime: 4 ms, faster than 80.47% of C++ online submissions for Search Insert Position.
+Memory Usage: 9.7 MB, less than 22.75% of C++ online submissions for Search Insert Position.
+*/
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        auto low = lower_bound(nums.begin(),nums.end(),target);       
+        return ( low - nums.begin() );
+    }
+};
