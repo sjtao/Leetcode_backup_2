@@ -38,3 +38,30 @@ public:
         return dup;
     }
 };
+
+/**
+Runtime: 65 ms, faster than 8.88% of C++ online submissions for Contains Duplicate.
+Memory Usage: 20.2 MB, less than 60.20% of C++ online submissions for Contains Duplicate.
+*/
+class Solution {
+public:
+/*    bool containsDuplicate(vector<int>& nums) {
+        unordered_map<int, int> np;
+        for(auto n: nums){
+            np[n]++;
+            if(np[n]>1)
+                return true;
+        }
+        return false;
+    }
+*/
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_set<int> s;
+        for (int i : nums) {
+            if (s.find(i) != s.end())
+                return true;
+            s.insert(i);
+        }
+    return false;
+}
+};
