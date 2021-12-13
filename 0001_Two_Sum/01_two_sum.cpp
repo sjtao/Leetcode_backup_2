@@ -79,3 +79,32 @@ public:
         return ans;
     }
 };
+
+
+/**
+Runtime: 12 ms, faster than 77.78% of C++ online submissions for Two Sum.
+Memory Usage: 12.1 MB, less than 8.44% of C++ online submissions for Two Sum.
+*/
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> np;
+        int n = nums.size();
+        for(int i = 0; i < n; i++){
+            np[nums[i]]=i;
+        }
+        int r;
+        vector<int> ans(2);
+        for(int i = 0; i < n; i++){
+            r = target - nums[i];
+            if(np.find(r)!=np.end()){
+                if(np[r] != i){
+                    ans[0] = i;
+                    ans[1] = np[r];
+                    break;  
+                }  
+            }
+        }
+        return ans;
+    }
+};
