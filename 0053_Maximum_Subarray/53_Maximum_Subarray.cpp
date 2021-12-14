@@ -38,3 +38,21 @@ public:
         return globalmax;
     }
 };
+
+/**
+Runtime: 92 ms, faster than 95.41% of C++ online submissions for Maximum Subarray.
+Memory Usage: 67.8 MB, less than 12.38% of C++ online submissions for Maximum Subarray.
+*/
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        /** Kadane's Algorithm */
+        int best = INT_MIN;
+        int current = 0;
+        for(int n : nums){
+            current = max(current + n, n);
+            best = max(best, current);
+        }
+        return best;
+    }
+};
