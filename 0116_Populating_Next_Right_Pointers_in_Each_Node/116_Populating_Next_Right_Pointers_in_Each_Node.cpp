@@ -44,3 +44,16 @@ public:
 Runtime: 28 ms, faster than 15.99% of C++ online submissions for Populating Next Right Pointers in Each Node.
 Memory Usage: 16.9 MB, less than 66.34% of C++ online submissions for Populating Next Right Pointers in Each Node.
 */
+class Solution {
+public:
+    Node* connect(Node* root) {
+        if(!root || !root->left) return root;
+        //Level Order Traversal
+        root->left->next = root->right;
+        if(root->next)
+            root->right->next = root->next->left;
+        connect(root->left);
+        connect(root->right);
+        return root;
+    }
+};
