@@ -32,3 +32,63 @@ public:
         return step;
     }
 };
+
+/**
+Runtime: 362 ms, faster than 23.99% of C++ online submissions for Jump Game II.
+Memory Usage: 17 MB, less than 27.74% of C++ online submissions for Jump Game II.
+*/
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int n = nums.size();
+        if(n == 1) return 0;
+        
+        //dp
+        vector<int> step(n, INT_MAX);
+        
+        step[0] = 0;
+        
+        for(int i = 0; i < n; i++){
+            for(int j = min(n-1, i + nums[i]); j > i; j--){
+                if(step[j] > step[i]+1)
+                    step[j] = step[i]+1;
+            }
+        }
+        
+        return step[n-1];
+    }
+};
+
+/**
+Runtime: 265 ms, faster than 30.51% of C++ online submissions for Jump Game II.
+Memory Usage: 17 MB, less than 27.74% of C++ online submissions for Jump Game II.
+*/
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int n = nums.size();
+        if(n == 1) return 0;
+        
+        //dp
+        vector<int> step(n, INT_MAX);
+        
+        step[0] = 0;
+        
+        for(int i = 0; i < n; i++){
+            int t = i + nums[i];
+            if(t >= n-1){
+                step[n-1] = step[i]+1;
+                break;
+            }
+            else{
+                for(int j = t; j > i; j--){
+                    if(step[j] > step[i]+1)
+                        step[j] = step[i]+1;
+            }
+            }
+            
+        }
+        
+        return step[n-1];
+    }
+};
