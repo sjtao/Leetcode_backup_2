@@ -42,3 +42,81 @@ public:
  * int param_3 = obj->top();
  * int param_4 = obj->getMin();
  */
+
+
+/**
+Runtime: 35 ms, faster than 31.63% of C++ online submissions for Min Stack.
+Memory Usage: 16.2 MB, less than 92.80% of C++ online submissions for Min Stack.
+*/
+class MinStack {
+    
+public:
+    vector<int> st;
+    vector<int> ms;
+    
+    MinStack() {
+        st.resize(0);
+        ms.resize(1);
+        ms[0] = INT_MAX;
+    }
+    
+    void push(int val) {
+        st.push_back(val);
+        if(val < ms.back())
+            ms.push_back(val);
+        else
+            ms.push_back(ms.back());
+        //ms[end] always the minimal element in this array
+    }
+    
+    void pop() {
+        st.pop_back();
+        ms.pop_back();
+    }
+    
+    int top() {
+        return st.back();
+    }
+    
+    int getMin() {
+        return ms.back();;
+    }
+};
+
+/**
+Runtime: 196 ms
+Memory Usage: 16.2 MB
+*/
+class MinStack {
+    
+public:
+    vector<int> st;
+    int size = 0;
+    
+    MinStack() {
+        st.resize(0);
+        size = 0;
+    }
+    
+    void push(int val) {
+        st.push_back(val);
+        size++;
+    }
+    
+    void pop() {
+        st.pop_back();
+        size--;
+    }
+    
+    int top() {
+        return st.back();
+    }
+    
+    int getMin() {
+        int mi = INT_MAX;
+        for(int i = 0; i < size; i++){
+            mi = min(st[i],mi);
+        }
+        return mi;
+    }
+};
