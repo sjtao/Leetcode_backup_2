@@ -31,3 +31,21 @@ public:
         
     }
 };
+
+/**
+Runtime: 8 ms, faster than 5.28% of C++ online submissions for Middle of the Linked List.
+Memory Usage: 7.1 MB, less than 21.30% of C++ online submissions for Middle of the Linked List.
+*/
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        //slow and fast pointers
+        ListNode * slow = head, *fast = head;
+        while(fast != nullptr && fast->next != nullptr){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+        
+    }
+};
