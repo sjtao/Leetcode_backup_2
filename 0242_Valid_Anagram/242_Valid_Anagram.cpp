@@ -49,3 +49,28 @@ public:
     }
 };
 
+/**
+Runtime: 18 ms, faster than 11.29% of C++ online submissions for Valid Anagram.
+Memory Usage: 7.4 MB, less than 7.18% of C++ online submissions for Valid Anagram.
+*/
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        //An anagram is produced by rearranging the letters of s into t
+        if(s.length() != t.length()) return false;
+        
+        unordered_map<char, int> sp;
+        int n = s.length();
+        for(int i = 0; i < n; i++){
+            sp[s[i]]++;
+            sp[t[i]]--;
+        }
+        
+        for(auto c : sp){
+            if(c.second != 0)
+                return false;
+        }
+
+        return true;
+    }
+};
