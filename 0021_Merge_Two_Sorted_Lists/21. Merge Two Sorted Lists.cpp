@@ -99,3 +99,34 @@ public:
         return dummy->next;
     }
 };
+
+
+/**
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Merge Two Sorted Lists.
+Memory Usage: 15 MB, less than 9.47% of C++ online submissions for Merge Two Sorted Lists.
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        if(!list1) return list2;
+        if(!list2) return list1;
+        
+        ListNode* dummy = new ListNode(0);
+        ListNode* list = dummy;
+
+        while(list1 && list2){         
+            if(list1->val <= list2->val){
+                list->next = new ListNode(list1->val);
+                list1 = list1->next;
+            }
+            else{
+                list->next = new ListNode(list2->val);
+                list2 = list2->next;
+            }
+            list = list->next;
+        }
+        
+        list->next = (list1 == nullptr) ? list2 : list1;
+        return dummy->next;
+    }
+};
