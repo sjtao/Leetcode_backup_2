@@ -2,7 +2,7 @@
 Runtime: 8 ms, faster than 87.02% of C++ online submissions for Keys and Rooms.
 Memory Usage: 10.5 MB, less than 37.04% of C++ online submissions for Keys and Rooms.
 */
-
+//Depth-First Search
 class Solution {
 public:
     bool canVisitAllRooms(vector<vector<int>>& rooms) {
