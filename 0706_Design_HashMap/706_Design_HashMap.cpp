@@ -63,3 +63,65 @@ public:
  * int param_2 = obj->get(key);
  * obj->remove(key);
  */
+
+/**
+Runtime: 116 ms
+Memory Usage: 208.3 MB
+*/
+class MyHashMap {
+private:
+    int map[1000001];
+public:
+    MyHashMap() {
+        fill(map, map+1000001, -1);
+    }
+    
+    void put(int key, int value) {
+        map[key] = value;
+    }
+    
+    int get(int key) {
+        return map[key];
+    }
+    
+    void remove(int key) {
+        map[key] = -1;
+    }
+};
+
+/**
+Runtime: 100 ms, faster than 93.59% of C++ online submissions for Design HashMap.
+Memory Usage: 55.7 MB, less than 59.65% of C++ online submissions for Design HashMap.
+*/
+class MyHashMap {
+public:
+    const static int size = 1000;
+    vector<vector<int>> map;
+    
+    MyHashMap() {
+        map.resize(size+1, vector<int>());
+    }
+    
+    void put(int key, int value) {
+        //hashing
+        int h = key / size;
+        int r = key % size;
+        if(map[h].size() == 0)
+            map[h].resize(size, -1);
+        map[h][r] = value;
+    }
+    
+    int get(int key) {
+        int h = key / size;
+        int r = key % size;
+        if(map[h].size() == 0) return -1;
+        return map[h][r];
+    }
+    
+    void remove(int key) {
+        int h = key / size;
+        int r = key % size;
+        if(map[h].size() == 0) return;
+        map[h][r] = -1;
+    }
+};
