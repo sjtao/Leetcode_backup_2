@@ -41,31 +41,36 @@ public:
 };
 
 /**
-Runtime: 8 ms, faster than 37.18% of C++ online submissions for Symmetric Tree.
-Memory Usage: 16.6 MB, less than 17.91% of C++ online submissions for Symmetric Tree.
+Runtime: 8 ms, faster than 34.29% of C++ online submissions for Binary Tree Level Order Traversal.
+Memory Usage: 12.6 MB, less than 61.55% of C++ online submissions for Binary Tree Level Order Traversal.
 */
 class Solution {
 public:
-    
-    bool isSymmetric(TreeNode* root) {
-        if(!root) return true;
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> ans;
+        if (root == NULL) return ans;
         
-        queue<TreeNode *> q;
-        q.push(root->left);
-        q.push(root->right);
+        queue<pair<TreeNode*, int>> q;
+        q.push({root, 0});
+        
+        vector<int> lvl;
+        int curlevel = 0;
+        
         while(!q.empty()){
-            TreeNode* t1 = q.front();
-            q.pop();
-            TreeNode* t2 = q.front();
-            q.pop();
-            if(!t1 && !t2) continue;
-            if(!t1 || !t2) return false;
-            if(t1->val != t2->val) return false;
-            q.push(t1->left);
-            q.push(t2->right);
-            q.push(t1->right);
-            q.push(t2->left);
+            auto p = q.front(); q.pop();
+            if(p.second == curlevel){
+                lvl.push_back(p.first->val);
+            }
+            else{
+                ans.push_back(lvl);
+                lvl.clear();
+                lvl.push_back(p.first->val);
+                curlevel = p.second;
+            }
+            if(p.first->left) q.push({p.first->left, curlevel+1});
+            if(p.first->right) q.push({p.first->right, curlevel+1});  
         }
-        return true;
+        ans.push_back(lvl);
+        return ans;
     }
 };
