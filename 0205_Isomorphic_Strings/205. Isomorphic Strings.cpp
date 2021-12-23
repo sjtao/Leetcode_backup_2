@@ -20,3 +20,33 @@ public:
         return true;
     }
 };
+
+/**
+Runtime: 8 ms, faster than 61.84% of C++ online submissions for Isomorphic Strings.
+Memory Usage: 7.2 MB, less than 18.25% of C++ online submissions for Isomorphic Strings.
+*/
+
+class Solution {
+public:
+    bool helper(string s, string t){
+                int ns = s.size();
+        int nt = t.size();
+        if(ns != nt) return false;
+        
+        unordered_map<char, char> mp;
+        for(int i = 0; i < ns; i++){
+            if(mp.find(s[i]) == mp.end()){
+                mp[s[i]] = t[i];
+            }
+            else{
+                if(t[i] != mp[s[i]])
+                    return false;
+            }
+        }
+        
+        return true;
+    }
+    bool isIsomorphic(string s, string t) {
+        return helper(s, t) && helper(t, s);
+    }
+};
