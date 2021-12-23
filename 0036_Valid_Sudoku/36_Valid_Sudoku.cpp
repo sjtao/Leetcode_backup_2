@@ -30,3 +30,34 @@ public:
         return true;
     }
 };
+
+/**
+Runtime: 24 ms, faster than 55.52% of C++ online submissions for Valid Sudoku.
+Memory Usage: 20.6 MB, less than 16.40% of C++ online submissions for Valid Sudoku.
+*/
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        unordered_map<string, int> mp;
+        int m = board.size();
+        int n = board[0].size();
+        
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j <n; j++){
+                if(board[i][j] != '.'){
+                    string r = "row" + to_string(i) + board[i][j];
+                    string c = "col" + to_string(j) + board[i][j];
+                    string b = "box" + to_string(i/3) + to_string(j/3) + board[i][j];
+                    if(mp.count(r) || mp.count(c) || mp.count(b))
+                        return false;
+                    else{
+                        mp[r]++;
+                        mp[c]++;
+                        mp[b]++;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+};
