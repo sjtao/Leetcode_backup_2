@@ -32,3 +32,29 @@ public:
         return mi;
     }
 };
+
+/**
+Runtime: 12 ms, faster than 82.40% of C++ online submissions for Minimum Falling Path Sum.
+Memory Usage: 9.9 MB, less than 58.56% of C++ online submissions for Minimum Falling Path Sum.
+*/
+class Solution {
+public:
+    int minFallingPathSum(vector<vector<int>>& matrix) {
+        int m = matrix.size();
+        int n = matrix[0].size();
+        
+        int a, b, c;
+        for(int i = 1; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(j - 1 >= 0) a = matrix[i-1][j-1];
+                else           a = INT_MAX;
+                b = matrix[i-1][j];
+                if(j + 1 < n)  c = matrix[i-1][j+1];
+                else           c = INT_MAX;
+                matrix[i][j] += min(a, min(b, c));
+            }
+        }
+        
+        return *min_element( matrix[m-1].begin(), matrix[m-1].end());
+    }
+};
