@@ -46,3 +46,23 @@ public:
         return ans;
     }
 };
+
+/**
+Runtime: 16 ms, faster than 81.38% of C++ online submissions for Majority Element.
+Memory Usage: 19.7 MB, less than 8.37% of C++ online submissions for Majority Element.
+*/
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int count = 0;
+        int ans;
+        
+        for(int n : nums){
+            if(count == 0)
+                ans = n;
+            count += (n == ans) ? 1 : -1;
+        }
+        
+        return ans;
+    }
+};
