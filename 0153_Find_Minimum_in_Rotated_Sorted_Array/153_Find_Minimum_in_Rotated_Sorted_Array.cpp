@@ -51,3 +51,21 @@ public:
         return min(ans, nums[mid]);
     }
 };
+
+/**
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Find Minimum in Rotated Sorted Array.
+Memory Usage: 10.2 MB, less than 20.33% of C++ online submissions for Find Minimum in Rotated Sorted Array.
+*/
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int l = 0, r = nums.size()-1;
+        while(l < r){
+            if(nums[l] < nums[r])
+                r--;
+            else
+                l++;
+        }
+        return nums[l];
+    }
+};
