@@ -51,3 +51,31 @@ public:
         return false;
     }
 };
+
+/**
+Runtime: 4 ms, faster than 73.95% of C++ online submissions for Search a 2D Matrix.
+Memory Usage: 9.5 MB, less than 50.00% of C++ online submissions for Search a 2D Matrix.
+*/
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        //treat as an sorted non-decreasing array
+        int m = matrix.size();
+        int n = matrix[0].size();
+        int low = 0, high = m*n-1, mid;
+        int i, j;
+        while(low <= high){
+            mid = low + (high - low) / 2;
+            i = mid / n;
+            j = mid % n;
+            if(matrix[i][j] == target)
+                return true;
+            else if(matrix[i][j] < target)
+                low = mid+1;
+            else
+                high = mid-1;
+        }
+        
+        return false;
+    }
+};
