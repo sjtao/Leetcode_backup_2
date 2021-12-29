@@ -23,3 +23,29 @@ public:
         return dp[m-1][n-1];
     }
 };
+
+/**
+Runtime: 8 ms, faster than 83.23% of C++ online submissions for Minimum Path Sum.
+Memory Usage: 9.7 MB, less than 67.16% of C++ online submissions for Minimum Path Sum.
+*/
+class Solution {
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        
+        for(int i = 1; i < n; i++){
+            grid[0][i] += grid[0][i-1];
+        }
+        for(int i = 1; i < m; i++){
+            grid[i][0] += grid[i-1][0];
+        }
+        for(int i = 1; i < m; i++){
+            for(int j = 1; j < n; j++){
+                grid[i][j] += min(grid[i-1][j], grid[i][j-1]);
+            }
+        }
+        
+        return grid[m-1][n-1];
+    }
+};
