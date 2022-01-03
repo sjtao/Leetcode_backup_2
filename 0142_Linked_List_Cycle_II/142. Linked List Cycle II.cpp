@@ -33,3 +33,42 @@ public:
         return NULL;
     }
 };
+
+
+/**
+Runtime: 16 ms, faster than 18.56% of C++ online submissions for Linked List Cycle II.
+Memory Usage: 10 MB, less than 6.07% of C++ online submissions for Linked List Cycle II.
+*/
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        unordered_map<ListNode*,int> mp;
+        while(head){
+            if(mp.find(head) == mp.end())
+                mp[head]++;
+            else
+                return head;
+            head = head->next;
+        }
+        return NULL;
+    }
+};
+
+/**
+Runtime: 16 ms, faster than 18.56% of C++ online submissions for Linked List Cycle II.
+Memory Usage: 10 MB, less than 6.07% of C++ online submissions for Linked List Cycle II.
+*/
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        set<ListNode*> visited;
+        while(head){
+            if(visited.find(head) != visited.end())
+                return head;
+            else
+                visited.insert(head);
+            head = head->next;
+        }
+        return NULL;
+    }
+};
