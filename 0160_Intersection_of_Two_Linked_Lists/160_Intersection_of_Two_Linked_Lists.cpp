@@ -59,3 +59,23 @@ public:
         return NULL;
     }
 };
+
+
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if(!headA || !headB) return NULL;
+        set<ListNode*> sA;
+        while(headA){
+            sA.insert(headA);
+            headA = headA->next;
+        }
+        while(headB){
+            if(sA.find(headB) != sA.end())
+                return headB;
+            else
+                headB = headB->next;
+        }
+        return NULL;
+    }
+};
