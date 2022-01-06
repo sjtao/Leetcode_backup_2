@@ -1,35 +1,24 @@
 class Solution {
 public:
-    int n;
-    int length(vector<int>& nums, int elm){
-        int et = n-1, st = 0;
-        while(st < et){
-            if(nums[st] != elm) st++;
-            if(nums[et] != elm) et--;
-            if(nums[st] == elm && nums[et] == elm) break;
-        }
-        
-        return et-st+1;
-    }
-    
     int findShortestSubArray(vector<int>& nums) {
-        unordered_map<int, int> mp;
-        n = nums.size();
-        
-        for(int n : nums)
-            mp[n]++;
-        
-        int degree = -1;
-        for(auto t : mp){
-            degree = max(degree, t.second);
-        }
-        
+        unordered_map<int, int> mp, first;
+        int n = nums.size();
         int ans = n+1;
-        for(auto t : mp){
-            if(t.second == degree){
-                ans = min(ans, length(nums, t.first));
+        int degree = -1;
+        
+        for(int i = 0; i < n; i++){
+            if(mp.find(nums[i])==mp.end())
+                first[nums[i]] = i;
+            mp[nums[i]]++;
+            if(mp[nums[i]] > degree){
+                degree = mp[nums[i]];
+                ans = i - first[nums[i]] + 1;
+            }
+            else if(mp[nums[i]] == degree){
+                ans = min(ans, i - first[nums[i]]+1);
             }
         }
+
         
         return ans;
         
