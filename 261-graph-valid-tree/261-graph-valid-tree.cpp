@@ -5,11 +5,14 @@ public:
     }
     bool validTree(int n, vector<vector<int>>& edges) {
         //tree; any connected graph without simple cycles is a tree
+        int m = edges.size();
+        if (m != n-1) return false; //every node is connected
+        
         vector<int> parent(n);
         for(int i = 0; i < n; i++)
             parent[i] = i;
         
-        for(int i = 0; i < edges.size(); i++){
+        for(int i = 0; i < m; i++){
             int p1 = find(parent, edges[i][0]);
             int p2 = find(parent, edges[i][1]);
             if(p1 != p2)
@@ -18,6 +21,6 @@ public:
                 return false; // cycle
         }
         
-        return edges.size() == n-1; //every node is connected 
+        return true; //every node is connected 
     }
 };
