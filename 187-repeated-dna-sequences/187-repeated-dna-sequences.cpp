@@ -5,14 +5,10 @@ public:
         vector<string> ans;
         
         if(n < 10) return ans;
+        
         unordered_map<string, int> mp;
-        string t = "";
         for(int i = 0; i <= n-10; i++){
-            t = "";
-            for(int j = i; j < i+10; j++){
-                t += s[j];
-            }
-            mp[t]++;
+            mp[s.substr(i, 10)]++;
         }
         
         for(auto it : mp){
