@@ -15,9 +15,10 @@ public:
                 minq.pop();
         }
         
-        vector<int> ans;
+        vector<int> ans(k);
+        int i = 0;
         while(!minq.empty()){
-            ans.push_back(minq.top().second);
+            ans[i++] = minq.top().second;
             minq.pop();
         }
         
