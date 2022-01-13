@@ -4,16 +4,15 @@ public:
     int n;
     Solution(vector<int>& nums) {
         orig = nums;
-        shuf = nums;
         n = nums.size();
     }
     
     vector<int> reset() {
-        shuf = orig;
-        return shuf;
+        return orig;
     }
     
     vector<int> shuffle() {
+        shuf = orig;
         for(int i = 0; i < n; i++){
             int j = rand() % n;
             swap(shuf[i], shuf[j]); 
