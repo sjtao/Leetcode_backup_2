@@ -1,22 +1,20 @@
 class Solution {
 public:
     int missingElement(vector<int>& nums, int k) {
-        stack<int> st;
         int n = nums.size();
-        int s = nums[0];
-        int i = 0;
-        while(s <= nums[n-1] && st.size() < k){
-            if(s == nums[i])
-                i++;
-            else
-                st.push(s);
-            s++;
+        vector<int> missnum(n, 0);
+        int i;
+        for(i = 1; i < n; ++i){
+            missnum[i] = missnum[i-1] + nums[i] - nums[i-1] - 1;
         }
         
-        int ans;
-        if(st.size() == k) ans = st.top();
-        if(st.size() < k)  ans = s + k - st.size()-1;
+        for(i = 0; i < n-1; ++i){
+            if(missnum[i] <= k && k <= missnum[i+1])
+                break;
+        }
         
+        int ans = nums[i] + k - missnum[i];
+
         return ans;
         
     }
