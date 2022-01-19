@@ -1,22 +1,30 @@
 class Solution {
 public:
-    vector<int> parent;
-    int find(int x){
-        return parent[x] == x ? x : find(parent[x]);
-    }
     bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
-        for(int i = 0; i < n; i++)
-            parent.push_back(i);
-        
         int ed = edges.size();
+        vector<vector<int>> adj(n);
         for(int i = 0; i < ed; i++){
-            int a = find(edges[i][0]);
-            int b = find(edges[i][1]);
-            if(a != b){
-                parent[a] = b;
-            }
+            adj[edges[i][0]].push_back(edges[i][1]);
+            adj[edges[i][1]].push_back(edges[i][0]);
         }
         
-        return find(parent[source]) == find(parent[destination]);
+        stack<int> s;
+        s.push(source);
+        vector<bool> visited(n);
+        
+        while(!s.empty()){
+            int a = s.top(); s.pop();
+            
+            if(a == destination)
+                return true;
+            
+            if(visited[a] == true)
+                continue;
+            
+            visited[a] = true;
+            for(int i : adj[a])
+                s.push(i);
+        }
+        return false;
     }
 };
