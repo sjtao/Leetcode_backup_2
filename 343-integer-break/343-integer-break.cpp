@@ -3,7 +3,7 @@ public:
     int integerBreak(int n) {
         int dp;
         int mx = 1; //k=n
-        for(int k = 2; k <= n/2+1; k++){
+        for(int k = 2; k <= n/2+1; ++k){
             dp = 1;
             int res = n / k;
             int mod = n % k;
