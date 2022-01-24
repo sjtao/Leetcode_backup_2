@@ -1,31 +1,24 @@
 class ZigzagIterator {
 public:
-    queue<int> q;
+    vector<int> a;
+    int k;
     ZigzagIterator(vector<int>& v1, vector<int>& v2) {
         int n1 = v1.size();
         int n2 = v2.size();
-        int i = 0, j = 0;
-        while(i < n1 && j < n2){
-            q.push(v1[i++]);
-            q.push(v2[j++]);
+        int n = max(n1, n2);
+        for(int i = 0; i < n; i++){
+            if(i < n1) a.push_back(v1[i]);
+            if(i < n2) a.push_back(v2[i]);
         }
-        if(i < n1){
-            while(i < n1)
-                q.push(v1[i++]);
-        }
-        if(j < n2){
-            while(j < n2)
-                q.push(v2[j++]);
-        }
+        k = 0;
     }
 
     int next() {
-        int a = q.front(); q.pop();
-        return a;
+        return a[k++];
     }
 
     bool hasNext() {
-        return q.size() > 0;
+        return k < a.size();
     }
 };
 
