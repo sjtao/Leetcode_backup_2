@@ -1,24 +1,22 @@
 class ZigzagIterator {
 public:
-    vector<int> a;
-    int k;
+    queue<pair<vector<int>::iterator, vector<int>::iterator>>q;         // use a queue to record iterators
     ZigzagIterator(vector<int>& v1, vector<int>& v2) {
-        int n1 = v1.size();
-        int n2 = v2.size();
-        int n = max(n1, n2);
-        for(int i = 0; i < n; i++){
-            if(i < n1) a.push_back(v1[i]);
-            if(i < n2) a.push_back(v2[i]);
-        }
-        k = 0;
+        if(v1.size()>0) q.push({v1.begin(), v1.end()});
+        if(v2.size()>0) q.push({v2.begin(), v2.end()});
     }
 
     int next() {
-        return a[k++];
+        auto it = q.front(); q.pop();
+        int ans = *(it.first);
+        it.first++;
+        if(it.first != it.second)
+            q.push({it.first, it.second});
+        return ans;
     }
 
     bool hasNext() {
-        return k < a.size();
+        return q.size() > 0;
     }
 };
 
