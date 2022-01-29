@@ -5,7 +5,7 @@ public:
         int presold;
         for(int p : prices){
             presold = sold;
-            sold = hold + p;
+            sold = hold + p;          //sell stock
             hold = max(hold, reset-p);//hold or buy a new one if no hold before
             reset = max(reset, presold);//no transactions 
         }
