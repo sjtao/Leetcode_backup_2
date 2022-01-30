@@ -5,11 +5,11 @@ public:
         if(n <= numRows || numRows == 1) return s;
         vector<string> r(numRows,"");
         int i = 0;
-        bool zig = 0;
+        int zig = -1;
         for(char c:s){
             r[i] += c;
-            if(i == 0 || i == numRows-1) zig = !zig;
-            i += zig ? 1 : -1;
+            if(i == 0 || i == numRows-1) zig = -zig;
+            i += zig;
         }
         
         string ans = "";
