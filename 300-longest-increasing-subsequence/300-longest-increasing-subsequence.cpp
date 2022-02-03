@@ -2,17 +2,22 @@ class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size();
-        vector<int> ans;
-        ans.push_back(nums[0]);
+        if(n == 1) return n;
+        
+        vector<int> dp(n, 1);
+        
         for(int i = 1; i < n; i++){
-            if(nums[i] > ans.back())
-                ans.push_back(nums[i]);
-            else{
-                auto it = lower_bound(ans.begin(), ans.end(),nums[i]); 
-                //find the 1st element that does not less than val
-                *it = nums[i];
+            for(int j = 0; j < i; j++){
+                if(nums[i] > nums[j]){
+                    dp[i] = max(dp[i], dp[j]+1);
+                }
             }
         }
-        return ans.size();
+        
+        int len = 0;
+        for(int l : dp)
+            len = max(len, l);
+        
+        return len;
     }
 };
