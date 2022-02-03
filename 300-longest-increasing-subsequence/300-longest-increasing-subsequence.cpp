@@ -4,20 +4,17 @@ public:
         int n = nums.size();
         if(n == 1) return n;
         
-        vector<int> dp(n, 1);
-        
+        vector<int> dp;
+        dp.push_back(nums[0]);
         for(int i = 1; i < n; i++){
-            for(int j = 0; j < i; j++){
-                if(nums[i] > nums[j]){
-                    dp[i] = max(dp[i], dp[j]+1);
-                }
+            if(nums[i] > dp.back())
+                dp.push_back(nums[i]);
+            else{
+                auto it = lower_bound(dp.begin(), dp.end(),nums[i]);
+                *it = nums[i];
             }
         }
         
-        int len = 0;
-        for(int l : dp)
-            len = max(len, l);
-        
-        return len;
+        return dp.size();
     }
 };
