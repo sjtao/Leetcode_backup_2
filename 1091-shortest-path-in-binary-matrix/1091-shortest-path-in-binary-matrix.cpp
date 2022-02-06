@@ -16,6 +16,9 @@ public:
             auto t = q.front();
             q.pop();
             
+            if(t.first == n-1 && t.second == n-1)
+                return grid[n-1][n-1];
+            
             for(int i = 0; i < 8; i++){
                 int x = t.first + dirs[i].first;
                 int y = t.second + dirs[i].second;
@@ -26,6 +29,6 @@ public:
             }
         }
         
-        return grid[n-1][n-1] == 0 ? -1 : grid[n-1][n-1];
+        return -1;
     }
 };
