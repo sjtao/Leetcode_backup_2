@@ -1,7 +1,7 @@
 class Solution {
 public:
     bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
-        vector<vector<int>> ed(n);
+       unordered_map<int,vector<int>> ed;
         for(int i = 0; i < edges.size(); i++){
             // bi-directional graph 
             ed[edges[i][0]].push_back(edges[i][1]);
