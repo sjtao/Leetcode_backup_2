@@ -1,27 +1,30 @@
 class Solution {
 public:
-    int n;
-    void helper(vector<vector<int>>& graph, vector<vector<int>>& ans, vector<int>& g, int k){
-        if(k == n-1){
-            ans.push_back(g);
-            return;
-        }
-            
-        
-        for(int i = 0; i < graph[k].size(); i++){
-            g.push_back(graph[k][i]);
-            helper(graph, ans, g, graph[k][i]);
-            g.pop_back();
-        }
-        return;
-        
-    }
     vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
-        n = graph.size();
+        int n = graph.size();
         vector<vector<int>> ans;
-        vector<int> g;
-        g.push_back(0);
-        helper(graph, ans, g, 0);
+        if(n == 0)
+            return ans;
+        
+        queue<vector<int>> q;
+        vector<int> path;
+        path.push_back(0);
+        q.push(path);
+        
+        while(!q.empty()){
+            auto t = q.front();
+            q.pop();
+            int s = t.back();
+            for(int i : graph[s]){       
+                t.push_back(i);
+                if(t.back() == n-1)
+                    ans.push_back(t);
+                else
+                    q.push(t);
+                t.pop_back();
+            }
+        }
+        
         return ans;
     }
 };
