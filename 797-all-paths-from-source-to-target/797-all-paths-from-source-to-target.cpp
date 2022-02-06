@@ -1,28 +1,27 @@
 class Solution {
 public:
     int n;
-    
-    void path(vector<vector<int>>& graph, vector<vector<int>>& ans, vector<int>& pa, int i){
-        if(i == n-1){
-            ans.push_back(pa);
+    void helper(vector<vector<int>>& graph, vector<vector<int>>& ans, vector<int>& g, int k){
+        if(k == n-1){
+            ans.push_back(g);
             return;
         }
+            
         
-        for(int j = 0; j < graph[i].size(); j++){
-            pa.push_back(graph[i][j]);
-            path(graph, ans, pa, graph[i][j]);
-            pa.pop_back();
+        for(int i = 0; i < graph[k].size(); i++){
+            g.push_back(graph[k][i]);
+            helper(graph, ans, g, graph[k][i]);
+            g.pop_back();
         }
-        
         return;
+        
     }
-    
     vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
         n = graph.size();
         vector<vector<int>> ans;
-        vector<int> pa;
-        pa.push_back(0); //starting from zero;
-        path(graph, ans, pa, 0);
+        vector<int> g;
+        g.push_back(0);
+        helper(graph, ans, g, 0);
         return ans;
     }
 };
