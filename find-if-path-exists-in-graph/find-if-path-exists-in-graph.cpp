@@ -1,22 +1,31 @@
 class Solution {
 public:
-    vector<int> parent;
-    int find(int x){
-        return parent[x] == x ? x : find(parent[x]);
-    }
     bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
-        for(int i = 0; i < n; i++)
-            parent.push_back(i);
-        
-        int ed = edges.size();
-        for(int i = 0; i < ed; i++){
-            int a = find(edges[i][0]);
-            int b = find(edges[i][1]);
-            if(a != b){
-                parent[a] = b;
+       unordered_map<int,vector<int>> ed;
+        for(int i = 0; i < edges.size(); i++){
+            // bi-directional graph 
+            ed[edges[i][0]].push_back(edges[i][1]);
+            ed[edges[i][1]].push_back(edges[i][0]);
+        }
+        //bfs
+        queue<int> q;
+        q.push(source);
+        vector<bool> visited(n,0);
+        visited[source] = 1;
+        while(!q.empty()){
+            int s = q.front(); q.pop();
+            
+            if(s == destination)
+                return true;
+            
+            for(int i : ed[s]){
+                if(!visited[i]){
+                    q.push(i);
+                    visited[i] = 1;
+                }                  
             }
         }
         
-        return find(parent[source]) == find(parent[destination]);
+        return false;
     }
 };
