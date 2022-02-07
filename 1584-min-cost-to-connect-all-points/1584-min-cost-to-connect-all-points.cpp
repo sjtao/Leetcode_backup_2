@@ -1,39 +1,83 @@
-class Solution {
+class Edge{
 public:
-    int find(vector<int> &ds, int i) {
-        return ds[i] < 0 ? i : ds[i] = find(ds, ds[i]);
+    int point1;
+    int point2;
+    int cost;
+    Edge(int point1, int point2, int cost): point1(point1), point2(point2), cost(cost){}
+};
+
+bool operator<(const Edge& edge1, const Edge& edge2){
+    return edge1.cost > edge2.cost;
+}
+
+class UnionFind{
+private:
+    vector<int> root, rank;
+    
+public:
+    UnionFind(int sz): root(sz), rank(sz){
+        for(int i = 0; i < sz; i++){
+            root[i] = i;
+            rank[i] = 1;
+        }
     }
     
-    int minCostConnectPoints(vector<vector<int>>& points) {
-        int n = points.size();
-        vector<array<int, 3>> arr;
-        vector<int> ds(n, -1);
-        
-        int d;
-        for(int i = 0; i < n; i++){
-            for(int j = i+1; j < n; j++){
-                d = abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1]);
-                arr.push_back({d, i, j});
+    int find(int x){
+        if(x == root[x])
+            return x;
+        return root[x] = find(root[x]);
+    }
+    
+    void unionSet(int x, int y){
+        int rootX = find(x);
+        int rootY = find(y);
+        if(rootX != rootY){
+            if(rank[rootX] > rank[rootY])
+                root[rootY] = rootX;
+            else if(rank[rootX] < rank[rootY])
+                root[rootX] = rootY;
+            else{
+                root[rootY] = rootX;
+                rank[rootX]++;
             }
         }
-        make_heap(arr.begin(), arr.end(), greater<array<int, 3>>());
+    }
+    
+    bool connected(int x, int y){
+        return find(x) == find(y);
+    }
+};
+
+class Solution {
+public:
+    int minCostConnectPoints(vector<vector<int>>& points) {
+        int sz = points.size();
+        if(sz == 0)
+            return 0;
+        
+        priority_queue<Edge> pq;
+        UnionFind uf(sz);
+        
+        for(int i = 0; i < sz; i++){
+            for(int j = i+1; j < sz; j++){
+                int cost = abs(points[i][0] -points[j][0]) + 
+                    abs(points[i][1] -points[j][1]);
+                Edge edge(i, j, cost);
+                pq.push(edge);
+            }
+        }
         
         int result = 0;
-        while(!arr.empty()){
-            pop_heap(begin(arr), end(arr), greater<array<int, 3>>());
-            auto [d, i, j] = arr.back();
-            arr.pop_back();
-            i = find(ds, i);
-            j = find(ds, j);
-            if(i != j){
-                result += d;
-                ds[i] += ds[j];
-                ds[j] = i;
-                if(ds[i] == -n)
-                    break;
+        int count = sz - 1;
+        while(!pq.empty() && count>0){
+            Edge edge = pq.top();
+            pq.pop();
+            if(!uf.connected(edge.point1, edge.point2)){
+                uf.unionSet(edge.point1, edge.point2);
+                result += edge.cost;
+                count--;
             }
         }
-        
         return result;
     }
 };
