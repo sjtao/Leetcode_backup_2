@@ -3,6 +3,7 @@ public:
     int find(vector<int>& parent, int x){
         return parent[x] == x ? x : find(parent, parent[x]);
     }
+    
     bool validTree(int n, vector<vector<int>>& edges) {
         //tree; any connected graph without simple cycles is a tree
         int m = edges.size();
