@@ -1,16 +1,19 @@
 class Solution {
 public:
     int minSteps(int n) {
-        //sum_i [copy*1+paste*x_i] = n
-        int ans = 0; 
-        int p = 2;
-        while(n > 1){
-            while(n % p == 0){
-                n /= p;
-                ans += p;
+        vector<int> dp(n+1);
+        
+        dp[0] = 0;
+        dp[1] = 0;
+        for(int i = 2; i <= n; i++){
+            dp[i] = i;
+            for(int j = i / 2 + 1; j > 1; j--){
+                if(i % j == 0){
+                    dp[i] = min(dp[i], dp[j] + i / j);
+                }
             }
-            p++;
         }
-        return ans;
+        
+        return dp[n];
     }
 };
