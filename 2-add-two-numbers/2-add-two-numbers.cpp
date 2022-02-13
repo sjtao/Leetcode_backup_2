@@ -14,7 +14,7 @@ public:
         ListNode* p = new ListNode();
         ListNode* cur = p;
         int a, b, sum, carry = 0;
-        while(l1 || l2){
+        while(l1 || l2 || carry){
             a = 0;
             b = 0;
             if(l1) {a = l1->val; l1 = l1->next;}
@@ -22,10 +22,6 @@ public:
             sum = a + b + carry;
             carry = sum / 10;
             cur -> next = new ListNode(sum%10);
-            cur = cur->next;
-        }
-        if(carry){
-            cur->next = new ListNode(carry);
             cur = cur->next;
         }
 
