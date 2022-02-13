@@ -1,16 +1,9 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        unordered_map<int,int> mp;
-        int ans;
+        int ans = 0;
         for(int n : nums){
-            mp[n] += 1;
-        }
-        for(int n : nums){
-            if(mp[n] == 1){
-                ans = n;
-                break;
-            }
+            ans ^= n;
         }
         return ans;
     }
