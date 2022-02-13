@@ -8,7 +8,7 @@ public:
         
         mp[nums[0]] = 0;
         for(int i = 1; i < nums.size(); i++){
-            if(mp.find(target-nums[i]) != mp.end()){
+            if(mp.count(target-nums[i])){
                 ans[0] = i;
                 ans[1] = mp[target-nums[i]];
                 break;
