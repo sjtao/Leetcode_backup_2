@@ -14,21 +14,18 @@ public:
         ListNode* p = new ListNode();
         ListNode* cur = p;
         while(list1 && list2){
-            int a = list1->val;
-            int b = list2->val;
-            if(a < b){
-                cur->next = new ListNode(a);
+            if(list1->val < list2->val){
+                cur->next = list1;
                 list1 = list1->next;
             }
             else{
-                cur->next = new ListNode(b);
+                cur->next = list2;
                 list2 = list2->next;
             }
             cur = cur->next;
         }
         
         cur->next = list1==NULL ? list2 : list1;
-        cur = cur->next;
         
         return p->next;
     }
