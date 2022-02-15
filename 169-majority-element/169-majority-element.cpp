@@ -3,12 +3,18 @@ public:
     int majorityElement(vector<int>& nums) {
         int n = nums.size();
         int m = (int)floor(n/2);
-        unordered_map<int,int> mp;
-        int ans;
-        for(int a : nums){
-            mp[a]++;
-            if(mp[a] > m){
-                ans = a;
+        sort(nums.begin(), nums.end());
+        int r = 1;
+        int ans = nums[0];
+        for(int i = 1; i < n; i++){
+            if(nums[i] == nums[i-1]){
+                r++;
+            }
+            else{
+                r = 1;
+            }
+            if(r > m){
+                ans = nums[i];
                 break;
             }
         }
