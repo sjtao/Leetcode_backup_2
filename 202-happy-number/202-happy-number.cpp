@@ -1,23 +1,23 @@
 class Solution {
 public:
-    int digitsum(int n){
-        int sum = 0;
-        while(n){
-            sum += pow(n%10, 2);
-            n /= 10;
+    int squaresum(int a){
+        int r, sum = 0;
+        while(a){
+            r = a % 10;
+            sum += r * r;
+            a /= 10;
         }
         return sum;
     }
-    bool isHappy(int n) {
-        if(n == 1) return true;
-        unordered_set<int> s;
-        s.insert(n);
-        while(n!=1){
-            n = digitsum(n);
-            if(s.find(n) != s.end())
-                return false;
+    bool isHappy(int n) {    
+        unordered_set<int> set;
+        set.insert(n);
+        while(n != 1){
+            n = squaresum(n);
+            if(set.count(n) == 0)
+                set.insert(n);
             else
-                s.insert(n);
+                return false;
         }
         return true;
     }
