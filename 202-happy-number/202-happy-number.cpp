@@ -10,15 +10,12 @@ public:
         return sum;
     }
     bool isHappy(int n) {    
-        unordered_set<int> set;
-        set.insert(n);
-        while(n != 1){
-            n = squaresum(n);
-            if(set.count(n) == 0)
-                set.insert(n);
-            else
-                return false;
+        int slow = n;
+        int fast = squaresum(n);
+        while(fast != 1 && slow != fast){
+            slow = squaresum(slow);
+            fast = squaresum(squaresum(fast));
         }
-        return true;
+        return fast == 1;
     }
 };
