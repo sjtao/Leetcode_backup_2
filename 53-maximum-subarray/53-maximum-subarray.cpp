@@ -7,6 +7,6 @@ public:
             cur = max(cur+n, n);
             best = max(cur, best);
         }
-        return best == INT_MIN ? 0 : best;
+        return best;
     }
 };
