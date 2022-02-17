@@ -8,9 +8,9 @@ public:
         //lower ascii 97-122
         while(l < r){
             //removing all non-alphanumeric characters
-            while(l < r && !((s[l] >= 48 && s[l] <= 57) || (s[l] >= 65 && s[l] <= 90) || (s[l] >= 97 && s[l] <= 122)))
+            while(l < r && !(isalnum(s[l])))
                 l++;
-            while(l < r && !((s[r] >= 48 && s[r] <= 57) || (s[r] >= 65 && s[r] <= 90) || (s[r] >= 97 && s[r] <= 122)))
+            while(l < r && !(isalnum(s[r])))
                 r--;
             //converting all uppercase letters into lowercase letters 
             if(s[l] - 'A' >= 0 && s[l] - 'A' < 26)
