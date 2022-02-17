@@ -11,15 +11,25 @@
  */
 class Solution {
 public:
-    bool symHelper(TreeNode* root1, TreeNode* root2){
-        if((root1 != NULL && root2 == NULL) || (root1 == NULL && root2 != NULL))
-            return false;
-        if(root1 == NULL && root2 == NULL)
-            return true;
-        
-        return (root1->val == root2->val) && symHelper(root1->left, root2->right) && symHelper(root2->left, root1->right);
-    }
     bool isSymmetric(TreeNode* root) {
-        return symHelper(root->left, root->right);
+        stack<TreeNode*> sk;
+        //# of nodes: 1-1000
+        sk.push(root->left);
+        sk.push(root->right);
+        while(!sk.empty()){
+            TreeNode *node1 = sk.top(); sk.pop();
+            TreeNode *node2 = sk.top(); sk.pop();
+            if((node1 && !node2) || (!node1 && node2))
+                return false;
+            if(!node1 && !node2)
+                continue;
+            if(node1->val != node2->val)
+                return false;
+            sk.push(node1->left);
+            sk.push(node2->right);
+            sk.push(node1->right);
+            sk.push(node2->left);
+        }
+        return true;
     }
 };
