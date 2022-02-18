@@ -7,7 +7,7 @@ public:
         return root[x] = find(root[x]);
     }
     
-    void unionset(int x, int y, int& group){
+    void unionset(int x, int y, int& f){
         int rx = find(x);
         int ry = find(y);
         if(rx != ry){
@@ -19,29 +19,31 @@ public:
                 root[rx] = ry;
                 rank[ry]++;
             }
-            group--;
+            f--;
         }
+        return;
     }
     
-    bool connection(int x, int y){
+    bool connected(int x, int y){
         return find(x) == find(y);
     }
     
     int earliestAcq(vector<vector<int>>& logs, int n) {
-        int ln = logs.size();
-        int group = n;
-        
         sort(logs.begin(), logs.end());
         
-        for(int i = 0; i < n; i++){
+        for(int i = 0; i < n; ++i){
             root.push_back(i);
             rank.push_back(1);
         }
-
-        for(auto t : logs){
-            unionset(t[1], t[2], group);
-            if(group == 1)
-                return t[0];
+        
+        int nf = n-1; //n-1 strangers at first
+        for(auto v : logs){
+            int t = v[0];
+            int x = v[1];
+            int y = v[2];
+            unionset(x, y, nf);
+            if(nf == 0)
+                return t;
         }
         
         return -1;
