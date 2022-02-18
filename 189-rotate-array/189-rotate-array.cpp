@@ -5,12 +5,10 @@ public:
         k = k % n;
         if(k == 0) return;
         
-        vector<int> rotate(n);
-        for(int i = 0; i < n; i++){
-            rotate[(i+k)%n] = nums[i];
-        }
+        reverse(nums.begin(), nums.end()-k);
+        reverse(nums.end()-k, nums.end());
+        reverse(nums.begin(), nums.end());
         
-        nums = rotate;
         return;
     }
 };
