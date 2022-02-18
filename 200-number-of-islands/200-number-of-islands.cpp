@@ -1,35 +1,29 @@
 class Solution {
 public:
     pair<int,int> dirs[4] = {{1,0},{0,1},{-1,0},{0,-1}};
-    int m, n;
-    void dfs(int x, int y, vector<vector<char>>& grid){
-        if(grid[x][y] == '0')
-            return;
-        
-        grid[x][y] = '0';
-        
-        for(int i = 0; i < 4; ++i){
-            int ix = x + dirs[i].first;
-            int iy = y + dirs[i].second;
-            if(ix < 0 || ix >= m || iy < 0 || iy >= n || grid[ix][iy] == '0')
-                continue;
-            
-            dfs(ix, iy, grid);
-        }
-        
-        return;
-    }
     
     int numIslands(vector<vector<char>>& grid) {
-        m = grid.size();
-        n = grid[0].size();
-
+        int m = grid.size();
+        int n = grid[0].size();
+        queue<pair<int,int>> q;
         int island = 0;
         for(int i = 0; i < m; ++i){
             for(int j = 0; j < n; ++j){
                 if(grid[i][j] == '1'){
-                    dfs(i, j, grid);
                     island++;
+                    q.push({i,j});
+                    while(!q.empty()){
+                        auto t = q.front();
+                        q.pop();
+                        for(int k = 0; k < 4; ++k){
+                            int kx = t.first + dirs[k].first;
+                            int ky = t.second + dirs[k].second;
+                            if(kx < 0 || kx >= m || ky < 0 || ky >= n || grid[kx][ky] == '0')
+                                continue;
+                            grid[kx][ky] = '0';
+                            q.push({kx, ky});
+                        }
+                    }
                 }
             }
         }
