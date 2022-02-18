@@ -22,14 +22,7 @@ public:
         vector<vector<int>> ans;
         vector<int> t;
         n = candidates.size();
-        sort(candidates.begin(), candidates.end());
-        for(int i = 0; i < n; i++){
-            if(i == 0 || (i > 0 && candidates[i] != candidates[i-1])){
-                t.push_back(candidates[i]);
-                helper(candidates, ans, t, i, target-candidates[i]);
-                t.pop_back();
-            }
-        }
+        helper(candidates, ans, t, 0, target);
         
         return ans;
     }
