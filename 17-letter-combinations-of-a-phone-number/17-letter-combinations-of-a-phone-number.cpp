@@ -1,8 +1,7 @@
 class Solution {
 public:
-    unordered_map<int, vector<string>> mp = {{2, {"a","b","c"}}, {3, {"d","e","f"}}, {4, {"g","h","i"}}, 
-                                           {5, {"j","k","l"}}, {6, {"m","n","o"}}, {7, {"p","q","r","s"}}, 
-                                           {8, {"t","u","v"}}, {9, {"w","x","y","z"}}};
+    unordered_map<int, string> mp = {{2, "abc"}, {3, "def"}, {4, "ghi"}, {5, "jkl"}, 
+                                     {6, "mno"}, {7, "pqrs"}, {8, "tuv"}, {9, "wxyz"}};
     int n;
     void dfs(string digits, int idx, vector<string>& ans, string& t){
         if(idx == n){
@@ -11,7 +10,7 @@ public:
         }
         
         int d = digits[idx] - '0';
-        for(int i = 0; i < mp[d].size(); i++){
+        for(int i = 0; i < mp[d].length(); i++){
             t += mp[d][i];
             dfs(digits, idx+1, ans, t);
             t.erase(idx, 1);
@@ -24,8 +23,7 @@ public:
         vector<string> ans;
         n = digits.length();
         if(n == 0) return ans;
-        if(n == 1) return mp[digits[0]-'0'];
-        
+
         string t = ""; 
         dfs(digits, 0, ans, t);
         
