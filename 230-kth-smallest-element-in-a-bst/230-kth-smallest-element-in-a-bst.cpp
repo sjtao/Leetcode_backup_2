@@ -14,11 +14,11 @@ public:
     int kthSmallest(TreeNode* root, int k) {
         //max_heap: non-descending heap
         priority_queue<int> pq;
-        //dfs
-        queue<TreeNode*> q;
+        //bfs
+        stack<TreeNode*> q;
         q.push(root);
         while(!q.empty()){
-            TreeNode* node = q.front();
+            TreeNode* node = q.top();
             q.pop();
             pq.push(node->val);
             if(pq.size() > k)
