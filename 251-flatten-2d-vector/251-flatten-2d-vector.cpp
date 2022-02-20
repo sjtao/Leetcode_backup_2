@@ -1,17 +1,17 @@
 class Vector2D {
-    queue<int> q;
+    list<int> q;
 public:
     Vector2D(vector<vector<int>>& vec) {
         for(int i = 0; i < vec.size(); i++){
             for(int j = 0; j < vec[i].size(); j++){
-                q.push(vec[i][j]);
+                q.push_back(vec[i][j]);
             }
         }
     }
     
     int next() {
         int a = q.front();
-        q.pop();
+        q.pop_front();
         return a;
     }
     
