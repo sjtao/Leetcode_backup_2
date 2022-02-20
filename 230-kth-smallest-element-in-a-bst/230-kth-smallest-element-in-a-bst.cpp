@@ -11,17 +11,22 @@
  */
 class Solution {
 public:
-    vector<int> elem;
-    void helper(TreeNode* root){
-        if(!root) return;
-        helper(root->left);
-        elem.push_back(root->val);
-        helper(root->right);
-        return;
-    }
-    
     int kthSmallest(TreeNode* root, int k) {
-        helper(root);//inorder
-        return elem[k-1];
+        //max_heap: non-descending heap
+        priority_queue<int> pq;
+        //dfs
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            TreeNode* node = q.front();
+            q.pop();
+            pq.push(node->val);
+            if(pq.size() > k)
+                pq.pop();
+            if(node->left) q.push(node->left);
+            if(node->right) q.push(node->right);
+        }
+        
+        return pq.top();
     }
 };
