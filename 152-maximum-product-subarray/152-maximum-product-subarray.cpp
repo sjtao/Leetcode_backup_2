@@ -1,15 +1,16 @@
 class Solution {
 public:
     int maxProduct(vector<int>& nums) {
-        int mn = 1, mx = 1;
-        int mno, mxo;
+        int mn = 1;
+        int mx = 1;
         int best = INT_MIN;
+        int mno, mxo;
         for(int n : nums){
             mno = mn;
             mxo = mx;
-            mn = min(min(mno * n, mxo *n), n);
-            mx = max(max(mno * n, mxo *n), n);
-            best = max(mx, best);
+            mn = min(n, min(mno * n, mxo * n));
+            mx = max(n, max(mno * n, mxo * n));
+            best = max(best, max(mn, mx));
         }
         return best;
     }
