@@ -2,29 +2,25 @@ class Solution {
 public:
     pair<int, char> para[2] = {{1, '('}, {-1, ')'}};
 
-    void helper(vector<string>& ans, string& s, int left, int n){
-        if(s.length() == 2*n){
-            if(left == 0)
-                ans.push_back(s);
+    void helper(vector<string>& ans, string s, int left, int right){
+        if(left == 0 && right == 0){
+            ans.push_back(s);
             return;
         }
         
-        if(left < 0 || left > n)
-            return;
+        if(left > 0)
+            helper(ans, s+"(", left-1, right);
         
-        for(int i = 0; i < 2; i++){
-            s = s + para[i].second;
-            helper(ans, s, left+para[i].first, n);
-            s.pop_back();
-        }
+        if(right > left)
+            helper(ans, s+")", left, right-1);
         
         return;
         
     }
     vector<string> generateParenthesis(int n) {
         vector<string> ans;
-        string s = "(";
-        helper(ans, s, 1, n);
+        string s = "";
+        helper(ans, s, n, n);
         return ans;
     }
 };
