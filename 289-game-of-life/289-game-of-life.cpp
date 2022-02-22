@@ -17,7 +17,7 @@ public:
                 }
                 if(board[i][j]){
                     if(count < 2 || count > 3) cb[i][j] = 0;
-                    else if(count == 2 || count == 3) cb[i][j] = 1;
+                    else cb[i][j] = 1;
                 }
                 else{
                     if(count == 3) cb[i][j] = 1;
