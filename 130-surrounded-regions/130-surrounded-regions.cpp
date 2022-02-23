@@ -2,18 +2,30 @@ class Solution {
 public:
     pair<int,int> dirs[4] = {{0,1},{0,-1},{1,0},{-1,0}};
     int m, n;
-    void dfs(vector<vector<char>>& board, int row, int col){
-        if(board[row][col] != 'O')
-            return;
+    
+    void bfs(vector<vector<char>>& board, int row, int col){
+        queue<pair<int,int>> q;
+        q.push({row, col});
         
-        board[row][col] = 'E';
-        for(int i = 0; i < 4; ++i){
-            int x = row + dirs[i].first;
-            int y = col + dirs[i].second;
-            if(x < 0 || y < 0 || x >= m || y >= n)
+        while(!q.empty()){
+            pair<int, int> p = q.front();
+            q.pop();
+            
+            int r = p.first;
+            int c = p.second;
+            if(board[r][c] != 'O')
                 continue;
-            dfs(board, x, y);
+        
+            board[r][c] = 'E';
+            for(int i = 0; i < 4; ++i){
+                int x = r + dirs[i].first;
+                int y = c + dirs[i].second;
+                if(x < 0 || y < 0 || x >= m || y >= n)
+                    continue;
+                q.push({x, y});
+            }
         }
+        
         return;
     }
     void solve(vector<vector<char>>& board) {
@@ -24,13 +36,13 @@ public:
             return;
         
         for(int i = 0; i < m; ++i){
-            dfs(board, i, 0);
-            dfs(board, i, n-1);
+            bfs(board, i, 0);
+            bfs(board, i, n-1);
         }
         
         for(int i = 0; i < n; ++i){
-            dfs(board, 0, i);
-            dfs(board, m-1, i);
+            bfs(board, 0, i);
+            bfs(board, m-1, i);
         }
         
         for(int i = 0; i < m; ++i){
