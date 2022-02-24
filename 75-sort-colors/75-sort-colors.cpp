@@ -31,8 +31,8 @@ public:
             }
         }
         
-        for(int i = zero; i <= two; i++)
-            nums[i] = 1;
+        //for(int i = zero; i <= two; i++)
+        //    nums[i] = 1;
         
         return;
     }
