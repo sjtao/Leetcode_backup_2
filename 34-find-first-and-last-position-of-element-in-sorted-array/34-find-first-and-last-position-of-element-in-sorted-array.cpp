@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
-        vector<int> ans(2, -1);
+
         int n = nums.size();
         int l = 0;
         int r = n-1;
@@ -18,12 +18,10 @@ public:
                 int first = m, last = m;
                 while(first >= 0 && nums[first] == target) first--;
                 while(last < n && nums[last] == target) last++;
-                ans[0] = first+1;
-                ans[1] = last-1;
-                return ans;
+                return {first+1, last-1};
             }
         }
         
-        return ans;
+        return {-1, -1};
     }
 };
