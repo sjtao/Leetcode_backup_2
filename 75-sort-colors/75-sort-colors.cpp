@@ -19,7 +19,7 @@ public:
             }
         }
         
-        for(int i = n-1; i >= 0; --i){
+        for(int i = n-1; i >= zero; --i){
             if(i == n-1 && nums[i] == 2){
                 two--;
                 continue;
