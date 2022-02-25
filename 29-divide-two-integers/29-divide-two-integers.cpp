@@ -1,20 +1,36 @@
 class Solution {
 public:
+    int HALF_INT_MIN = -1073741824;
+    
     int divide(int dividend, int divisor) {
-        if (dividend == INT_MIN && divisor == -1) {
-            return INT_MAX;
-        }
-        int sign = (dividend > 0 ^ divisor > 0) ?  -1 : 1;
-        long dd = abs(dividend), dv = abs(divisor), ans = 0;
-        while(dv <= dd){
-            long temp = dv, m = 1;
-            while (temp << 1 <= dd) {
-                temp <<= 1;
-                m <<= 1;
+        if(dividend == 0) return 0;
+        if(dividend == INT_MIN && divisor == -1) return INT_MAX; //overflow
+        if(dividend == INT_MIN && divisor == 1) return INT_MIN; //overflow
+
+        int sign = 1;
+        if((dividend < 0 && divisor > 0) || (dividend > 0 && divisor < 0))
+            sign = -1;
+        
+        //convert to negative numbers
+        dividend = dividend > 0  ? -dividend : dividend;
+        divisor = divisor > 0 ? -divisor : divisor;
+        
+        int ans = 0;
+
+        while(divisor >= dividend){
+            int power = -1;
+            int value = divisor;
+            while(value >= HALF_INT_MIN && value + value >= dividend){
+                power += power;
+                value += value;
             }
-            dd -= temp;
-            ans += m;
+            ans += power;
+            dividend -= value;
         }
-        return sign * ans;
+        
+        if(sign == 1)
+            ans = -ans;
+        
+        return ans;  
     }
 };
