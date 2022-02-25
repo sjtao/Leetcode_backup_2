@@ -1,9 +1,9 @@
 class Solution {
 public:
-    unordered_map<int,int> mp;
+    unordered_set<int> mp;
     int countElements(vector<int>& arr) {
         for(int a:arr){
-            mp[a]++;
+            mp.insert(a);
         }
         int n=0;
         for(int a:arr){
