@@ -8,16 +8,11 @@ public:
         int longest = 0;
         int cur = 0;
         for(int i = 0; i < n; ++i){
-            if(mp.find(s[i]) == mp.end()){
-                mp[s[i]] = i;
-                cur += 1;
-            }
-            else
-            {
+            if(mp.find(s[i]) != mp.end()){
                 start = mp[s[i]] < start ? start : mp[s[i]]+1;
-                cur = i - start + 1;
-                mp[s[i]] = i;
             }
+            cur = i - start + 1;
+            mp[s[i]] = i;
             longest = max(longest, cur);
         }
         return longest;
