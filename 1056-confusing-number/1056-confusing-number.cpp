@@ -6,7 +6,7 @@ public:
         int r = 0;
         while(k > 0){
             int m = k % 10;
-            if(mp.count(m) == 0)
+            if(mp.find(m) == mp.end())
                 return false;
             k /= 10;
             r = 10 * r +  mp[m];
