@@ -2,15 +2,15 @@ class Solution {
 public:
     bool checkValid(vector<vector<int>>& matrix) {
         int n = matrix.size();
-        vector<vector<bool>> row(n, vector<bool>(n, false));
-        vector<vector<bool>> col(n, vector<bool>(n, false));
+        unordered_set<int> row, col;
         for(int i = 0; i < n; ++i){
+            row.clear();
+            col.clear();
             for(int j = 0; j < n; ++j){
-                int m = matrix[i][j] - 1;
-                if(row[i][m] || col[j][m])
+                if(row.count(matrix[i][j]) || col.count(matrix[j][i]))
                     return false;
-                row[i][m] = true;
-                col[j][m] = true;
+                row.insert(matrix[i][j]);
+                col.insert(matrix[j][i]);
             }
         }
         return true;
