@@ -1,11 +1,16 @@
 class Solution {
 public:
     int maxNumberOfApples(vector<int>& weight) {
-        sort(weight.begin(), weight.end());
+        //no-descending heap
+        priority_queue<int, vector<int>, greater<int>> pq;
+        for(int w : weight)
+            pq.push(w);
+        
         int sum = 0;
         int apple = 0;
-        for(int w : weight){
-            sum += w;
+        while(!pq.empty()){
+            sum += pq.top();
+            pq.pop();
             if(sum > 5000){
                 break;
             }
