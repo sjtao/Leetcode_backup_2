@@ -2,20 +2,25 @@ class Solution {
 public:
     string stringShift(string s, vector<vector<int>>& shift) {
         int n = s.length();
-        if(n == 1) return s;
-
-        for(auto h: shift){
-            int p = h[1]%n;
-            if(h[0] == 0){ //left
-                s = s.substr(p, n-p) + s.substr(0, p);
+        int start = 0;
+        for(auto a : shift){
+            if(a[0] == 0){
+                //left
+                start -= a[1];
+                start %= n;
+                if(start < 0)
+                    start += n;
             }
-            else{
-                s = s.substr(n-p, p) + s.substr(0, n-p);
+            if(a[0] == 1){
+                //right
+                start += a[1];
+                start %= n;
             }
         }
+        string ans = s;
+        for(int i = 0; i < n; i++)
+            ans[(start+i)%n] = s[i];
         
-        
-        return s;
-        
+        return ans;
     }
 };
