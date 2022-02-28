@@ -1,23 +1,22 @@
 class Solution {
 public:
     int fixedPoint(vector<int>& arr) {
+        int n = arr.size();
         int l = 0;
-        int r = arr.size()-1;
+        int r = n-1;
         int m;
-        int ans = arr.size();
+        int ans = n+1;
         while(l <= r){
-            m = l + (r-l)/2;
-            if(arr[m] == m){
+            m = l + (r - l) / 2;
+            if(m > arr[m])
+                l = m+1;
+            else if(m < arr[m])
+                r = m-1;
+            else{
                 ans = min(ans, m);
                 r = m-1;
             }
-            else if(arr[m] > m){
-                r = m-1;
-            }
-            else{
-                l = m+1;
-            }
         }
-        return ans == arr.size() ? -1 : ans;
+        return ans == n+1 ? -1 : ans;
     }
 };
