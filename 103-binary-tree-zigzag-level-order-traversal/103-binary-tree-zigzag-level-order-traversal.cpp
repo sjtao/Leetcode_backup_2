@@ -11,28 +11,30 @@
  */
 class Solution {
 public:
-    void dfs(TreeNode* root, int level, vector<vector<int>>& ans){
-        vector<int> newlevel;
-        if(level >= ans.size()){
-            ans.push_back(newlevel);
-            ans[level].push_back(root->val);
-        }
-        else{
-            if(level % 2 == 0)
-                ans[level].push_back(root->val);
-            else
-                ans[level].insert(ans[level].begin(), root->val);
-        }
-        
-        if(root->left) dfs(root->left, level+1, ans);
-        if(root->right) dfs(root->right, level+1, ans);
-        
-        return;
-    }
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
         vector<vector<int>> ans;
         if(!root) return ans;
-        dfs(root, 0, ans);
+        
+        queue<TreeNode*> q;
+        q.push(root);
+        int level = 0;
+        while(!q.empty()){
+            vector<int> t;
+            int s = q.size();
+            for(int i = 0; i < s; i++){
+                TreeNode* nd = q.front();
+                q.pop();
+                t.push_back(nd->val);
+                if(nd->left) q.push(nd->left);
+                if(nd->right) q.push(nd->right);
+            }
+            if(level % 2 == 1){
+                reverse(t.begin(), t.end());
+            }
+            ans.push_back(t);
+            level++;
+        }
+        
         return ans;
     }
 };
