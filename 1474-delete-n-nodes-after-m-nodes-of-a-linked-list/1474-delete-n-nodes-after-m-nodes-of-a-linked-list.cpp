@@ -12,18 +12,18 @@ class Solution {
 public:
     ListNode* deleteNodes(ListNode* head, int m, int n) {
         if(!head) return NULL;
-        ListNode *ans = new ListNode(0);
-        ListNode *p = ans;
-        while(head){
-            for(int i = 0; i < m && head; i++){
-                p->next = new ListNode(head->val);
-                head = head->next;
+        ListNode *q = head;
+        ListNode *p = head;
+        while(p){
+            for(int i = 0; i < m && p; i++){
+                q = p;
                 p = p->next;
             }
-            for(int i = 0; i < n && head; i++){
-                head = head->next;
+            for(int i = 0; i < n && p; i++){
+                p = p->next;
             }
+            q->next = p;
         }
-        return ans->next;
+        return head;
     }
 };
