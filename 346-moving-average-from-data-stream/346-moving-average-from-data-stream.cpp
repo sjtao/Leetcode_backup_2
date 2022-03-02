@@ -1,31 +1,25 @@
 class MovingAverage {
 public:
-    list<int> number;
+    vector<int> number;
     int window;
     int n;
     double sum;
     double avg;
+    int cnt;
     MovingAverage(int size) {
-        number.clear();
-        window = size;
-        n = 0;
+        number = vector<int>(size, 0);
         sum = 0;
+        window = size;
+        n = -1;
+        cnt = 0;
     }
     
     double next(int val) {
-        if(n < window){
-            number.push_back(val);
-            sum += val;
-            n++;
-        }
-        else if(n == window){
-            number.push_back(val);
-            sum += val;
-            sum -= number.front();
-            number.pop_front();
-        }
-        avg = sum / n;
-        return avg;
+        cnt++;
+        n = (n+1) % window;
+        sum = sum - number[n] + val;
+        number[n] = val;
+        return sum / min(window, cnt);
     }
 };
 
