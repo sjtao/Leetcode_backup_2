@@ -2,20 +2,13 @@ class Solution {
 public:
     bool validWordSquare(vector<string>& words) {
         int row = words.size();
-        int col = 0;
-        for(int i = 0; i < row; ++i)
-            col = col > words[i].length() ? col : words[i].length();
-        
-        int m = max(row, col);
-        if(row != col) return false;
-        
-        for(int k = 0; k < m; ++k){
-            string a = words[k], b = "";
-            for(int i = 0; i < row && k < words[i].length(); ++i)
-                b += words[i][k];
-            if(a != b)
-                return false;
+        for(int i = 0; i < row; ++i){
+            if(row < words[i].size()) return false;
+            for(int j = 0; j < words[i].size(); ++j){
+                if(words[i][j] != words[j][i])  return false;
+            }
         }
+
         return true;
     }
 };
