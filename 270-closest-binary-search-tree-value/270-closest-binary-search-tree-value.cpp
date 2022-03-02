@@ -11,15 +11,24 @@
  */
 class Solution {
 public:
-    int closestValue(TreeNode* root, double target) {
-        int val;
-        int closet = root->val;
-        while(root){
-            val = root->val;
-            closet = abs(val-target) < abs(closet-target) ? val : closet;
-            if(root->val > target) root = root->left;
-            else root = root->right;
+    void helper(TreeNode* root, double target, double& distance, int& ans){
+        if(!root) return;
+        
+        if(root->left) helper(root->left, target, distance, ans);
+        
+        double d = abs(root->val - target);
+        if(d < distance){
+            ans = root->val;
+            distance = d;
         }
-        return closet;
+        
+        if(root->right) helper(root->right, target, distance, ans);
+        return;
+    }
+    int closestValue(TreeNode* root, double target) {
+        double distance = 1e9;
+        int ans;
+        helper(root, target, distance, ans);
+        return ans;
     }
 };
