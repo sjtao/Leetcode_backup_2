@@ -7,6 +7,8 @@ public:
         m = image.size();
         n = image[0].size();
         color = image[sr][sc];
+        if(color == newColor) return image;
+        
         image[sr][sc] = newColor;
         vector<vector<int>> visited(m, vector<int>(n,0));
         visited[sr][sc] == 1;
