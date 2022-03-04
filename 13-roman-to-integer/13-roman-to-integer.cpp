@@ -6,13 +6,13 @@ public:
     int romanToInt(string s) {
         int n = s.length();
         int ans = 0;
-        for(int i = 0; i < n; i++){
-            if(i < n-1 && mp[s[i]] < mp[s[i+1]])
+        for(int i = 0; i < n-1; i++){
+            if(mp[s[i]] < mp[s[i+1]])
                 ans -= mp[s[i]];
             else
                 ans += mp[s[i]];
         }
-        
+        ans += mp[s[n-1]];
         return ans;
     }
 };
