@@ -10,8 +10,6 @@ public:
         if(color == newColor) return image;
         
         image[sr][sc] = newColor;
-        vector<vector<int>> visited(m, vector<int>(n,0));
-        visited[sr][sc] == 1;
         queue<pair<int,int>> q;
         q.push({sr, sc});
         while(!q.empty()){
@@ -22,10 +20,9 @@ public:
             for(int i = 0; i < 4; ++i){
                 int ix = x + dirs[i].first;
                 int iy = y + dirs[i].second;
-                if(ix < 0 || iy < 0 || ix >= m || iy >= n || image[ix][iy] != color || visited[ix][iy])
+                if(ix < 0 || iy < 0 || ix >= m || iy >= n || image[ix][iy] != color)
                     continue;
                 image[ix][iy] = newColor;
-                visited[ix][iy] = 1;
                 q.push({ix,iy});
             }
         }
