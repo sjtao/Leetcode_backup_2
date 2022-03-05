@@ -1,29 +1,24 @@
 class Solution {
-public:
-    vector<int> copy1, copy2;
+    vector<int> orig, vec;
     int n;
-    void swap(vector<int>& v, int a, int b){
-        int t = v[a];
-        v[a] = v[b];
-        v[b] = t;
-        return;
-    }
-    
+public:
     Solution(vector<int>& nums) {
-        copy1 = nums;
-        copy2 = nums;
+        vec = nums;
+        orig = nums;
         n = nums.size();
     }
     
     vector<int> reset() {
-        copy1 = copy2;
-        return copy1;
+        vec = orig;
+        return vec;
     }
     
     vector<int> shuffle() {
-        for(int i = 0; i < n; i++)
-            swap(copy1, i, (i + rand() % n) % n);
-        return copy1;
+        for(int i = 0; i < n; ++i){
+            int a = rand() % n;
+            swap(vec[a], vec[i]);
+        }
+        return vec;
     }
 };
 
