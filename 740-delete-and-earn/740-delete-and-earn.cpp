@@ -1,23 +1,17 @@
 class Solution {
 public:
     int deleteAndEarn(vector<int>& nums) {
-        vector<int> count(10001, 0);
+        vector<int> r(10001, 0);
         for(int n : nums)
-            count[n]++;
+            r[n]+=n;
         
-        int pick = 0, delt = 0, prev = -1;
-        for(int i = 0; i <10001; i++){
-            if(count[i] != 0){
-                int m = max(pick, delt);
-                if(i-1 != prev)
-                    pick = i * count[i] + m;
-                else
-                    pick = i * count[i] + delt;
-                delt = m;
-                prev = i;
-            }  
+        vector<int> dp(10001, 0);
+        dp[0] = r[0];
+        dp[1] = r[1];
+        for(int i = 2; i < 10001; ++i){
+            dp[i] = max(dp[i-1], dp[i-2]+r[i]);
         }
         
-        return max(pick, delt);
+        return dp.back();
     }
 };
