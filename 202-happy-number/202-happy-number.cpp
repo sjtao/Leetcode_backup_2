@@ -1,21 +1,25 @@
 class Solution {
 public:
-    int squaresum(int a){
-        int r, sum = 0;
+    int sqsum(int a){
+        int s = 0;
         while(a){
-            r = a % 10;
-            sum += r * r;
+            int b = a % 10;
             a /= 10;
+            s += b * b;
         }
-        return sum;
+        return s;
     }
-    bool isHappy(int n) {    
-        int slow = n;
-        int fast = squaresum(n);
-        while(fast != 1 && slow != fast){
-            slow = squaresum(slow);
-            fast = squaresum(squaresum(fast));
+    
+    bool isHappy(int n) {
+        if (n == 1) return true;
+        set<int> st;
+        st.insert(n);
+        while(n != 1){
+            n = sqsum(n);
+            if(st.count(n))
+                return false;
+            st.insert(n);
         }
-        return fast == 1;
+        return true;
     }
 };
