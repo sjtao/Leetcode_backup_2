@@ -23,8 +23,18 @@ public:
     Node* cloneTree(Node* root) {
         if(!root) return root;
         Node* d = new Node(root->val);
-        for(Node* c : root->children){
-            d->children.push_back(cloneTree(c));
+        stack<pair<Node*, Node*>> st;
+        st.push({root, d});
+        while(!st.empty()){
+            auto np = st.top();
+            st.pop();
+            Node* old = np.first;
+            Node* nwn = np.second;
+            for(Node* c: old->children){
+                Node* newchild = new Node(c->val);
+                nwn->children.push_back(newchild);
+                st.push({c, newchild});
+            }
         }
         return d;
         
