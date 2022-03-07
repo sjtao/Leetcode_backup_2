@@ -1,14 +1,14 @@
 class Solution {
 public:
     int arraySign(vector<int>& nums) {
-        int neg = 0;
+        int neg = 1;
         for(int n : nums){
             if(n == 0)
                 return 0;
             else if(n < 0)
-                neg++;
+                neg *= -1;
         }
-        if(neg % 2 == 1) return -1; 
-        return 1;
+  
+        return neg;
     }
 };
