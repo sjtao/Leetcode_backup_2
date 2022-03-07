@@ -23,17 +23,17 @@ public:
     Node* cloneTree(Node* root) {
         if(!root) return root;
         Node* d = new Node(root->val);
-        stack<pair<Node*, Node*>> st;
-        st.push({root, d});
-        while(!st.empty()){
-            auto np = st.top();
-            st.pop();
+        queue<pair<Node*, Node*>> q;
+        q.push({root, d});
+        while(!q.empty()){
+            auto np = q.front();
+            q.pop();
             Node* old = np.first;
             Node* nwn = np.second;
-            for(Node* c: old->children){
-                Node* newchild = new Node(c->val);
-                nwn->children.push_back(newchild);
-                st.push({c, newchild});
+            for(Node* c : old->children){
+                Node* n = new Node(c->val);
+                nwn->children.push_back(n);
+                q.push({c, n});
             }
         }
         return d;
