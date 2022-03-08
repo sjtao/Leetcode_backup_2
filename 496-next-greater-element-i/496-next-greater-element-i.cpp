@@ -3,26 +3,26 @@ public:
     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
         int n1 = nums1.size();
         int n2 = nums2.size();
-        vector<int> ans(n1, 0);
         
+        vector<int> ans(n1, 0);
         unordered_map<int,int> mp;
-        for(int i = 0; i < n2; ++i)
-            mp[nums2[i]] = i;
+        stack<int> s;
+        s.push(nums2[0]);
+        for(int i = 1; i < n2; ++i){
+           while(!s.empty() && nums2[i] > s.top()){
+               mp[s.top()] = nums2[i];
+               s.pop();
+           }
+            s.push(nums2[i]);
+        }
+        
+        while(!s.empty()){
+            mp[s.top()] = -1;
+            s.pop();
+        }
         
         for(int i = 0; i < n1; ++i){
-            if(mp.find(nums1[i]) == mp.end())
-                ans[i] = -1;
-            
-            int j = mp[nums1[i]] + 1;
-            for(; j < n2; ++j){
-                if(nums2[j] > nums1[i]){
-                    ans[i] = nums2[j];
-                    break;
-                }
-            }
-            
-            if(j == n2)
-                ans[i] = -1;
+            ans[i] = mp[nums1[i]];
         }
         
         return ans;
