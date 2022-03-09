@@ -2,10 +2,16 @@ class Solution {
 public:
     int sumOddLengthSubarrays(vector<int>& arr) {
         int n = arr.size();
-        //count the frequency of each number showing in an odd-length array
+        int k = n%2 == 0 ? n-1 : n;
+        int l = 1;
         int sum = 0;
-        for(int k = 0; k < n; ++k){
-            sum += ((n-k)*(k+1) + 1) / 2 * arr[k];
+        while(l <= k){
+            for(int i = 0; i <= n-l; i++){
+                for(int j = 0; j < l; j++){
+                    sum += arr[i+j];
+                }
+            }
+            l += 2;
         }
         return sum;
     }
