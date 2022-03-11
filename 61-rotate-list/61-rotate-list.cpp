@@ -11,24 +11,30 @@
 class Solution {
 public:
     ListNode* rotateRight(ListNode* head, int k) {
-        if(!head || !head->next) return head;
         
-        vector<int> num;
-        while(head){
-            num.push_back(head->val);
-            head = head->next;
+        if(!head  || !head->next)
+            return head;
+        
+        ListNode* it = head;
+        int count = 0;
+        while(it->next) {
+            count++;
+            it = it->next;
         }
         
-        int n = num.size();
-        k %= n;
+        k %= (count + 1);
         
-        ListNode* p = new ListNode();
-        ListNode* q = p;
-        for(int i = 0; i < n; ++i){
-            q->next = new ListNode(num[(n-k+i)%n]);
-            q = q->next;
+        if (k == 0)
+            return head;
+        
+        it->next = head;
+        it = head;
+        for(int c = 0; c < count - k; c++) {
+            it = it->next;
         }
         
-        return p->next;
+        head = it->next;
+        it->next = nullptr;
+        return head;
     }
 };
