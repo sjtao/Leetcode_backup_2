@@ -1,23 +1,14 @@
 class Solution {
 public:
     char findTheDifference(string s, string t) {
-        vector<int> st(26, 0);
-        
-        for(char c:s)
-            st[c-'a']++;
-        
-        for(char c:t)
-            st[c-'a']--;
-        
-        char a;
-        for(int i = 0; i < 26; ++i){
-            if(st[i] != 0){
-                a = 'a' + i;
-                break;
-            }
+        int ns = s.length();
+        int ssum = 0;
+        int tsum = t[ns];
+        for(int i = 0; i < ns; ++i){
+            ssum += s[i];
+            tsum += t[i];
         }
-        
-        return a;
+        return (char)(tsum - ssum);
         
     }
 };
