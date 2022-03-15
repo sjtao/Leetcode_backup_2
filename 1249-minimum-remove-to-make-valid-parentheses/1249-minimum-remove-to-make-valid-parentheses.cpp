@@ -1,30 +1,30 @@
 class Solution {
 public:
-    string minRemoveToMakeValid(string s) {
-        int n = s.length();
-        stack<int> st;
-        for(int i = 0; i < n; i++){
-            if(s[i] == '(')
-                st.push(i);
-            if(s[i] == ')'){
-                if(st.empty())
-                    s[i] = '#';
-                else
-                    st.pop();
-            }
-        }
-        
-        while(!st.empty()){
-            s[st.top()] = '#';
-            st.pop();
-        }
-        
+    string remove(string s, char open, char close){
+        int p = 0;
         string a = "";
-        for(int i = 0; i < n; i++){
-            if(s[i] != '#')
-                a += s[i];
+        for(char c : s){
+            if(c == open){
+                p++;
+            }
+            else if(c == close){
+                p--;
+                if(p < 0){
+                    p = 0;
+                    continue;
+                }
+            }
+            a += c;
         }
         
         return a;
+    }
+    
+    string minRemoveToMakeValid(string s) {
+        string a = remove(s, '(', ')');
+        reverse(a.begin(), a.end());
+        string b = remove(a, ')', '(');
+        reverse(b.begin(), b.end());
+        return b;
     }
 };
