@@ -1,16 +1,16 @@
 class ParkingSystem {
 public:
-    unordered_map<int,pair<int, int>> car;
+    unordered_map<int, int> car;
     ParkingSystem(int big, int medium, int small) {
-        car[1] = {0, big}; //big car
-        car[2] = {0, medium}; //medium car
-        car[3] = {0, small}; //small car
+        car[1] = big; //big car
+        car[2] = medium; //medium car
+        car[3] = small; //small car
     }
     
     bool addCar(int carType) {
-        if(car[carType].first == car[carType].second)
+        if(car[carType] <= 0)
             return false;
-        car[carType].first += 1; //park this car
+        car[carType]-= 1; //park this car
         return true;
     }
 };
