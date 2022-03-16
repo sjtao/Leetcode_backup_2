@@ -1,26 +1,27 @@
 class Solution {
 public:
     int findShortestSubArray(vector<int>& nums) {
-        unordered_map<int, int> mp, first;
+        unordered_map<int, int> mp;
+        unordered_map<int, pair<int, int>> pos;
+        int degree = 0;
         int n = nums.size();
-        int ans = n+1;
-        int degree = -1;
-        
-        for(int i = 0; i < n; i++){
-            if(mp.find(nums[i])==mp.end())
-                first[nums[i]] = i;
-            mp[nums[i]]++;
-            if(mp[nums[i]] > degree){
-                degree = mp[nums[i]];
-                ans = i - first[nums[i]] + 1;
-            }
-            else if(mp[nums[i]] == degree){
-                ans = min(ans, i - first[nums[i]]+1);
+        for(int i = 0; i < n; ++i){
+            mp[nums[i]] ++;
+            if(mp[nums[i]] == 1){
+                pos[nums[i]].first = i;
+                pos[nums[i]].second = i;
+            }    
+            else
+                pos[nums[i]].second = i;
+            degree = max(degree, mp[nums[i]]);
+        }
+        int length = n;
+        for(auto it : mp){
+            if(it.second == degree){
+                int len = pos[it.first].second - pos[it.first].first + 1;
+                length = min(length, len);
             }
         }
-
-        
-        return ans;
-        
+        return length;        
     }
 };
