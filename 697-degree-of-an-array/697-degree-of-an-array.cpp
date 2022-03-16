@@ -21,8 +21,7 @@ public:
         int length = n;
         for(auto it : mp){
             if(it.second == degree){
-                int len = pos[it.first].second - pos[it.first].first + 1;
-                length = min(length, len);
+                length = min(length, pos[it.first].second - pos[it.first].first + 1);
             }
         }
         return length;        
