@@ -5,15 +5,17 @@ public:
         int n2 = needle.length();
         if(n1 < n2) return -1;
         if(n2 == 0) return 0;
-    
-        int ans = -1;
+
         for(int i = 0; i <= n1-n2; ++i){
-            string t = haystack.substr(i, n2);
-            if(t == needle){
-                ans = i;
-                break;
+            int j = 0;
+            for(; j < n2; ++j){
+                if(needle[j] != haystack[i+j]){
+                    break;
+                }
             }
+            if(j == n2)
+                return i;
         }
-        return ans;
+        return -1;
     }
 };
