@@ -11,22 +11,26 @@
  */
 class Solution {
 public:
-    unordered_map<int, int> mp;
-    int i = 0;
-    TreeNode* helper(vector<int>& preorder, vector<int>& inorder, int px, int py){
-        if(px > py) return NULL;
-        int id = preorder[i]; i++;
-        TreeNode * tree = new TreeNode(id);
-        tree->left = helper(preorder, inorder, px, mp[id]-1);
-        tree->right = helper(preorder, inorder, mp[id]+1, py);
-
-        return tree;
+    TreeNode* Helper(vector<int>& preorder, vector<int>& inorder, int ps, int pe, int is, int ie){
+        if(ps == pe)
+            return NULL;
+        
+        TreeNode* root = new TreeNode(preorder[ps]);
+        int pivot;
+        for(int i = is; i < ie; ++i){
+            if(inorder[i] == preorder[ps]){
+                pivot = i;
+                break;
+            }
+        }
+        
+        root->left = Helper(preorder, inorder, ps+1, ps+pivot-is+1, is, pivot);
+        root->right = Helper(preorder, inorder, ps+pivot-is+1, pe, pivot+1, ie);
+        
+        return root;
     }
     
-    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) { 
-        for(int i = 0; i < inorder.size(); i++)
-            mp[inorder[i]]=i;
-        
-        return helper(preorder, inorder, 0, inorder.size()-1);
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        return Helper(preorder, inorder, 0, preorder.size(), 0, inorder.size());
     }
 };
