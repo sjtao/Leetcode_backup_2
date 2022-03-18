@@ -9,14 +9,22 @@
  */
 class Solution {
 public:
+    TreeNode* ans;
+    bool helper(TreeNode* root, TreeNode* p, TreeNode* q){
+        if(!root)
+            return false;
+        //dfs
+        int cur = (root == p || root == q) ? 1 : 0;
+        int left = helper(root->left, p, q) ? 1 : 0;
+        int right = helper(root->right, p, q) ? 1 : 0;
+        int s = cur + left + right;
+        if(s >=2)
+            ans = root;
+        return s > 0;
+    }
+    
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if(!root || root == p || root == q) return root;
-        
-        TreeNode* left = lowestCommonAncestor(root->left, p, q);
-        TreeNode* right = lowestCommonAncestor(root->right, p, q);
-        
-        if(left && right) return root;
-        if(!left && !right) return NULL;
-        return left == NULL ? right : left;
+        helper(root, p, q);
+        return ans;
     }
 };
