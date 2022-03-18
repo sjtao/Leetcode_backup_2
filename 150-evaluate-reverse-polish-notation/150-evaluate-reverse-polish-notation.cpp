@@ -1,37 +1,23 @@
 class Solution {
 public:
     int evalRPN(vector<string>& tokens) {
-        stack<int> s;
-        int a, b, c;
-        for(int i = 0; i < tokens.size(); ++i){
-            if(tokens[i] == "+"){
-                a = s.top(); s.pop();
-                b = s.top(); s.pop();
-                c = b + a;
-                s.push(c);
-            }
-            else if(tokens[i] == "-"){
-                a = s.top(); s.pop();
-                b = s.top(); s.pop();
-                c = b - a;
-                s.push(c);
-            }
-            else if(tokens[i] == "*"){
-                a = s.top(); s.pop();
-                b = s.top(); s.pop();
-                c = b * a;
-                s.push(c);
-            }
-            else if(tokens[i] == "/"){
-                a = s.top(); s.pop();
-                b = s.top(); s.pop();
-                c = b / a;
-                s.push(c);
+        int s = tokens.size();
+        stack<int> st;
+       
+        for(int i = 0; i < s; i++){
+            if (tokens[i] == "+" || tokens[i] == "-" || tokens[i] == "*" || tokens[i] == "/"){
+                int a = st.top(); st.pop();
+                int b = st.top(); st.pop();
+                if (tokens[i] == "+") st.push(b+a);
+                else if (tokens[i] == "-") st.push(b-a);
+                else if (tokens[i] == "*") st.push(b*a);
+                else if (tokens[i] == "/") st.push(b/a);
             }
             else{
-                s.push(stoi(tokens[i]));
+                st.push(stoi(tokens[i]));
             }
         }
-        return s.top();
+        
+        return st.top();
     }
 };
