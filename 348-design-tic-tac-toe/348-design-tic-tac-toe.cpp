@@ -5,8 +5,8 @@ public:
     int diag, antidiag;
     int n;
     TicTacToe(int n) {
-        Row.assign(n, 0);
-        Col.assign(n, 0);
+        Row = vector<int>(n, 0);
+        Col = vector<int>(n, 0);
         diag = 0;
         antidiag = 0;
         this->n = n;
