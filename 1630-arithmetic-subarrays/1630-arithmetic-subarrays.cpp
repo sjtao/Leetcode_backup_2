@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool arithmetic(vector<int>& nums){
+    bool arithmetic(vector<int> nums){
         //rearrange
         sort(nums.begin(), nums.end());
         int d = nums[1] - nums[0];
@@ -17,8 +17,7 @@ public:
             if(r[i] - l[i] < 2)
                 ans[i] = true;
             else{
-                vector<int> part(nums.begin()+l[i], nums.begin()+r[i]+1);
-                ans[i] = arithmetic(part);
+                ans[i] = arithmetic({nums.begin()+l[i],nums.begin()+r[i]+1});
             }
             
         }
