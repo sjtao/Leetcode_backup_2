@@ -29,23 +29,14 @@ public:
         if(flag == 0 || flag == 2){
             mp[flag].push_back(root->val);
         }
+        
         if(flag == 0){
-            if(root->left) {
-                traverse(root->left, flag);
-                traverse(root->right, 3);
-            }
-            else{
-                traverse(root->right, flag);
-            }
+            traverse(root->left, flag);
+            traverse(root->right, root->left ? 3 : flag);
         }
         else if(flag == 2){
-            if(root->right) {
-                traverse(root->left, 3);
-                traverse(root->right, flag);
-            }
-            else{
-                traverse(root->left, flag);
-            }
+            traverse(root->left, root->right ? 3 : flag);
+            traverse(root->right, flag);
         }
         else{
             traverse(root->left, 3);
