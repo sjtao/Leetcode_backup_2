@@ -15,7 +15,7 @@ public:
         if(!root) return {};
         
         queue<pair<int, TreeNode*>> q;
-        vector<pair<int, int>> v;
+        unordered_map<int,vector<int>> mp;
         int mn = INT_MAX;
         int mx = INT_MIN;
         q.push({0, root});
@@ -26,14 +26,14 @@ public:
             mn = min(mn, idx);
             mx = max(mx, idx);
             TreeNode* node = p.second;
-            v.push_back({idx, node->val});
+            mp[idx].push_back(node->val);
             if(node->left) q.push({idx-1, node->left});
             if(node->right) q.push({idx+1, node->right});
         }
         
-        vector<vector<int>> ans(mx-mn+1);
-        for(auto p : v){
-            ans[p.first-mn].push_back(p.second);
+        vector<vector<int>> ans;
+        for(int i = mn; i <= mx; i++){
+            ans.push_back(mp[i]);
         }
         
         return ans;
