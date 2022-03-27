@@ -11,17 +11,27 @@ public:
     }
     vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
         int m = mat.size();
-        vector<vector<int>> q(m, vector<int>(2));
-        for(int i = 0; i < m; ++i){
-            q[i][0] = sum(mat[i]);
-            q[i][1] = i;
+        int n = mat[0].size();
+        
+        vector<int> ans;
+        set<int> st;
+        
+        for(int j = 0; j < n; ++j){
+            for(int i = 0; i < m; ++i){
+                if(mat[i][j] == 0 && !st.count(i)){
+                    st.insert(i);
+                    ans.push_back(i);
+                }
+                if(ans.size() == k)
+                    return ans;
+            }
         }
         
-        sort(q.begin(), q.end());
-        
-        vector<int> ans(k);
-        for(int i = 0; i < k; ++i)
-            ans[i] = q[i][1];
+        //if ans.size() < k, rest rows all 1
+        for(int i = 0; i < m; ++i){
+            if(!st.count(i) && ans.size()<k)
+                ans.push_back(i);
+        }
         
         return ans;
     }
