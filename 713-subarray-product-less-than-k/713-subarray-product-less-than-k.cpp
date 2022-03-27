@@ -4,14 +4,15 @@ public:
         if(k <= 1) return 0;
         int n = nums.size();
         int prod = 1;
-        int j = 0;
+        int i = 0, j = 0;
         int ans = 0;
-        for(int i = 0; i < n; ++i){
+        while(i < n && j < n){
             prod *= nums[i];
             while(prod >= k){
                 prod /= nums[j++];
             }
             ans += (i - j + 1);
+            i++;
         }
         return ans;
     }
