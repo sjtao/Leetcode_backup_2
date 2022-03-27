@@ -10,19 +10,18 @@ public:
         return s;
     }
     vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
-        priority_queue<pair<int,int>, vector<pair<int,int>>> q;
         int m = mat.size();
-        for(int i = 0; i < m; i++){
-            q.push({sum(mat[i]), i});
-            if(q.size()>k)
-                q.pop();
+        vector<vector<int>> q(m, vector<int>(2));
+        for(int i = 0; i < m; ++i){
+            q[i][0] = sum(mat[i]);
+            q[i][1] = i;
         }
         
+        sort(q.begin(), q.end());
+        
         vector<int> ans(k);
-        while(!q.empty()){
-            ans[--k] = q.top().second;
-            q.pop();
-        }
+        for(int i = 0; i < k; ++i)
+            ans[i] = q[i][1];
         
         return ans;
     }
