@@ -10,39 +10,44 @@
  */
 class Solution {
 public:
-    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        stack<int> s1, s2, s3;
-        while(l1 || l2){
-            if(l1){
-                s1.push(l1->val);
-                l1 = l1->next;
-            }
-            if(l2){
-                s2.push(l2->val);
-                l2 = l2->next;
-            }
+    ListNode* reverse(ListNode* p){
+        ListNode* r = NULL;
+        ListNode* s = NULL;
+        while(p){
+            s = new ListNode(p->val);
+            s->next = r;
+            r = s;
+            p = p->next;
         }
+        return r;
+    }
+    
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* r1 = reverse(l1);
+        ListNode* r2 = reverse(l2);
         
+        ListNode* cur = NULL;
         ListNode* p = NULL;
-        ListNode* cur;
-        int carry = 0, a, b, c;
-        while(!s1.empty() || !s2.empty()){
+        
+        int a, b, c, carry = 0;
+        while(r1 || r2){
             a = 0;
             b = 0;
-            if(!s1.empty()){
-                a = s1.top();
-                s1.pop();
+            if(r1){
+                a = r1->val;
+                r1 = r1->next;
             }
-            if(!s2.empty()){
-                b = s2.top();
-                s2.pop();
+            if(r2){
+                b = r2->val;
+                r2 = r2->next;
             }
-            c = a + b + carry;
+            c = a+b+carry;
             cur = new ListNode(c%10);
             cur->next = p;
             p = cur;
             carry = c / 10;
         }
+        
         if(carry){
             cur = new ListNode(carry);
             cur->next = p;
