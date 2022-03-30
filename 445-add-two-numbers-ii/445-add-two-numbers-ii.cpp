@@ -23,6 +23,8 @@ public:
             }
         }
         
+        ListNode* p = NULL;
+        ListNode* cur;
         int carry = 0, a, b, c;
         while(!s1.empty() || !s2.empty()){
             a = 0;
@@ -36,19 +38,17 @@ public:
                 s2.pop();
             }
             c = a + b + carry;
-            s3.push(c%10);
+            cur = new ListNode(c%10);
+            cur->next = p;
+            p = cur;
             carry = c / 10;
         }
-        if(carry) s3.push(carry);
-        
-        ListNode* dummy = new ListNode();
-        ListNode* p = dummy;
-        while(!s3.empty()){
-            p->next = new ListNode(s3.top());
-            s3.pop();
-            p = p->next;
+        if(carry){
+            cur = new ListNode(carry);
+            cur->next = p;
+            p = cur;
         }
         
-        return dummy->next;        
+        return p;        
     }
 };
