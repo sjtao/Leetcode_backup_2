@@ -14,7 +14,7 @@ public:
         ListNode * dummy = new ListNode();
         ListNode * p = dummy;
         int carry = 0, a, b, c;
-        while(l1 || l2 || carry){
+        while(l1 || l2){
             a = l1 ? l1->val : 0;
             b = l2 ? l2->val : 0;
             c = a + b + carry;
@@ -23,6 +23,10 @@ public:
             p = p->next;
             if(l1) l1 = l1->next;
             if(l2) l2 = l2->next;
+        }
+        if(carry){
+            p->next = new ListNode(carry);
+            p = p->next;
         }
         return dummy->next;
     }
