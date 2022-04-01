@@ -8,7 +8,7 @@ public:
             if(b == 5)
                 five++;
             else if(b == 10){
-                if(five < 0) return false;
+                if(five == 0) return false;
                 ten++;
                 five--;  
             }
