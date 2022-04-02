@@ -18,12 +18,11 @@
 
 class NestedIterator {
 private:
-    vector<int> q;
-    int pos = 0;
+    queue<int> q;
     void flat(vector<NestedInteger> &nestedList){
         for(NestedInteger n : nestedList){
             if(n.isInteger()){
-                q.push_back(n.getInteger());
+                q.push(n.getInteger());
             }
             else{
                 flat(n.getList());
@@ -38,11 +37,13 @@ public:
     }
     
     int next() {
-        return q[pos++];
+        int n = q.front();
+        q.pop();
+        return n;
     }
     
     bool hasNext() {
-        return pos < q.size();
+        return !q.empty();
     }
 };
 
