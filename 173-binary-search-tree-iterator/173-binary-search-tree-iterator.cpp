@@ -10,29 +10,27 @@
  * };
  */
 class BSTIterator {
-public:
-    vector<int> qe;
-    int idx = 1, num;
-    void inorder(TreeNode* root){
+private:
+    vector<int> tree;
+    int pos = 0;
+    void Inorder(TreeNode* root){
         if(!root) return;
-        inorder(root->left);
-        qe.push_back(root->val);
-        inorder(root->right);
+        Inorder(root->left);
+        tree.push_back(root->val);
+        Inorder(root->right);
         return;
     }
+public:
     BSTIterator(TreeNode* root) {
-        qe.clear();
-        qe.push_back(-1);
-        inorder(root);
-        num = qe.size();
+        Inorder(root);
     }
     
     int next() {
-        return qe[idx++];
+        return tree[pos++];
     }
     
     bool hasNext() {
-        return idx < num;
+        return pos < tree.size();
     }
 };
 
