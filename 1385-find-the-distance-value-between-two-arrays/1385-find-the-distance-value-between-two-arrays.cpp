@@ -6,12 +6,20 @@ public:
         int cnt = 0;
         sort(arr2.begin(), arr2.end());
         for(int i = 0; i < n1; ++i){
-            int j = n2-1;
-            for(; j >= 0; --j){
-                if(abs(arr1[i] - arr2[j]) <= d)
+            int l = 0, r = n2-1, m;
+            bool add = true;
+            while(l <= r){
+                m = l + (r - l) / 2;
+                if(abs(arr2[m] - arr1[i]) <= d){
+                    add = false;
                     break;
+                }
+                else if(arr2[m] > arr1[i])
+                    r = m -1;
+                else
+                    l = m + 1; 
             }
-            if(j < 0)
+            if(add)
                 cnt++;
         }
         return cnt;
