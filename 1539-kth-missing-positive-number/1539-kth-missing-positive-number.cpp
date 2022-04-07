@@ -6,12 +6,14 @@ public:
         if(k > d)
             return arr[n-1] + k - d;
         
-        for(int i = 0; i < n; i++){
-            int m = i == 0 ? arr[i] - 1 : (arr[i] - arr[i-1] - 1);
-            if(k <= m)
-                return i == 0 ? k : arr[i-1] + k;
-            k -= m;
+        int l = 0, r = n-1, m; 
+        while(l < r){
+            m = l + (r-l)/2;
+            if(arr[m] - m - 1 >= k)
+                r = m;
+            else
+                l = m+1;
         }
-        return -1;
+        return l+k;
     }
 };
