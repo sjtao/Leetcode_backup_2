@@ -1,35 +1,30 @@
 class Solution {
 public:
-    int sum(vector<int>& a){
-        int s = 0;
-        for(int x : a){
-            if(x == 0)
-                break;
-            s += x;
-        }
-        return s;
-    }
     vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
         int m = mat.size();
-        int n = mat[0].size();
-        
+        int n =mat[0].size();
         vector<int> ans;
-        set<int> st;
-        
-        for(int j = 0; j < n; ++j){
-            for(int i = 0; i < m; ++i){
-                if(mat[i][j] == 0 && !st.count(i)){
-                    st.insert(i);
+        vector<bool> row(m, 0);
+        bool findK = 0;
+        for(int j = 0; j < n; j++){
+            for(int i = 0; i < m; i++){
+                if(row[i] == 1)
+                    continue;
+                if(mat[i][j] == 0){
                     ans.push_back(i);
+                    row[i] = 1;
                 }
-                if(ans.size() == k)
-                    return ans;
+                if(ans.size() == k){
+                    findK = 1;
+                    break;
+                }
             }
+            if(findK)
+                break;
         }
         
-        //if ans.size() < k, rest rows all 1
-        for(int i = 0; i < m; ++i){
-            if(!st.count(i) && ans.size()<k)
+        for(int i = 0; i < m; i++){
+            if(ans.size() < k && row[i] == 0)
                 ans.push_back(i);
         }
         
