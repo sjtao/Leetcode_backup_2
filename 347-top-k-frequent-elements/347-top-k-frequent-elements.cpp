@@ -6,11 +6,9 @@ public:
         for(int n : nums)
             mp[n]++;
         
-        priority_queue<pair<int,int>, vector<pair<int,int>>,greater<pair<int,int>>> q;
+        priority_queue<pair<int,int>> q;
         for(auto it : mp){
             q.push({it.second, it.first});
-            if(q.size() > k)
-                q.pop();
         }
         
         vector<int> ans(k);
