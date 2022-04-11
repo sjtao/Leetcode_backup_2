@@ -9,8 +9,7 @@ public:
             if(nums1[i] > nums2[j])
                 i++;
             else{
-                if(i <= j)
-                    mx = max(mx, j-i);
+                mx = max(mx, j-i);
                 j++;
             }
         }
