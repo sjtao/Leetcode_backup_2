@@ -7,29 +7,25 @@ public:
         while(t <= b && l <= r){
             //left
             for(int i = l; i <= r; i++){
-                ans[t][i] = cnt;
-                cnt++;
+                ans[t][i] = cnt++;
             }
             t++;
             
             //down
             for(int i = t; i <= b; i++){
-                ans[i][r] = cnt;
-                cnt++;
+                ans[i][r] = cnt++;
             }
             r--;
             
             //right
             for(int i = r; i >= l; i--){
-                ans[b][i] = cnt;
-                cnt++;
+                ans[b][i] = cnt++;
             }
             b--;
             
             //up
             for(int i = b; i >= t; i--){
-                ans[i][l] = cnt;
-                cnt++;
+                ans[i][l] = cnt++;
             }
             l++;
         }
