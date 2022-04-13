@@ -3,31 +3,37 @@ public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
         int m = matrix.size();
         int n = matrix[0].size();
-        
-        vector<int> ans;
-        int rs = 0, re = m-1, cs = 0, ce = n-1;
-        while(ans.size() < m*n){
-            for(int i = cs; i <= ce; ++i)
-                ans.push_back(matrix[rs][i]);
-        
-            for(int i = rs+1; i <= re; ++i)
-                ans.push_back(matrix[i][ce]);
-
-            if(rs != re){
-                for(int i = ce-1; i >= cs; --i)
-                    ans.push_back(matrix[re][i]);
-            } 
-
-            if(cs != ce){
-                for(int i = re-1; i > rs; --i)
-                    ans.push_back(matrix[i][cs]);
-            }
+        vector<int> s(n*m);
+        int t = 0, b = m-1, l = 0, r = n-1;
+        int cnt = 0;
+        while(cnt < n*m){
+            //left
+            for(int i = l; i <= r; i++)
+                s[cnt++] = matrix[t][i];
+            t++;
+            if(t > b)
+                break;
             
-            cs++;
-            rs++;
-            re--;
-            ce--;
+            //down
+            for(int i = t; i <= b; i++)
+                s[cnt++] = matrix[i][r];
+            r--;
+            if(r < l)
+                break;
+            
+            //right
+            for(int i = r; i >= l; i--)
+                s[cnt++] = matrix[b][i];
+            b--;
+            if(b < t)
+                break;
+            //up
+            for(int i = b; i >= t; i--)
+                s[cnt++] = matrix[i][l];
+            l++;
+            if(l > r)
+                break;
         }
-         return ans;
+        return s;
     }
 };
