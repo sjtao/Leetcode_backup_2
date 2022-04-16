@@ -7,36 +7,14 @@ public:
     
     void push(int x) {
         st.push(x);
-        if(mx.empty()){
+        if(mx.empty() || mx.top() <= x)
             mx.push(x);
-        }
-        else{
-            stack<int> bu;
-            while(!mx.empty() && mx.top() > x){
-                bu.push(mx.top());
-                mx.pop();
-            }
-            mx.push(x);
-            while(!bu.empty()){
-                mx.push(bu.top());
-                bu.pop();
-            }
-        }
     }
     
     int pop() {
         int a = st.top();
         st.pop();
-        stack<int> bf;
-        while(mx.top()!=a){
-            bf.push(mx.top());
-            mx.pop();
-        }
-        mx.pop();
-        while(!bf.empty()){
-            mx.push(bf.top());
-            bf.pop();
-        }
+        if (a == peekMax()) mx.pop();
         return a;
     }
     
@@ -49,16 +27,14 @@ public:
     }
     
     int popMax() {
-        int m = mx.top();
-        mx.pop();
+        int m = peekMax();
         stack<int> bf;
-        while(st.top()!=m){
-            bf.push(st.top());
-            st.pop();
+        while(top()!=m){
+            bf.push(pop());
         }
-        st.pop();
+        pop();
         while(!bf.empty()){
-            st.push(bf.top());
+            push(bf.top());
             bf.pop();
         }
         return m;
