@@ -11,28 +11,19 @@
  */
 class Solution {
 public:
+    vector<int> ans;
     vector<int> getLonelyNodes(TreeNode* root) {
-        vector<int> ans;
-        queue<TreeNode*> q;
-        q.push(root);
+        if(!root)
+            return ans;
         
-        while(!q.empty()){
-            TreeNode* node = q.front();
-            q.pop();
-            if(!node->left && node->right){
-                ans.push_back(node->right->val);
-                q.push(node->right);
-            }
-            else if(node->left && !node->right){
-                ans.push_back(node->left->val);
-                q.push(node->left);
-            }
-            else if(node->left && node->right){
-                q.push(node->right);
-                q.push(node->left);
-            }
+        if(!root->left && root->right){
+            ans.push_back(root->right->val);            
         }
-        
+        if(root->left && !root->right){
+            ans.push_back(root->left->val);
+        }
+        getLonelyNodes(root->left);
+        getLonelyNodes(root->right);
         return ans;
     }
 };
