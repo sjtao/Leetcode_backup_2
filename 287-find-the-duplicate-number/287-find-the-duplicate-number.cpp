@@ -9,11 +9,11 @@ public:
         }while(slow != fast);
         
         fast = 0;
-        while(fast != slow){
-            fast = nums[fast];
+        while(slow != fast){
             slow = nums[slow];
+            fast = nums[fast];
         }
         
-        return fast;
+        return slow;
     }
 };
