@@ -11,15 +11,22 @@
 class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {
-        if(!head || !head->next)
-            return head;
+        ListNode* dummy = new ListNode();
+        dummy->next = head;
+        ListNode* p = dummy;
         
-        ListNode* p1 = head;
-        ListNode* p2 = head->next;
-        
-        p1->next = swapPairs(p2->next);
-        p2->next = p1;
-        
-        return p2;
+        while(head && head->next){
+            ListNode* p1 = head;
+            ListNode* p2 = head->next;
+            
+            //swap
+            p->next = p2;
+            p1->next = p2->next;
+            p2->next = p1;
+            
+            p = p1;
+            head = p1->next;
+        }
+        return dummy->next;
     }
 };
