@@ -11,13 +11,11 @@ public:
             if(s[i] == s[i-1])
                 cnt++;
             else{
-                ans += to_string(cnt);
-                ans += s[i-1];
+                ans += to_string(cnt) + s[i-1];
                 cnt = 1;
             }
         }
-        ans += to_string(cnt);
-        ans += s[s.length()-1];
+        ans += to_string(cnt) + s[s.length()-1];
         return ans;
     }
     
