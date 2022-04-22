@@ -27,7 +27,7 @@ public:
             for(int i = 0; i < s; i++){
                 Node* node = q.front();
                 q.pop();
-                node->next = i == s-1 ? NULL : q.front();
+                if(i < s-1) node->next = q.front();
                 if(node->left) q.push(node->left);
                 if(node->right) q.push(node->right);
             }
