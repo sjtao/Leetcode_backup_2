@@ -2,18 +2,26 @@ class Solution {
 public:
     int singleNonDuplicate(vector<int>& nums) {
         int n = nums.size();
-        int cnt = 1;
-        for(int i = 1; i < n; i++){
-            if(nums[i] == nums[i-1])
-                cnt++;
-            else{
-                if(cnt == 1)
-                    return nums[i-1];
-                else{
-                    cnt = 1;
-                }
+        if(n == 1) return nums[0];
+        
+        int l = 0, r = n-1, m;
+        while(l < r){
+            m = l + (r-l)/2;
+            if(nums[m] == nums[m-1]){
+                if((r-m)%2 == 0)
+                    r = m-2;
+                else
+                    l = m+1;
             }
+            else if(nums[m] == nums[m+1]){
+                if((r-m)%2 == 0)
+                    l = m+2;
+                else
+                    r = m-1;
+            }
+            else
+                return nums[m];
         }
-        return cnt == 1 ? nums[n-1] : -1;
+        return nums[l];
     }
 };
