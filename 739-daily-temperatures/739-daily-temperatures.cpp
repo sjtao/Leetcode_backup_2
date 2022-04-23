@@ -1,19 +1,32 @@
 class Solution {
 public:
+    
     vector<int> dailyTemperatures(vector<int>& temperatures) {
         int n = temperatures.size();
         vector<int> ans(n, 0);
-        int hottest = 0;
-        for(int i = n-1; i >= 0; --i){
-            if(temperatures[i] >= hottest){
-                hottest = temperatures[i];
-                continue;
-            }
-            int d = 1;
-            while(temperatures[i+d] <= temperatures[i]){
-                d += ans[i+d];
-            }
-            ans[i] = d;
+        int temp = temperatures[n-1];
+        int tempid = n-1;
+        for(int i = n-2; i >= 0; i--){
+           if(temperatures[i] >= temp){
+               temp = temperatures[i];
+               tempid = i;
+               ans[i] = 0;
+           }
+            else{
+                int j = i+1;
+                while(j <= tempid){
+                    if(temperatures[i] < temperatures[j]){
+                        ans[i] = j-i;
+                        break;
+                    }         
+                    else if(temperatures[i] == temperatures[j]){
+                        ans[i] = j-i + ans[j];
+                        break;
+                    }
+                    j++;
+                }
+                
+            }    
         }
         return ans;
     }
