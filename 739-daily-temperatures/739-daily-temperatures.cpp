@@ -10,7 +10,7 @@ public:
            if(temperatures[i] >= temp){
                temp = temperatures[i];
                tempid = i;
-               ans[i] = 0;
+               //ans[i] = 0;
            }
             else{
                 int j = i+1;
