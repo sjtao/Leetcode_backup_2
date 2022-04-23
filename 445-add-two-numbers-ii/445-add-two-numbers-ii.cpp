@@ -10,50 +10,34 @@
  */
 class Solution {
 public:
-    ListNode* reverse(ListNode* p){
-        ListNode* r = NULL;
-        ListNode* s = NULL;
-        while(p){
-            s = new ListNode(p->val);
-            s->next = r;
-            r = s;
-            p = p->next;
-        }
-        return r;
-    }
-    
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode* r1 = reverse(l1);
-        ListNode* r2 = reverse(l2);
-        
-        ListNode* cur = NULL;
+        stack<int> s1, s2;
+        while(l1){
+            s1.push(l1->val);
+            l1 = l1->next;
+        }
+        while(l2){
+            s2.push(l2->val);
+            l2 = l2->next;
+        }
+ 
         ListNode* p = NULL;
-        
         int a, b, c, carry = 0;
-        while(r1 || r2){
-            a = 0;
-            b = 0;
-            if(r1){
-                a = r1->val;
-                r1 = r1->next;
+        while(!s1.empty() || !s2.empty() || carry){
+            if(s1.empty()){ a = 0;}
+            else{
+                a = s1.top(); s1.pop();
             }
-            if(r2){
-                b = r2->val;
-                r2 = r2->next;
+            if(s2.empty()){ b = 0;}
+            else{
+                b = s2.top(); s2.pop();
             }
-            c = a+b+carry;
-            cur = new ListNode(c%10);
+            c = a + b + carry;
+            ListNode* cur = new ListNode(c%10);
             cur->next = p;
             p = cur;
             carry = c / 10;
         }
-        
-        if(carry){
-            cur = new ListNode(carry);
-            cur->next = p;
-            p = cur;
-        }
-        
-        return p;        
+        return p;
     }
 };
