@@ -1,18 +1,25 @@
 class Solution {
 public:
     string addBinary(string a, string b) {
+        reverse(a.begin(), a.end());
+        reverse(b.begin(), b.end());
         int na = a.length();
         int nb = b.length();
-        int carry = 0;
-        int p1 = na-1, p2 = nb-1;
+        int n = max(na, nb);
+        
         string ans = "";
-        while(p1 >= 0 || p2 >= 0 || carry > 0){
-            int aa = p1 >= 0 ? a[p1--]-'0' : 0;
-            int bb = p2 >= 0 ? b[p2--]-'0' : 0;
-            int s = aa ^ bb ^ carry;
-            carry = (aa & bb) | (aa & carry) | (bb & carry);
-            ans = (char)(s+'0') + ans;
+        int carry = 0;
+        for(int i = 0; i < n; i++){
+            int v1 = i >= na ? 0 : a[i]-'0';
+            int v2 = i >= nb ? 0 : b[i]-'0';
+            int s = v1 + v2 + carry;
+            ans += to_string(s%2);
+            carry = s / 2;
         }
+        if(carry)
+            ans += to_string(carry);
+        
+        reverse(ans.begin(), ans.end());
         return ans;
     }
 };
