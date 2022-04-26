@@ -4,8 +4,8 @@ public:
         int cur = 0;
         int best = INT_MIN;
         for(int n : nums){
-            cur = max(cur+n, n);
-            best = max(cur, best);
+            cur = max(cur + n, n);
+            best = max(best, cur);
         }
         return best;
     }
