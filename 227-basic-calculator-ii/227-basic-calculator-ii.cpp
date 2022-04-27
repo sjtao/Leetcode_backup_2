@@ -1,40 +1,42 @@
 class Solution {
 public:
     int calculate(string s) {
-        int n = s.length();
-        if(n==0) return 0;
-        
-        stack<int> sk;
+        int len = s.length();
+        if(len == 0) return 0;
+        stack<int> st;
         int cur = 0;
         char operation = '+';
-        
-        for(int i = 0; i < n; ++i){
+        for(int i = 0; i < len; i++){
             char c = s[i];
-            if(isdigit(c))
-                cur = cur * 10 + (c - '0'); //multiple digits
-            if(!isdigit(c) && !iswspace(c) || i == n-1){
+            if(isdigit(c)){
+                cur = 10 * cur + (c - '0');
+            }
+            if(!isdigit(c) && !iswspace(c) || i == len-1){
                 if(operation == '+')
-                    sk.push(cur);
+                    st.push(cur);
                 else if(operation == '-')
-                    sk.push(-cur);
+                    st.push(-cur);
                 else if(operation == '*'){
-                    int st = sk.top(); sk.pop();
-                    sk.push(st * cur);
+                    int a = st.top();
+                    st.pop();
+                    st.push(a * cur);
                 }
                 else if(operation == '/'){
-                    int st = sk.top(); sk.pop();
-                    sk.push(st / cur);
+                    int a = st.top();
+                    st.pop();
+                    st.push(a / cur);
                 }
                 operation = c;
-                cur = 0;                
+                cur = 0;
             }
         }
         
         int result = 0;
-        while(!sk.empty()){
-            result += sk.top();
-            sk.pop();
+        while(!st.empty()){
+            result += st.top();
+            st.pop();
         }
+        
         return result;
     }
 };
