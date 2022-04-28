@@ -5,12 +5,11 @@ public:
         int l = 2;
         int r = x / 2;
         while(l <= r){
-            long m = l + (r - l) / 2;
-            long p = m * m;
-            if(p > x){
+            int m = l + (r - l) / 2;
+            if(m > x / m){
                 r = m-1;
             }
-            else if(p < x){
+            else if(m < x / m){
                 l = m+1;
             }else{
                 return m;
