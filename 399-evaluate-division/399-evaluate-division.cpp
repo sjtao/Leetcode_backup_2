@@ -1,57 +1,46 @@
 class Solution {
 public:
-    unordered_map<string, pair<string, double>> root;
-    string find(string x, double& a){
-        if(root.find(x) == root.end()){
-            root[x] = make_pair(x, 1.0);
-            return x;
-        }else{
-            string y = root[x].first;
-            if(y == x)
-                return y;
-            else{
-                a *= root[x].second;
-                return find(y, a);
-            }    
+    unordered_map<string, unordered_map<string, double>> mp;
+    double dfs(string a, string b,  unordered_set<string>& visited){
+        if(mp.find(a) == mp.end())
+            return -1;
+        
+        if(mp[a].find(b) != mp[a].end())
+            return mp[a][b];
+        
+        for(auto& x : mp[a]){
+            if(visited.find(x.first) != visited.end())
+                continue;
+            visited.insert(x.first);
+            double res = dfs(x.first, b, visited);
+            if(res != -1)
+                return mp[a][b] = mp[a][x.first] * res;
         }
-    }
-    
-    void unionset(string x, string y, double a){
-        double xv = 1.0, yv = 1.0;
-        string ux = find(x, xv);
-        string uy = find(y, yv);
-        if(ux != uy){
-            root[ux].first = uy;
-            root[ux].second = yv * a / xv;
-        } 
+        
+        return -1;
     }
     
     vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
-        int qn = queries.size();
-        vector<double> ans(qn);
         
-        //union-find with weights
-        int en = equations.size();
-        for(int i = 0; i < en; i++){
-            unionset(equations[i][0], equations[i][1], values[i]);
+        int ne = equations.size();
+        for(int i = 0; i < ne; i++){
+            string& e1 = equations[i][0];
+            string& e2 = equations[i][1];
+            mp[e1][e1] = 1.0;
+            mp[e2][e2] = 1.0;
+            mp[e1][e2] = values[i];
+            mp[e2][e1] = 1.0/values[i];
         }
         
-        for(int i = 0; i < qn; i++){
-            if(root.find(queries[i][0]) == root.end() || root.find(queries[i][1]) == root.end()){
-                ans[i] = -1;
-            }
-            else{
-                double xv = 1.0, yv = 1.0;
-                string x = find(queries[i][0], xv);
-                string y = find(queries[i][1], yv);
-                if(x != y)
-                    ans[i] = -1;
-                else
-                    ans[i] = xv / yv;
-            }
+        int n = queries.size();
+        vector<double> ans;
+        
+        for(vector<string>& q : queries){
+            unordered_set<string> visited;
+            visited.insert(q[0]);
+            ans.push_back(dfs(q[0], q[1], visited));
         }
         
         return ans;
-        
     }
 };
