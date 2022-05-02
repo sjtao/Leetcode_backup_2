@@ -2,22 +2,22 @@ class Solution {
 public:
     int maxSubArrayLen(vector<int>& nums, int k) {
         int n = nums.size();
-        int presum = 0;
+        unordered_map<int,int> mp;
         int len = 0;
-        unordered_map<int, int> indice;
-        
+        int sum = 0;
         for(int i = 0; i < n; i++){
-            presum += nums[i];
-            if(presum == k)
+            sum += nums[i];
+            if(sum == k)
                 len = i+1;
-
-            if(indice.find(presum - k) != indice.end())
-                len = max(len, i - indice[presum-k]);
-
-            if(indice.find(presum) == indice.end())
-               indice[presum] = i;
+            
+            if(mp.find(sum-k) != mp.end())
+                len = max(len, i-mp[sum-k]);
+            
+            if(mp.find(sum) == mp.end())
+                mp[sum] = i;
         }
         
-        return len;       
+        
+        return len;
     }
 };
