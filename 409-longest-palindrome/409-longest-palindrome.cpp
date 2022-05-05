@@ -1,17 +1,23 @@
 class Solution {
 public:
+    
     int longestPalindrome(string s) {
-        //Palindrome: a word, phrase, or sequence that reads the same backward as forward
-        //e.g., madam or nurses run
+        int len = s.length();
+        if(len == 1) return 1;
+        
         unordered_map<char, int> mp;
-        for(char a : s){
-            if(mp.count(a) > 0)
-                mp.erase(a);
-            else
-                mp[a] ++;
+        for(char c : s){
+            if(mp[c] == 0)
+                mp[c] += 1;
+            else if(mp[c] == 1)
+                mp[c] -= 1;
         }
-        int m = mp.size(); //# of char appeared odd times in s;
-        int r = s.size() - m; //# of char appreared even times in s;
-        return m == 0 ? r : r+1;
+        int odd = 0;
+        for(auto it : mp){
+            len -= it.second;
+            odd += it.second;
+        }
+        
+        return odd > 0 ? len + 1 : len;
     }
 };
