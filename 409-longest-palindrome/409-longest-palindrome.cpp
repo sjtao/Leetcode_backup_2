@@ -6,13 +6,9 @@ public:
         if(len == 1) return 1;
         
         unordered_map<char, int> mp;
-        for(char c : s){
-            if(mp[c] == 0)
-                mp[c] += 1;
-            else if(mp[c] == 1)
-                mp[c] -= 1;
-        }
-        
+        for(char c : s)
+            mp[c] = (mp[c] + 1) % 2;
+
         int odd = 0;
         for(auto it : mp)
             odd += it.second;
