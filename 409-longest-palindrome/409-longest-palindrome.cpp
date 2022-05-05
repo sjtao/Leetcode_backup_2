@@ -12,12 +12,11 @@ public:
             else if(mp[c] == 1)
                 mp[c] -= 1;
         }
-        int odd = 0;
-        for(auto it : mp){
-            len -= it.second;
-            odd += it.second;
-        }
         
-        return odd > 0 ? len + 1 : len;
+        int odd = 0;
+        for(auto it : mp)
+            odd += it.second;
+        
+        return odd > 0 ? len - odd + 1 : len - odd;
     }
 };
