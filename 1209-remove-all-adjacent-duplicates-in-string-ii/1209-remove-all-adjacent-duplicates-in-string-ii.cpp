@@ -2,20 +2,28 @@ class Solution {
 public:
     string removeDuplicates(string s, int k) {
         int n = s.length();
-        vector<int> count(n);
-        
+        vector<pair<int, char>> st;        
         for(int i = 0; i < n; i++){
-            if(i == 0 || s[i] != s[i-1])
-                count[i] = 1;
+            if(i == 0 || st.empty() || s[i] != st.back().second)
+                st.push_back({1, s[i]});
             else{
-                count[i] = count[i-1]+1;
-                if(count[i] == k){
-                    s.erase(i-k+1, k);
-                    i = i-k;
+                st.back().first ++;
+                if(st.back().first == k){
+                    st.pop_back();
                 }
             }
         }
         
-        return s;
+        string ans = "";
+        for(auto a : st){
+            int r = a.first;
+            char c = a.second;
+            while(r > 0){
+                ans += c;
+                r--;
+            }
+        }
+        
+        return ans;
     }
 };
