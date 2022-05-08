@@ -11,29 +11,24 @@
 class Solution {
 public:
     ListNode* plusOne(ListNode* head) {
-        stack<int> st;
+        ListNode* ans = new ListNode();
+        ans->next = head;
+        ListNode* notNine = ans;
+        
         while(head){
-            st.push(head->val);
+            if(head->val != 9)
+                notNine = head;
             head = head->next;
         }
         
-        int carry = 1;
-        ListNode* ans = NULL;
-        while(!st.empty()){
-            carry += st.top();
-            st.pop();
-            ListNode* p = new ListNode(carry%10);
-            p->next = ans;
-            ans = p;
-            carry /= 10; 
+        notNine->val ++;
+        notNine = notNine->next;
+        
+        while(notNine){
+            notNine->val = 0;
+            notNine = notNine->next;
         }
         
-        if(carry){
-            ListNode* p = new ListNode(carry);
-            p->next = ans;
-            ans = p;
-        }
-        
-        return ans;
+        return ans->val == 0 ? ans->next : ans;
     }
 };
