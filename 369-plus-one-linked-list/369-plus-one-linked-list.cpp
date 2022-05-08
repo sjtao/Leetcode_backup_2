@@ -12,28 +12,28 @@ class Solution {
 public:
     ListNode* plusOne(ListNode* head) {
         stack<int> st;
-        
         while(head){
             st.push(head->val);
             head = head->next;
         }
         
-        ListNode* p = NULL;
         int carry = 1;
+        ListNode* ans = NULL;
         while(!st.empty()){
-            int a = carry + st.top();
+            carry += st.top();
             st.pop();
-            carry = a / 10;
-            ListNode* q = new ListNode(a % 10);
-            q->next = p;
-            p = q;
-        }
-        if(carry){
-            ListNode* q = new ListNode(carry);
-            q->next = p;
-            p = q;
+            ListNode* p = new ListNode(carry%10);
+            p->next = ans;
+            ans = p;
+            carry /= 10; 
         }
         
-        return p;
+        if(carry){
+            ListNode* p = new ListNode(carry);
+            p->next = ans;
+            ans = p;
+        }
+        
+        return ans;
     }
 };
