@@ -29,7 +29,8 @@ public:
             return poly1;
         }
         else{
-            poly2->next = addPoly(poly1, poly2->next);
+            PolyNode* temp2 =  poly2->next;
+            poly2->next = addPoly(poly1, temp2);
             return poly2;
         }
         
