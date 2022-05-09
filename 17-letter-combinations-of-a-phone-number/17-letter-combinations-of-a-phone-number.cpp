@@ -1,32 +1,29 @@
 class Solution {
+private:
+    unordered_map<int, string> mp = {{2, "abc"}, {3, "def"}, {4, "ghi"}, {5, "jkl"}, {6, "mno"},
+                                     {7, "pqrs"}, {8, "tuv"}, {9, "wxyz"}};
 public:
-    unordered_map<int, string> mp = {{2, "abc"}, {3, "def"}, {4, "ghi"}, {5, "jkl"}, 
-                                     {6, "mno"}, {7, "pqrs"}, {8, "tuv"}, {9, "wxyz"}};
+    vector<string> ans;
     int n;
-    void dfs(string digits, int idx, vector<string>& ans, string& t){
+    void permute(int idx, string digits, string& combi){
         if(idx == n){
-            ans.push_back(t);
+            ans.push_back(combi);
             return;
         }
-        
-        int d = digits[idx] - '0';
-        for(int i = 0; i < mp[d].length(); i++){
-            t += mp[d][i];
-            dfs(digits, idx+1, ans, t);
-            t.erase(idx, 1);
+        string sd = mp[digits[idx]-'0'];
+        for(int i = 0; i < sd.size(); i++){
+            combi += sd[i];
+            permute(idx+1, digits, combi);
+            combi.pop_back();
         }
-        
-        return;
     }
     
     vector<string> letterCombinations(string digits) {
-        vector<string> ans;
-        n = digits.length();
+        n = digits.size();
         if(n == 0) return ans;
-
-        string t = ""; 
-        dfs(digits, 0, ans, t);
         
+        string combi = "";
+        permute(0, digits, combi);
         return ans;
     }
 };
