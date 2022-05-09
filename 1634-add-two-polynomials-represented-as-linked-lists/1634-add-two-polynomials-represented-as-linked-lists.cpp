@@ -25,7 +25,8 @@ public:
             return poly1;
         }
         else if(poly1->power > poly2->power){
-            poly1->next = addPoly(poly1->next, poly2);
+            PolyNode* temp1 =  poly1->next;
+            poly1->next = addPoly(temp1, poly2);
             return poly1;
         }
         else{
