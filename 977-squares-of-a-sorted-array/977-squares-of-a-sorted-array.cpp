@@ -6,14 +6,16 @@ public:
         int left = 0, right = n-1;
         for(int i = n-1; i >= 0; i--){
             //nums: non-decreasing order
+            int a;
             if(abs(nums[right]) >= abs(nums[left])){
-                sq[i] = nums[right] * nums[right];
+                a = nums[right];
                 right--;
             }
             else{
-                sq[i] = nums[left] * nums[left];
+                a = nums[left];
                 left++;
             }
+            sq[i] = a * a;
         }
         return sq;
     }
