@@ -6,7 +6,7 @@ public:
     }
     
     void add(int key) {
-        if(!contains(key))
+        //if(!contains(key))
             set.push_back(key);
     }
     
