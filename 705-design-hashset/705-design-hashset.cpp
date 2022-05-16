@@ -15,11 +15,7 @@ public:
     }
     
     bool contains(int key) {
-        for(auto i = set.begin(); i != set.end(); i++){
-            if(*i == key)
-                return true;
-        }
-        return false;
+        return find(set.begin(), set.end(), key) != set.end();
     }
 };
 
