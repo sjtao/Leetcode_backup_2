@@ -10,27 +10,19 @@
  * };
  */
 class Solution {
-private:
-    void dfs(TreeNode * root, vector <int> &res, bool isLoonely) {
-        if(!root) {
-            return ;
-        }
-        if(isLoonely)
-            res.push_back(root->val);
-        if(root->left && root->right) {
-            dfs(root->left, res, false);
-            dfs(root->right, res, false);
-        }
-        else {
-            dfs(root->left, res, true);
-            dfs(root->right, res, true);
-        }        
-
-    }
 public:
+    vector<int> lone;
+    void inorder(TreeNode* root){
+        if(!root) return;
+        inorder(root->left);
+        if(!root->left && root->right)
+            lone.push_back(root->right->val);
+        if(root->left && !root->right)
+            lone.push_back(root->left->val);
+        inorder(root->right);
+    }
     vector<int> getLonelyNodes(TreeNode* root) {
-        vector <int> res;
-        dfs(root, res, false);
-        return res;    
+        inorder(root);
+        return lone;
     }
 };
