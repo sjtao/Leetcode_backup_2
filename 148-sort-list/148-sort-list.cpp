@@ -10,45 +10,23 @@
  */
 class Solution {
 public:
-    ListNode * getmid(ListNode* head){
-        ListNode *midpre = nullptr;
-        while(head && head->next){
-            midpre = (midpre == nullptr) ? head : midpre->next;
-            head = head->next->next;
-        }
-        ListNode *mid = midpre->next;
-        midpre->next = nullptr;
-        return mid;
-    }
-    
-    ListNode* merge(ListNode *list1, ListNode *list2){
-        ListNode *dummy = new ListNode(0);
-        ListNode *p = dummy;
-        while(list1 && list2){
-            if(list1->val < list2->val){
-                p->next = list1;
-                list1 = list1->next;
-            }
-            else{
-                p->next = list2;
-                list2 = list2->next;
-            }
-            p = p->next;
-        }
-        if(list1) p->next = list1;
-        if(list2) p->next = list2;
-        
-        return dummy->next;
-    }
-    
     ListNode* sortList(ListNode* head) {
-        if(!head || !head->next) return head;
-        //merge sort
-        //find the middle of the linked list
-        ListNode *mid = getmid(head);
-        ListNode *left = sortList(head);
-        ListNode *right = sortList(mid);
-        //merge left and right
-        return merge(left, right);
+        if(!head || !head->next) 
+            return head;
+        
+        priority_queue<int, vector<int>, greater<int>> q;
+        while(head){
+            q.push(head->val);
+            head = head->next;
+        }
+        
+        ListNode* d = new ListNode();
+        head = d;
+        while(!q.empty()){
+            d->next = new ListNode(q.top());
+            q.pop();
+            d = d->next;
+        }
+        return head->next;
     }
 };
