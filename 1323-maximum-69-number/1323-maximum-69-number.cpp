@@ -1,15 +1,14 @@
 class Solution {
 public:
     int maximum69Number (int num) {
-        int n = num;
-        int six = -1, cnt = 0;
-        while(n > 0){
-            if(n % 10 == 6)
-                six = cnt;
-            n /= 10;
-            cnt++;
+        string s = to_string(num);
+        for(char& c:s){
+            if(c == '6'){
+                c = '9';
+                break;
+            }
         }
-        
-        return six == -1 ? num : num + pow(10, six) * 3;
+        num = stoi(s);
+        return num;
     }
 };
