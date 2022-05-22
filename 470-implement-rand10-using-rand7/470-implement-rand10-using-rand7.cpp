@@ -5,12 +5,12 @@
 class Solution {
 public:
     int rand10() {
-        int a, b, p;
+        int a, b, c;
         do{
             a = rand7();
             b = rand7();
-            p = a + (b-1) * 7;
-        }while(p < 40);
-        return 1 + (p - 1) % 10;
+            c = a + (b-1) * 7;
+        }while(c < 40);
+        return (c - 1) % 10 + 1;
     }
 };
