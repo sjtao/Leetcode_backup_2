@@ -3,14 +3,14 @@ public:
 
     string longestPalindrome(string s) {
         int n = s.length();
-        vector<vector<int>> dp(n, vector<int>(n, 0));
+        vector<vector<bool>> dp(n, vector<bool>(n, false));
         for(int i = 0; i < n; i++){
-            dp[i][i] = 1;
+            dp[i][i] = true;
         }
             
         for(int i = 0; i < n-1; i++){
             if(s[i] == s[i+1])
-                dp[i][i+1] = 1;
+                dp[i][i+1] = true;
         }
         
         for(int i = n-3; i >= 0; i--){
@@ -22,7 +22,7 @@ public:
         int ms, len = -1;
         for(int i = 0; i < n; i++){
             for(int j = i; j < n; j++){
-                if(dp[i][j] == 1 && j - i + 1> len){
+                if(dp[i][j] == true && j - i + 1> len){
                     len = j-i+1;
                     ms = i;
                 }
