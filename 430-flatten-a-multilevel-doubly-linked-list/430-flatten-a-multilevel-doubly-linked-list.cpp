@@ -11,23 +11,31 @@ public:
 
 class Solution {
 public:
-    Node* dfs(Node* prev, Node* cur){
-        if(!cur) return prev;
-        cur->prev = prev;
-        prev->next = cur;
-        
-        Node* temp = cur->next;
-        Node* tail = dfs(cur, cur->child);
-        cur->child = NULL;
-        
-        return dfs(tail, temp);
-    }
     
     Node* flatten(Node* head) {
         if(!head) return head;
         
         Node* node = new Node(0, NULL, head, NULL);
-        dfs(node, head);
+        Node* cur = node;
+        Node* prev = node;
+        deque<Node*> s;
+        s.push_back(head);
+        
+        while(!s.empty()){
+            cur = s.front();
+            s.pop_front();
+            prev->next = cur;
+            cur->prev = prev;
+            
+            if(cur->next) s.push_front(cur->next);
+            if(cur->child){
+                s.push_front(cur->child);
+                cur->child = NULL;
+            }
+            
+            prev = cur;
+        }
+        
         node->next->prev = NULL;
         return node->next;
     }
