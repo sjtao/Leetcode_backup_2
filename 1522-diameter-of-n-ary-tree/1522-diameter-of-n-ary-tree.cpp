@@ -37,8 +37,7 @@ public:
             }
         }
         
-        int loc = fm + sm;
-        diam = max(diam, loc);
+        diam = max(diam, fm + sm);
         
         return 1+fm;
         
