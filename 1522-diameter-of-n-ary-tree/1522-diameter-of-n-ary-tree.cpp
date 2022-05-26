@@ -26,7 +26,7 @@ public:
             return 0;
         
         int fm = 0, sm = 0;
-        for(Node* c : root->children){
+        for(Node* &c : root->children){
             int m = dfs(c);
             if(m >= fm){
                 sm = fm;
