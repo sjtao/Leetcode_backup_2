@@ -22,7 +22,7 @@ public:
             for(int i = 0; i < s; i++){
                 TreeNode* node = q.front();
                 q.pop();
-                if(node->val == u->val){
+                if(node == u){
                     return i == s-1 ? NULL : q.front();
                 }
                 if(node->left) q.push(node->left);
