@@ -12,26 +12,23 @@
 class Solution {
 public:
     TreeNode* findNearestRightNode(TreeNode* root, TreeNode* u) {
+        if(!root)
+            return NULL;
+        
         queue<TreeNode*> q;
         q.push(root);
-        q.push(nullptr);
         while(!q.empty()){
-            TreeNode* node = q.front();
-            q.pop();
-            if(node != nullptr){
-                if(node == u){
-                    return q.front();
+            int s = q.size();
+            for(int i = 0; i < s; i++){
+                TreeNode* node = q.front();
+                q.pop();
+                if(node->val == u->val){
+                    return i == s-1 ? NULL : q.front();
                 }
-                if(node->left)
-                    q.push(node->left);
-                if(node->right)
-                    q.push(node->right);
-            }
-            else{
-                if(!q.empty())
-                    q.push(nullptr);
+                if(node->left) q.push(node->left);
+                if(node->right) q.push(node->right);
             }
         }
-        return nullptr;
+        return NULL;
     }
 };
