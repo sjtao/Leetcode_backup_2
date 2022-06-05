@@ -9,18 +9,18 @@ public:
         int abb = 0;
         while(i < n && j < m){
             if(isdigit(abbr[j])){
-                abb = abb * 10 + (abbr[j] - '0');
-                if(abb == 0 || abb > n)
-                    return false;
+                while(isdigit(abbr[j])){
+                    if(abb == 0 && abbr[j] == '0') return false;
+                    abb = abb * 10 + (abbr[j++] - '0');
+                }
+                i += abb;
+                abb = 0; 
             }
             else{
-                i += abb;
-                abb = 0;
-                if(word[i++] != abbr[j])
+                if(word[i++] != abbr[j++])
                     return false;
             }
-            j++;
         }
-        return i + abb == n && j == m;
+        return i == n && j == m;
     }
 };
