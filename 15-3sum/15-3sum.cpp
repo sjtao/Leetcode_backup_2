@@ -2,10 +2,10 @@ class Solution {
 public:
     vector<vector<int>> ans;
     int n;
-    vector<int> twosum(vector<int>& nums, int s){
+    void twosum(vector<int>& nums, int s){
         int k = - nums[s];
         int l = s+1, r = n-1;
-        vector<int> temp;
+        
         while(l < r){
             int m = nums[l] + nums[r];
             if(m > k)
@@ -17,9 +17,8 @@ public:
                 while(l < r && nums[l] == nums[l-1]) l++;
                 while(l < r && nums[r] == nums[r+1]) r--;
             }
-                
         }
-        return temp;
+    
     }
     vector<vector<int>> threeSum(vector<int>& nums) {
         n = nums.size();
