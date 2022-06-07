@@ -9,12 +9,19 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        ListNode *p1 = headA;
-        ListNode *p2 = headB;
-        while(p1 != p2){
-            p1 = p1 == NULL ? headB : p1->next;
-            p2 = p2 == NULL ? headA : p2->next;
+        set<ListNode*> st;
+        
+        while(headA){
+            st.insert(headA);
+            headA = headA->next;
         }
-        return p1;
+        
+        while(headB){
+            if(st.count(headB))
+                return headB;
+            headB = headB->next;
+        }
+        
+        return NULL;
     }
 };
