@@ -10,9 +10,7 @@
 class Solution {
 public:
     int search(const ArrayReader& reader, int target) {
-        int l = 0, r = 1;
-        while(reader.get(r) < target)
-            r <<= 1;
+        int l = 0, r = target - reader.get(0);;
         
         while(l <= r){
             int m = l + (r-l) / 2;
