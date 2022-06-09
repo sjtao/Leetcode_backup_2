@@ -1,16 +1,29 @@
 class Solution {
 public:
-    vector<int> targetIndices(vector<int>& nums, int target) {
-        vector<int> ans;
+    vector<int> ans;
+    
+    void binary(vector<int>& nums, int target, int l, int r){
+        if(l > r) return;
         
-        sort(nums.begin(), nums.end()); //O(nlogn)
+        int m = l + (r - l) / 2;
+        if(nums[m] == target){
+            binary(nums, target, l, m-1);
+            ans.push_back(m);
+            binary(nums, target, m+1, r);
+        }
+        else if(nums[m] > target)
+            binary(nums, target, l, m-1);
+        else
+            binary(nums, target, m+1, r);
+        
+        return;
+    }
+    
+    vector<int> targetIndices(vector<int>& nums, int target) {
         
         int n = nums.size();
-        for(int i = 0; i < n; i++){
-            if(nums[i] == target)
-                ans.push_back(i);
-        }
-        
+        sort(nums.begin(), nums.end()); //O(nlogn)
+        binary(nums, target, 0, n-1);
         return ans;
     }
 };
