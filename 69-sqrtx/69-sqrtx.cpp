@@ -6,10 +6,9 @@ public:
         int l = 2, r = x / 2;
         while(l <= r){
             int m = l + (r - l) / 2;
-            long p = (long)m * m;
-            if(p < x)
+            if(m < x / m)
                 l = m + 1;
-            else if(p > x)
+            else if(m > x / m)
                 r = m - 1;
             else
                 return m;
