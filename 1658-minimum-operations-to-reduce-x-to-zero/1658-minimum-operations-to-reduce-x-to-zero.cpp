@@ -2,29 +2,22 @@ class Solution {
 public:
     int minOperations(vector<int>& nums, int x) {
         int n = nums.size();
-        unordered_map<int,int> pre, suf;
-        int sum = 0;
         int oper = INT_MAX;
         
-        for(int i = 0; i < n; i++){
-            sum += nums[i];
-            pre[sum] = i;
+        int sum = 0;
+        for(int a : nums)
+            sum += a;
+        
+        int left = 0;
+        for(int right = 0; right < n; right++){
+            sum -= nums[right];
+            while(sum < x && left <= right){
+                sum += nums[left++];
+            }
             if(sum == x)
-                oper = min(oper, i+1);
-        }
-        sum = 0;
-        for(int i = n-1; i >= 0; i--){
-            sum += nums[i];
-            suf[sum] = i;
-            if(sum == x)
-                oper = min(oper, n-i);
+                oper = min(oper, n - (right - left + 1));
         }
         
-        for(auto it : pre){
-            if(suf.find(x-it.first) != suf.end() && suf[x-it.first] > it.second){
-                oper = min(oper, n - suf[x-it.first] + it.second + 1);
-            }
-        }
         return oper == INT_MAX ? -1 : oper;
     }
 };
