@@ -8,7 +8,7 @@ public:
         int l = 1, r = n-1;
         while(l <= r){
             int m = l + (r-l)/2;
-            if(nums[m-1] < target && nums[m] >= target)
+            if(nums[m] == target)
                 return m;
             else if(nums[m] < target)
                 l = m + 1;
@@ -16,6 +16,6 @@ public:
                 r = m - 1;
         }
         
-        return -1;
+        return l;
     }
 };
