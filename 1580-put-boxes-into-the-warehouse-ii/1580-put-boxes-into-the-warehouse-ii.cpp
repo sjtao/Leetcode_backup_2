@@ -2,21 +2,29 @@ class Solution {
 public:
     int maxBoxesInWarehouse(vector<int>& boxes, vector<int>& warehouse) {
         int m = warehouse.size();
-        int n = boxes.size();
         
+        vector<int> copy_ware(m);
+        
+        int mn = INT_MAX;
+        for(int i = 0; i < m; i++){
+            mn = min(mn, warehouse[i]);
+            copy_ware[i] = mn;
+        }
+        
+        mn = INT_MAX;
+        for(int i = m-1; i >= 0; i--){
+            mn = min(mn, warehouse[i]);
+            copy_ware[i] = max(copy_ware[i], mn);
+        }
+        
+        int n = boxes.size();
         sort(boxes.begin(), boxes.end());
+        sort(copy_ware.begin(), copy_ware.end());
         
         int b = 0;
-        int left = 0, right = m-1;
-        for(int i = n-1; i >= 0 && left <= right; i--){
-            if(boxes[i] <= warehouse[left]){
+        for(int i = 0; i < m; i++){
+            if(b < n && boxes[b] <= copy_ware[i])
                 b++;
-                left++;
-            }
-            else if(boxes[i] <= warehouse[right]){
-                b++;
-                right--;
-            }
         }
         
         return b;
