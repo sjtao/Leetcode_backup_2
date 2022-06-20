@@ -5,17 +5,15 @@ public:
                                      {"Sep","09"}, {"Oct","10"}, {"Nov","11"}, {"Dec","12"}};
     
     string reformatDate(string date) {
+
+        int n = date.length();
+        if(n == 12)
+            date = "0" + date;
+        
         int i = 0;
-        string d = "";
-        while(isdigit(date[i])){
-            d += date[i++];
-        }
-        if(d.length() == 1) d = "0" + d;
+        string d = date.substr(i, 2);
         
-        while(!isspace(date[i]))
-            i++;
-        
-        i++;
+        i+=5;
         string mon = date.substr(i, 3);
         
         i+=4;        
