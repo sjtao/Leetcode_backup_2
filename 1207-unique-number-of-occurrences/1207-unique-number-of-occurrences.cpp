@@ -4,12 +4,11 @@ public:
         unordered_map<int,int> mp;
         for(int a : arr)
             mp[a]++;
+        
         set<int> st;
-        for(auto it : mp){
-            if(st.count(it.second) != 0)
-                return false;
+        for(auto it : mp)
             st.insert(it.second);
-        }
-        return true;
+        
+        return st.size() == mp.size();
     }
 };
