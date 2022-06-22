@@ -2,17 +2,14 @@ class Solution {
 public:
     int pivotIndex(vector<int>& nums) {
         int n = nums.size();
-        vector<int> sum(n+1, 0);
-        
-        for(int i = 1; i <= n; ++i)
-            sum[i] = sum[i-1] + nums[i-1];
-        
-        int pivot = 1;
-        while(pivot <= n){
-            if(sum[pivot-1] != sum[n] - sum[pivot])
-                pivot++;
-            else
-                return pivot-1;
+        int sum = 0;
+        for(int i = 0; i < n; ++i)
+            sum += nums[i];
+        int left = 0;
+        for(int i = 0; i < n; ++i){
+            if(left == sum - left - nums[i])
+                return i;
+            left += nums[i];
         }
         
         return -1;
