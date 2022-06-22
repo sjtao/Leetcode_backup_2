@@ -6,10 +6,10 @@ public:
         for(int i = 0; i < n; ++i)
             sum += nums[i];
         int left = 0;
-        int right = sum;
+
         for(int i = 0; i < n; ++i){
-            right -= nums[i];
-            if(left == right)
+            sum -= nums[i];
+            if(left == sum)
                 return i;
             left += nums[i];
         }
