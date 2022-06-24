@@ -11,12 +11,17 @@
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        ListNode* d = new ListNode(0);
-        ListNode* p = d;
+        if(!list1) return list2;
+        if(!list2) return list1;
+        
+        ListNode* dummy = new ListNode();
+        ListNode* p = dummy;
+        
+        int a, b;
         while(list1 || list2){
-            int a = list1 == NULL ? INT_MAX : list1->val;
-            int b = list2 == NULL ? INT_MAX : list2->val;
-            if(a < b){
+            a = list1 == NULL ? INT_MAX : list1->val;
+            b = list2 == NULL ? INT_MAX : list2->val;
+            if(a <= b){
                 p->next = new ListNode(a);
                 list1 = list1->next;
             }
@@ -26,6 +31,7 @@ public:
             }
             p = p->next;
         }
-        return d->next;
+        
+        return dummy->next;
     }
 };
