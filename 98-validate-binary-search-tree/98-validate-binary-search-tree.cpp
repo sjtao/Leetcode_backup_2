@@ -11,18 +11,15 @@
  */
 class Solution {
 public:
-    bool BST(TreeNode* root, TreeNode* low, TreeNode* high){
-        if(!root)
+    bool helper(TreeNode* root, TreeNode* low, TreeNode* high){
+        if(!root) 
             return true;
-        
-        if((low && root->val <= low->val) || \
-           (high && root->val >= high->val))
+        if((low && root->val <= low->val) || (high && root->val >= high->val))
             return false;
-        
-        return BST(root->right, root, high) && BST(root->left, low, root);
+        return helper(root->right, root, high) && helper(root->left, low, root);
     }
     
     bool isValidBST(TreeNode* root) {
-        return BST(root, NULL, NULL);
+        return helper(root, NULL, NULL);
     }
 };
