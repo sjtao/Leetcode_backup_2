@@ -1,31 +1,31 @@
 class Solution {
 public:
-    int m, n, color;
-    pair<int,int> dirs[4] = {{0,1},{0,-1},{1,0},{-1,0}};
+    pair<int,int> dir[4] = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+    int m, n, initcolor;
     
-    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+    void dfs(vector<vector<int>>& image, int sr, int sc, int color){
+        if(image[sr][sc] != initcolor)
+            return;
+        
+        image[sr][sc] = color;
+        for(int k = 0; k < 4; k++){
+            int x = dir[k].first + sr;
+            int y = dir[k].second + sc;
+            if(x < 0 || y < 0 || x >= m || y >= n || image[x][y] != initcolor)
+                continue;
+            
+            dfs(image, x, y, color);
+        }
+        
+        return;
+    }
+    
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
         m = image.size();
         n = image[0].size();
-        color = image[sr][sc];
-        if(color == newColor) return image;
-        
-        image[sr][sc] = newColor;
-        queue<pair<int,int>> q;
-        q.push({sr, sc});
-        while(!q.empty()){
-            auto d = q.front(); 
-            q.pop();
-            int x = d.first;
-            int y = d.second;
-            for(int i = 0; i < 4; ++i){
-                int ix = x + dirs[i].first;
-                int iy = y + dirs[i].second;
-                if(ix < 0 || iy < 0 || ix >= m || iy >= n || image[ix][iy] != color)
-                    continue;
-                image[ix][iy] = newColor;
-                q.push({ix,iy});
-            }
-        }
+        initcolor = image[sr][sc];
+        if(initcolor != color)
+            dfs(image, sr, sc, color);
         return image;
     }
 };
