@@ -1,44 +1,35 @@
 class Solution {
 public:
-    vector<pair<int,int>> adj[101];
-    void dijkstra(vector<int>&signal, int source, int n){
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    vector<pair<int, int>> net[101];
+    int mntime;
+    
+    void dfs(vector<int>& recv, int n, int k, int w){
+        if(w >= recv[k])
+            return;
         
-        pq.push({0, source});
-        signal[source] = 0;
+        recv[k] = w;
         
-        while(!pq.empty()){
-            int curtime = pq.top().first;
-            int curnode = pq.top().second;
-            pq.pop();
-
-            if(curtime > signal[curnode])
-                continue;
-            
-            for(pair<int,int> edge : adj[curnode]){
-                int time = edge.first;
-                int next = edge.second;
-                
-                if(signal[next] > curtime + time){
-                    signal[next] = curtime + time;
-                    pq.push({signal[next], next});
-                }
-            }
+        for(pair<int,int> p : net[k]){
+            dfs(recv, n, p.first, w+p.second);
         }
+        
+        return;
     }
+    
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
-        for(auto t : times){
-            adj[t[0]].push_back({t[2], t[1]});
-        }
+        for(vector<int> p : times)
+            net[p[0]].push_back({p[1], p[2]});
         
-        vector<int> signal(n+1, INT_MAX);
-        dijkstra(signal, k, n);
+        for(int i = 1; i <= n; i++)
+            sort(net[i].begin(), net[i].end());
         
-        int ans = INT_MIN;
-        for(int i = 1; i <= n; i++){
-            ans = max(ans, signal[i]);
-        }
+        vector<int> recv(101, INT_MAX);
+        dfs(recv, n, k, 0);
         
-        return ans == INT_MAX ? -1 : ans;
+        int mntime = INT_MIN;
+        for(int i = 1; i <= n; i++)
+            mntime = max(recv[i], mntime);
+        
+        return mntime == INT_MAX ? -1 : mntime;
     }
 };
