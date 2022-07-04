@@ -1,21 +1,14 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        //method 1: Brutal Force
-        //method 2: hashmap
-        unordered_map<int,int> mp;
-        vector<int> ans(2); //Only one valid answer exists
-        
-        mp[nums[0]] = 0;
-        for(int i = 1; i < nums.size(); i++){
-            if(mp.count(target-nums[i])){
-                ans[0] = i;
-                ans[1] = mp[target-nums[i]];
-                break;
-            }
-            mp[nums[i]] = i;
+        int n = nums.size();
+        unordered_map<int, int> mp;
+        for(int i = 0; i < n; i++){
+            if(mp.find(target-nums[i]) == mp.end())
+                mp[nums[i]] = i;
+            else
+                return {i, mp[target-nums[i]]};
         }
-        
-        return ans;
+        return {};
     }
 };
