@@ -1,17 +1,16 @@
 class Solution {
 public:
     unordered_map<int,int> mp;
-    int fibhelper(int n){
-        if(n <= 1) return n;
+    int helper(int n){
+        if(n < 2) return n;
         
-        if(mp.find(n) != mp.end())
-            return mp[n];
+        if(mp.find(n) == mp.end())
+            mp[n] = helper(n-1) + helper(n-2);
         
-        mp[n] = fibhelper(n-1) + fibhelper(n-2);
         return mp[n];
     }
     
     int fib(int n) {
-        return fibhelper(n);
+        return helper(n);
     }
 };
