@@ -16,6 +16,7 @@ public:
         if(n == 1)
             return true;
         
+        st.insert(n);
         while(n > 1){
             n = sqsum(n);
             if(st.count(n))
