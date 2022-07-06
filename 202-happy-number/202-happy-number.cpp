@@ -1,25 +1,30 @@
 class Solution {
 public:
-    int sqsum(int a){
-        int s = 0;
-        while(a){
-            int b = a % 10;
-            a /= 10;
-            s += b * b;
+    unordered_set<int> st;
+    int sqsum(int n){
+        int sum = 0;
+        int r;
+        while(n > 0){
+            r = n % 10;
+            sum += r * r;
+            n /= 10;
         }
-        return s;
+        return sum;
     }
     
     bool isHappy(int n) {
-        if (n == 1) return true;
-        set<int> st;
-        st.insert(n);
-        while(n != 1){
+        if(n == 1)
+            return true;
+        
+        while(n > 1){
             n = sqsum(n);
             if(st.count(n))
                 return false;
-            st.insert(n);
+            else
+                st.insert(n);
         }
+        
         return true;
+        
     }
 };
