@@ -11,22 +11,23 @@
 class Solution {
 public:
     ListNode* sortList(ListNode* head) {
-        if(!head || !head->next) 
-            return head;
+        if(!head || !head->next) return head;
         
-        priority_queue<int, vector<int>, greater<int>> q;
+        vector<int> v;
         while(head){
-            q.push(head->val);
+            v.push_back(head->val);
             head = head->next;
         }
         
-        ListNode* d = new ListNode();
-        head = d;
-        while(!q.empty()){
-            d->next = new ListNode(q.top());
-            q.pop();
-            d = d->next;
+        sort(v.begin(), v.end());
+        
+        head = new ListNode();
+        ListNode* q = head;
+        for(int n : v){
+            q->next = new ListNode(n);
+            q = q->next;
         }
+        
         return head->next;
     }
 };
