@@ -6,7 +6,7 @@ public:
         
         unordered_map<string, int> mp;
         int len = 0;
-        for(string t : words){
+        for(string& t : words){
             string rev = t;
             rev[0] = t[1];
             rev[1] = t[0];
