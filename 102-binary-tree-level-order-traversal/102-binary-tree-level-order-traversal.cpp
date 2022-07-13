@@ -11,24 +11,24 @@
  */
 class Solution {
 public:
-    vector<vector<int>> tree;
-    void dfs(TreeNode* root, int level){
-        if(!root) return;
-        
-        if(tree.size() == level)
-            tree.push_back(vector<int>());
-        
-        tree[level].push_back(root->val);
-        if(root->left) dfs(root->left, level+1);
-        if(root->right) dfs(root->right, level+1);
-        
-        return;
-    }
-    
     vector<vector<int>> levelOrder(TreeNode* root) {
-        if(!root) return tree;
-        
-        dfs(root, 0);
-        return tree;
+        //bfs
+        vector<vector<int>> ans;
+        if(!root) return ans;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            int s = q.size();
+            vector<int> temp;
+            for(int i = 0; i < s; i++){
+                TreeNode* node = q.front();
+                q.pop();
+                temp.push_back(node->val);
+                if(node->left) q.push(node->left);
+                if(node->right) q.push(node->right);
+            }
+            ans.push_back(temp);
+        }
+        return ans;
     }
 };
