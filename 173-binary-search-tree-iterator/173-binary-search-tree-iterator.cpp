@@ -25,8 +25,9 @@ public:
     }
     
     int next() {
-        int a = q.front(); q.pop();
-        return a;
+        int n = q.front();
+        q.pop();
+        return n;
     }
     
     bool hasNext() {
