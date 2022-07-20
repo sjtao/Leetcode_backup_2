@@ -11,25 +11,17 @@
  */
 class Solution {
 public:
+    bool same(TreeNode* root1, TreeNode* root2){
+        if(!root1 && !root2)
+            return true;
+        if((!root1 && root2) || (root1 && !root2))
+            return false;
+        if(root1->val != root2->val)
+            return false;
+        return same(root1->left, root2->right) && same(root1->right, root2->left);
+    }
+    
     bool isSymmetric(TreeNode* root) {
-        stack<TreeNode*> sk;
-        //# of nodes: 1-1000
-        sk.push(root->left);
-        sk.push(root->right);
-        while(!sk.empty()){
-            TreeNode *node1 = sk.top(); sk.pop();
-            TreeNode *node2 = sk.top(); sk.pop();
-            if((node1 && !node2) || (!node1 && node2))
-                return false;
-            if(!node1 && !node2)
-                continue;
-            if(node1->val != node2->val)
-                return false;
-            sk.push(node1->left);
-            sk.push(node2->right);
-            sk.push(node1->right);
-            sk.push(node2->left);
-        }
-        return true;
+        return same(root->left, root->right);
     }
 };
