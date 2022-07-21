@@ -11,15 +11,16 @@
  */
 class Solution {
 public:
-    TreeNode* TreeHelper(TreeNode* root){
-        if(!root) return root;
-        TreeNode* temp = root->left;
-        root->left = TreeHelper(root->right);
-        root->right = TreeHelper(temp);
-        return root;
-    }
-    
     TreeNode* invertTree(TreeNode* root) {
-        return TreeHelper(root);
+        if(!root) return root;
+        
+        TreeNode * temp = root->left;
+        root->left = root->right;
+        root->right = temp;
+        
+        invertTree(root->left);
+        invertTree(root->right);
+        
+        return root;
     }
 };
