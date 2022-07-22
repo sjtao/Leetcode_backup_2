@@ -1,12 +1,13 @@
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        queue<pair<int,int>> q;
-        int fresh = 0;
         int m = grid.size();
         int n = grid[0].size();
-        pair<int, int> dirs[4] = {{0,1},{1,0},{0,-1},{-1,0}};
         
+        queue<pair<int,int>> q;
+        pair<int,int> dirs[4] = {{-1,0},{1,0},{0,-1},{0,1}};
+        
+        int fresh = 0;
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
                 if(grid[i][j] == 2)
@@ -16,31 +17,31 @@ public:
             }
         }
         
+        q.push({-1,-1}); //dividor of time step
         int step = -1;
         while(!q.empty()){
-            int s = q.size();
-            while(s > 0){
-                auto t = q.front();
-                q.pop();
-                int x = t.first;
-                int y = t.second;
-                for(int i = 0; i < 4; i++){
-                    int ix = x + dirs[i].first;
-                    int iy = y + dirs[i].second;
-                    if(ix < 0 || iy < 0 || ix >= m || iy >= n || grid[ix][iy] != 1)
+            pair<int,int> rt = q.front();
+            q.pop();
+            int x = rt.first;
+            int y = rt.second;
+            if(x == -1){
+                step++;
+                if(!q.empty())
+                    q.push({-1,-1});
+            }
+            else{
+                for(int k = 0; k < 4; k++){
+                    int kx = x + dirs[k].first;
+                    int ky = y + dirs[k].second;
+                    if(kx < 0 || ky < 0 || kx >= m || ky >= n || grid[kx][ky] != 1)
                         continue;
-                    grid[ix][iy] = 2;
-                    q.push({ix, iy});
+                    grid[kx][ky] = 2;
+                    q.push({kx,ky});
                     fresh--;
                 }
-                s--;
             }
-            step++;
         }
-        //the last iteration: q{n-1,n-1} as (n-1,n-1) is the last rotten orange
-        //till this time, q.empty() is false but no fresh oranges could be rotten
-        if(step == -1) step = 0;
-        if(fresh > 0) step = -1;
-        return step;
+        
+        return fresh == 0 ? step : -1;
     }
 };
