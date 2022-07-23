@@ -26,13 +26,13 @@ public:
         
         if(st.empty()) return {};
         
-        vector<int> ans;
+        int s = st.size();
+        vector<int> ans(s);
+        s--;
         while(!st.empty()){
-            ans.push_back(st.top());
+            ans[s--] = st.top();
             st.pop();
         }
-        
-        reverse(ans.begin(), ans.end());
         
         return ans;
     }
