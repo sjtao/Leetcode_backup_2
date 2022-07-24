@@ -1,32 +1,50 @@
 class Solution {
 public:
     int calculate(string s) {
-        int len = s.length();
-        if(len == 0) return 0;
         stack<int> st;
-        int cur = 0, last = 0, result = 0;
-        char operation = '+';
-        for(int i = 0; i < len; i++){
-            char c = s[i];
-            if(isdigit(c)){
-                cur = 10 * cur + (c - '0');
+        int n = s.length();
+        int i = 0;
+        char sign;
+        while(i < n){
+            if(isdigit(s[i])){
+                int a = 0;
+                while(isdigit(s[i])){
+                    a = a * 10 + (s[i++] - '0');
+                }
+                if(st.empty())
+                    st.push(a);
+                else{
+                    if(sign == '+')
+                        st.push(a);
+                    else if(sign == '-')
+                        st.push(-a);
+                    else if(sign == '*'){
+                        int b = st.top();
+                        st.pop();
+                        st.push(a * b);
+                    } 
+                    else if(sign == '/'){
+                        int b = st.top();
+                        st.pop();
+                        st.push(b / a);
+                    }
+                }
             }
-            if(!isdigit(c) && !iswspace(c) || i == len-1){
-                if(operation == '+' || operation == '-'){
-                    result += last;
-                    last = (operation == '-') ? -cur : cur;
-                }
-                else if(operation == '*'){
-                    last *= cur;
-                }
-                else if(operation == '/'){
-                    last /= cur;
-                }
-                operation = c;
-                cur = 0;
+            else if(isspace(s[i])){
+                while(isspace(s[i]))
+                    i++;
+            }
+            else{
+                sign = s[i++];
             }
         }
-
-        return result + last;
+        
+        int ans = 0;
+        while(!st.empty()){
+            ans += st.top();
+            st.pop();
+        }
+        
+        return ans;
     }
 };
