@@ -6,34 +6,25 @@ public:
     }
     
     void push(int x) {
-        se.push(x);
-    }
-    
-    int pop() {
-        while(se.size() > 1){
+        while(!se.empty()){
             sf.push(se.top());
             se.pop();
         }
-        int a = se.top();
-        se.pop();
+        se.push(x);
         while(!sf.empty()){
             se.push(sf.top());
             sf.pop();
         }
+    }
+    
+    int pop() {
+        int a = se.top();
+        se.pop();
         return a;
     }
     
     int peek() {
-        while(se.size() > 1){
-            sf.push(se.top());
-            se.pop();
-        }
-        int a = se.top();
-        while(!sf.empty()){
-            se.push(sf.top());
-            sf.pop();
-        }
-        return a;
+        return se.top();;
     }
     
     bool empty() {
