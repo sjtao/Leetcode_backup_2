@@ -17,13 +17,10 @@ public:
         
         st.insert(n);
         while(n > 1){
-            int b = sqsum(n);
-            if(b == 1)
-                return true;
-            else if(st.count(b))
+            n = sqsum(n);
+            if(st.count(n))
                 return false;
-            st.insert(b);
-            n = b;
+            st.insert(n);
         }
         
         return true;
