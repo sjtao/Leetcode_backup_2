@@ -2,9 +2,9 @@ class Solution {
 public:
     int maxSubArrayLen(vector<int>& nums, int k) {
         int n = nums.size();
-        unordered_map<int,int> mp;
+        long long int sum = 0;
         int len = 0;
-        int sum = 0;
+        unordered_map<int,int> mp;
         for(int i = 0; i < n; i++){
             sum += nums[i];
             if(sum == k)
@@ -17,7 +17,6 @@ public:
                 mp[sum] = i;
         }
         
-        
-        return len;
+        return len;        
     }
 };
