@@ -1,20 +1,23 @@
 class Solution {
 public:
     int minSwaps(vector<int>& data) {
-        //sliding window with two pointers
-        int n = data.size();
-        int ones = 0; //window width
-        for(int a : data)
-            ones += a;
-        
-        int left = 0, right = 0;
-        int cnt = 0, mx = 0;
-        while(right < n){
-            cnt += data[right++];
-            if(right - left > ones)
-                cnt -= data[left++];
-            mx = max(mx, cnt);
+        int total = 0;
+        for(int d : data){
+            total += d;
         }
-        return ones-mx;
+        
+        //two pointer; window size = total
+        int cur = 0;
+        int maxseen = 0;
+        
+        for(int i = 0; i < data.size(); i++){
+            cur += data[i];
+            if(i >= total){
+                cur -= data[i-total];
+            }
+            maxseen = max(maxseen, cur);
+        }
+        
+        return total - maxseen;
     }
 };
