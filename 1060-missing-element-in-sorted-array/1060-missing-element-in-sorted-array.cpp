@@ -12,6 +12,6 @@ public:
             if(d >= k) r = m;
             else l = m+1;
         }
-        return nums[l-1] + k - (nums[l-1] - nums[0] - (l-1));
+        return  k + nums[0] + (l-1);
     }
 };
