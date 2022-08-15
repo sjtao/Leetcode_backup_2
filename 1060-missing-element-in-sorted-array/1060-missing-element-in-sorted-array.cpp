@@ -2,13 +2,12 @@ class Solution {
 public:
     int missingElement(vector<int>& nums, int k) {
         int n = nums.size();
-        int d = 0; 
-        for(int i = 1; i < n; i++){
-            d += nums[i] - nums[i-1] - 1;
-            if(d >= k){
-                return nums[i] - (d-k) - 1;
-            }
+        int i = 0;
+        for(; i < n-1; i++){
+            int m = (nums[i+1]-nums[i]-1);
+            if(k <= m) break;
+            else k -= m;
         }
-         return nums[n-1] + (k-d);
+        return nums[i] + k;
     }
 };
