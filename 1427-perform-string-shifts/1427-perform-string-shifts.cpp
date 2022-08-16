@@ -1,21 +1,22 @@
 class Solution {
 public:
     string stringShift(string s, vector<vector<int>>& shift) {
-        int len = s.length();
-        int start = 0;
-        for(vector<int> p : shift){
+        int n = s.length();
+        int id = 0;
+        for(auto& p : shift){
             if(p[0] == 0)
-                start += p[1];//left
+                id -= p[1];
             else if(p[0] == 1)
-                start -= p[1];//right
+                id += p[1];
+            
+            if(id < 0) id = id % n + n;
+            else if(id >= n) id %= n;
         }
         
-        start %= len;        
-        start = (start + len) % len;
-        string ans = "";
-        for(int i = start; i < start + len; i++){
-            ans += s[i % len];
-        }
+        string ans = s;
+        for(int i = 0; i < n; i++)
+            ans[(id + i)%n] = s[i];
+        
         return ans;
     }
 };
