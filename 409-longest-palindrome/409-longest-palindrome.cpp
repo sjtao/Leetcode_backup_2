@@ -1,19 +1,22 @@
 class Solution {
 public:
     int longestPalindrome(string s) {
-        int n = s.length();
-        if(n < 2) return n;
-        
-        unordered_map<char,int> mp;
-        for(char c: s)
-            mp[c]++;
-        
-        int odd = 0;
-        for(auto m : mp){
-            if(m.second % 2)
-                odd++;
+        unordered_map<char, int> mp;
+        for(char c : s){
+            mp[c] ++;
         }
         
-        return odd == 0 ? n : n-odd+1;
+        int odd = 0;
+        int even = 0;
+        for(auto it : mp){
+            if(it.second % 2 == 0)
+                even += it.second;
+            else{
+                even += (it.second -1);
+                odd++;
+            }
+        }
+        
+        return even + (odd >= 1);
     }
 };
