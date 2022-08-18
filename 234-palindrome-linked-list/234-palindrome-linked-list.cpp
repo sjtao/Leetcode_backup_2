@@ -10,36 +10,19 @@
  */
 class Solution {
 public:
-    ListNode* reverse(ListNode* head){
-        ListNode* pre = NULL;
-        ListNode* cur = head;
-        while(cur){
-            ListNode* temp = cur->next;
-            cur->next = pre;
-            pre = cur;
-            cur = temp;
-        }
-        return pre;
-    }
-    
     bool isPalindrome(ListNode* head) {
-        if(!head || !head->next) return true;
-        
-        ListNode* fast = head;
-        ListNode* slow = head;
-        while(fast && fast->next){
-            fast = fast->next->next;
-            slow = slow->next;
+        vector<int> v;
+        while(head){
+            v.push_back(head->val);
+            head = head->next;
         }
         
-        fast = head;
-        slow = reverse(slow);
-        
-        while(slow){
-            if(slow->val != fast->val)
+        int l = 0, r = v.size()-1;
+        while(l <= r){
+            if(v[l] != v[r])
                 return false;
-            slow = slow->next;
-            fast = fast->next;
+            l++;
+            r--;
         }
         
         return true;
