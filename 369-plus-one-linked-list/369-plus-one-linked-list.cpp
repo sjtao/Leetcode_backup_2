@@ -11,24 +11,38 @@
 class Solution {
 public:
     ListNode* plusOne(ListNode* head) {
-        ListNode* ans = new ListNode();
-        ans->next = head;
-        ListNode* notNine = ans;
-        
-        while(head){
-            if(head->val != 9)
-                notNine = head;
-            head = head->next;
+        ListNode* p = reverseList(head);
+        ListNode* q = p;
+        int carry = 0;
+        q->val = q->val + 1;
+        if(q->val >= 10){
+            carry = q->val / 10;
+            q->val %= 10;
+            while(q->next && carry > 0){
+                q = q->next;
+                int c = (q->val + carry);
+                carry = c / 10;
+                q->val = c % 10;
+            }
+            if(carry > 0){
+                q->next = new ListNode(carry);
+                q = q->next;
+            }
+            
         }
         
-        notNine->val ++;
-        notNine = notNine->next;
-        
-        while(notNine){
-            notNine->val = 0;
-            notNine = notNine->next;
+        return reverseList(p);
+    }
+    
+    ListNode* reverseList(ListNode* head){
+        ListNode* cur = head;
+        ListNode* pre = NULL;
+        while(cur){
+            ListNode* temp = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = temp;
         }
-        
-        return ans->val == 0 ? ans->next : ans;
+        return pre;
     }
 };
