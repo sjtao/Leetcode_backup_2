@@ -11,29 +11,32 @@
 
 class Solution {
 public:
-    
     PolyNode* addPoly(PolyNode* poly1, PolyNode* poly2) {
-        if(!poly1 && !poly2) return NULL;
-        if(!poly1 && poly2) return poly2;
-        if(poly1 && !poly2) return poly1;
-        
-        if(poly1->power == poly2->power){
-            poly1->coefficient += poly2->coefficient;
-            if(poly1->coefficient == 0)
-                return addPoly(poly1->next, poly2->next);
-            poly1->next = addPoly(poly1->next, poly2->next);
-            return poly1;
+        PolyNode* dummy = new PolyNode();
+        PolyNode* p = dummy;
+        while(poly1 && poly2){
+            if(poly1->power == poly2->power){
+                int cof = poly1->coefficient + poly2->coefficient;
+                if(cof != 0){
+                    p->next = new PolyNode(cof, poly1->power);
+                    p = p->next;
+                }
+                poly1 = poly1->next;
+                poly2 = poly2->next;
+            }
+            else if(poly1->power > poly2->power){
+                p->next = poly1;
+                p = p->next;
+                poly1 = poly1->next;
+            }
+            else{
+                p->next = poly2;
+                p = p->next;
+                poly2 = poly2->next;
+            }
         }
-        else if(poly1->power > poly2->power){
-            PolyNode* temp1 =  poly1->next;
-            poly1->next = addPoly(temp1, poly2);
-            return poly1;
-        }
-        else{
-            PolyNode* temp2 =  poly2->next;
-            poly2->next = addPoly(poly1, temp2);
-            return poly2;
-        }
-        
+        if(poly1) p->next = poly1;
+        else p->next = poly2;
+        return dummy->next;
     }
 };
