@@ -19,15 +19,14 @@ public:
             head = head->next;
         }
         
-        sort(v.begin(), v.end());
-        
-        head = new ListNode();
-        ListNode* q = head;
-        for(int n : v){
-            q->next = new ListNode(n);
-            q = q->next;
+        sort(v.begin(),v.end());
+        ListNode* dummy = new ListNode();
+        ListNode* p = dummy;
+        for(int a : v){
+            p->next = new ListNode(a);
+            p = p->next;
         }
         
-        return head->next;
+        return dummy->next;
     }
 };
