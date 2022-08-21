@@ -13,7 +13,7 @@ class Solution {
 public:
     bool balance;
     int hight(TreeNode* root){
-        if(!root) return 0;
+        if(!root || !balance) return 0;
         int left = hight(root->left);
         int right = hight(root->right);
         balance = balance && (abs(left-right) <= 1);
@@ -21,6 +21,7 @@ public:
     }
     
     bool isBalanced(TreeNode* root) {
+        if(!root) return true;
         balance = true;
         hight(root);
         return balance;
