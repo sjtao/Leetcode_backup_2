@@ -8,8 +8,10 @@ public:
         int len = 0;
         for(string s : words){
             if(s[0] != s[1]){//ab
-                string r = s;
-                reverse(r.begin(), r.end());
+                string r = ""; //s;
+                //reverse(r.begin(), r.end());
+                r += s[1];
+                r += s[0];
                 if(mp.find(r) != mp.end() && mp[s] > 0 && mp[r] > 0){
                     len += 4;
                     mp[r]--;
