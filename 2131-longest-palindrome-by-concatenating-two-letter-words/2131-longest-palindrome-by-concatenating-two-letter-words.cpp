@@ -1,34 +1,37 @@
 class Solution {
 public:
     int longestPalindrome(vector<string>& words) {
-        int n = words.size();
-        //provided constraint: words[i].length == 2
-        
         unordered_map<string, int> mp;
+        for(string s : words)
+            mp[s]++;
+        
         int len = 0;
-        for(string& t : words){
-            string rev = t;
-            rev[0] = t[1];
-            rev[1] = t[0];
-            if(mp.find(rev) == mp.end() || mp[rev] == 0){ //no strings in the map having reversed form
-                mp[t]++;
+        for(string s : words){
+            if(s[0] != s[1]){//ab
+                string r = s;
+                reverse(r.begin(), r.end());
+                if(mp.find(r) != mp.end() && mp[s] > 0 && mp[r] > 0){
+                    len += 4;
+                    mp[r]--;
+                    mp[s]--;
+                }
             }
-            else{
-                mp[rev]--; //having strings in the map having reversed form
-                len += 4;
+            else{//gg 
+                if(mp[s] >= 2){
+                    len += 4;
+                    mp[s] -= 2;
+                }
             }
         }
         
-        //count if there are strings having form "aa" left in the map
-        int r = 0;
-        for(auto it : mp){
-            if(it.second > 0 && it.first[0] == it.first[1])
-                r++;
+        for(string s : words){
+            if(s[0] == s[1] && mp[s] > 0){
+                len += 2;
+                mp[s]--;
+                break;
+            }
         }
-        
-        if(r > 0) len += 2; //"aa" in the center
         
         return len;
-        
     }
 };
