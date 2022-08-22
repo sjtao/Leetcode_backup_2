@@ -1,21 +1,24 @@
 class Solution {
 public:
     vector<int> dailyTemperatures(vector<int>& temperatures) {
+        //brutal force
         int n = temperatures.size();
-        vector<int> ans(n, 0);
-        for(int i = n-2; i >= 0; i--){
-            for(int j = i+1; j < n; j++){
-                if(temperatures[j] > temperatures[i]){
-                    ans[i] = j-i;
-                    break;
-                }
-                else if(temperatures[j] == temperatures[i]){
-                    ans[i] = ans[j] == 0 ? 0 : ans[j] + j-i;
-                    break;
-                }
+        vector<int> daily(n, 0);
+        int hot = 0;
+        for(int i = n-1; i >= 0; i--){
+            int cur = temperatures[i];
+            if(cur >= hot){
+                hot = cur;
+                continue;
             }
+            
+            int day = 1;
+            while(temperatures[i + day] <= cur)
+                day += daily[i + day];
+            
+            daily[i] = day;
         }
         
-        return ans;
+        return daily;
     }
 };
