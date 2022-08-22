@@ -11,28 +11,28 @@
  */
 class Solution {
 public:
-    void dfs(vector<vector<int>>& ans, vector<int>& group,TreeNode* root, int targetSum){
+    vector<vector<int>> ans;
+    void pathsum(TreeNode* root, int sum, vector<int> rol){
         if(!root) return;
-        
-        group.push_back(root->val);
-        targetSum -= root->val;
-        
-        if(!root->left && !root->right && targetSum == 0){
-            ans.push_back(group);
+        sum -= root->val;
+        rol.push_back(root->val);
+        if(!root->left && !root->right){
+            if(sum == 0){  
+                ans.push_back(rol);
+                return;
+            }
         }
         
-        if(root->left) dfs(ans, group, root->left, targetSum);
-        if(root->right) dfs(ans, group, root->right, targetSum);
-        group.pop_back();
-        
+        pathsum(root->left, sum, rol);
+        pathsum(root->right, sum, rol);
         return;
     }
+    
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
-        vector<vector<int>> ans;
         if(!root) return ans;
-        
-        vector<int> group;
-        dfs(ans, group, root, targetSum);
+        vector<int> rol;
+        pathsum(root, targetSum, rol);
         return ans;
+        
     }
 };
