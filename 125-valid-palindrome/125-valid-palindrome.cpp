@@ -6,9 +6,7 @@ public:
         while(l < r){
             while(l < r && !isalnum(s[l])) l++;
             while(l < r && !isalnum(s[r])) r--;
-            if(isupper(s[l])) s[l] = tolower(s[l]);
-            if(isupper(s[r])) s[r] = tolower(s[r]);
-            if(s[l] != s[r])
+            if(tolower(s[l]) != tolower(s[r]))
                 return false;
             l++;
             r--;
