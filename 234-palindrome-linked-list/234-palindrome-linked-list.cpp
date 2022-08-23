@@ -10,45 +10,38 @@
  */
 class Solution {
 public:
+    
     ListNode* reverselist(ListNode* head){
-        ListNode* prev = NULL;
-        ListNode* cur  = head;
+        ListNode* cur = head;
+        ListNode* pre = NULL;
         while(cur){
-            ListNode* temp = cur->next;
-            cur->next = prev;
-            prev = cur;
-            cur = temp;
+            ListNode* tem = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = tem;
         }
-        return prev;
+        
+        return pre;
     }
     
-    ListNode* endoffirst(ListNode* head){
-        ListNode* slow = head;
-        ListNode* fast = head;
-        while(fast->next && fast->next->next){
-            slow = slow->next;
-            fast = fast->next->next;
+    ListNode* findhalf(ListNode* head){
+        ListNode* mid = head;
+        while(head->next && head->next->next){
+            mid = mid->next;
+            head = head->next->next;
         }
-        return slow;
+        return mid;
     }
+    
     bool isPalindrome(ListNode* head) {
-        if(!head) return true;
-        
-        ListNode* firsthalf = endoffirst(head);
-        ListNode* secondhalf = reverselist(firsthalf->next);
-        
-        ListNode* p1 = head;
-        ListNode* p2 = secondhalf;
-        
-        while(p2){
-            if(p1->val != p2->val)
+        ListNode* mid = findhalf(head);
+        ListNode* rev = reverselist(mid->next);
+        while(rev){
+            if(rev->val != head->val)
                 return false;
-            p1 = p1->next;
-            p2 = p2->next;
+            rev = rev->next;
+            head = head->next;
         }
-        
-        firsthalf->next = reverselist(secondhalf);
         return true;
     }
-    
 };
