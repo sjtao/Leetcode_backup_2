@@ -1,19 +1,17 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        int n1 = s.length();
-        int n2 = t.length();
-        if(n1 != n2) return false;
+        if(s.length() != t.length())
+            return false;
         
-        vector<int> r(26, 0);
-        for(int i = 0; i < n1; ++i){
-            r[s[i]-'a']++;
-            r[t[i]-'a']--;
-        }
+        unordered_map<char, int> mp;
+        for(char c : s)
+            mp[c]++;
         
-        for(int i = 0; i < 26; ++i){
-            if(r[i] != 0)
+        for(char c : t){
+            if(mp.find(c) == mp.end() || mp[c] <= 0)
                 return false;
+            mp[c]--;
         }
         
         return true;
