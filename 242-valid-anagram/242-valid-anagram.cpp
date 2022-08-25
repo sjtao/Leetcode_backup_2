@@ -9,9 +9,9 @@ public:
             mp[c]++;
         
         for(char c : t){
-            if(mp.find(c) == mp.end() || mp[c] <= 0)
-                return false;
             mp[c]--;
+            if(mp[c] < 0)
+                return false;
         }
         
         return true;
