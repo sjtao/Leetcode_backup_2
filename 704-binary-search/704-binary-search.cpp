@@ -7,9 +7,9 @@ public:
             if(nums[m] == target)
                 return m;
             else if(nums[m] > target)
-                r--;
+                r = m-1;
             else
-                l++;
+                l = m+1;
         }
         return -1;
     }
