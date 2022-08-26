@@ -16,15 +16,19 @@ public:
     }
     
     void twosum(vector<int>& nums, int k, vector<vector<int>>& ans){
-        unordered_set<int> seen;
-        for(int i = k+1; i < nums.size(); i++){
-            int c = - nums[i]-nums[k];
-            if(seen.count(c)){
-                ans.push_back({nums[k], c, nums[i]});
-                while(i < nums.size()-1 && nums[i] == nums[i+1])
-                    i++;
+        int t = -nums[k];
+        int l = k+1, r = nums.size()-1;
+        while(l < r){
+            int m = nums[l] + nums[r];
+            if (m > t)
+                r--;
+            else if (m < t)
+                l++;
+            else{
+                ans.push_back({nums[l++], -t, nums[r--]});
+                while(l < r && nums[l] == nums[l-1]) l++;
+                while(l < r && nums[r] == nums[r+1]) r--;
             }
-            seen.insert(nums[i]);
         }
     }
 };
