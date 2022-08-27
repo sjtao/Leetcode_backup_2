@@ -1,10 +1,17 @@
 class Solution {
 public:
+    int bits(int n){
+        int b = 0;
+        while(n){
+            b++;
+            n &= (n-1);
+        }
+        return b;
+    }
     vector<int> countBits(int n) {
-        vector<int> bit(n+1, 0);
-        for(int i = 1; i <= n; ++i)
-            bit[i] = bit[i >> 1] + (i & 1);
-        
-        return bit;
+        vector<int> count(n+1);
+        for(int i = 0; i <= n; i++)
+            count[i] = bits(i);
+        return count;
     }
 };
