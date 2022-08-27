@@ -1,17 +1,19 @@
 class Solution {
 public:
-    void rotate(vector<vector<int>>& matrix) {
-        int n = matrix.size();
+    void rotate(vector<vector<int>>& A) {
+        //diagonal: A[i][j] <--> A[j][i]
+        int n = A.size();
         for(int i = 0; i < n; i++){
             for(int j = i+1; j < n; j++){
-                int t = matrix[i][j];
-                matrix[i][j] = matrix[j][i];
-                matrix[j][i] = t;
+                int tem = A[i][j];
+                A[i][j] = A[j][i];
+                A[j][i] = tem;
             }
         }
         
+        //reverse each row
         for(int i = 0; i < n; i++)
-            reverse(matrix[i].begin(), matrix[i].end());
+            reverse(A[i].begin(), A[i].end());
         
         return;
     }
