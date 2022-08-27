@@ -2,9 +2,9 @@ class Solution {
 public:
     int missingNumber(vector<int>& nums) {
         int n = nums.size();
-        int m = n;
-        for(int i = 0; i < n; i++)
-            m ^= i ^ nums[i];
-        return m;
+        int a = 0;
+        for(int i = 1; i <= n; i++)
+            a ^= (i ^ nums[i-1]);
+        return a;
     }
 };
