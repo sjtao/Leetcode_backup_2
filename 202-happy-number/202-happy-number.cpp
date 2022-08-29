@@ -1,23 +1,24 @@
 class Solution {
 public:
-    int sumsq(int n){
+    int sqsum(int n){
         int s = 0;
-        while(n > 0){
-            int r = n % 10;
-            s += r * r;
+        while(n){
+            int a = n % 10;
+            s += a * a;
             n /= 10;
         }
         return s;
     }
-    
-    unordered_set<int> st;
     bool isHappy(int n) {
-        if(n == 1)
-            return true;
+        if(n == 1) return true;
+        set<int> st;
         st.insert(n);
-        n = sumsq(n);
-        if(st.count(n))
-            return false;
-        return isHappy(n);        
+        while(n > 1){
+            n = sqsum(n);
+            if(st.count(n))
+                return false;
+            st.insert(n);            
+        }
+        return true;
     }
 };
