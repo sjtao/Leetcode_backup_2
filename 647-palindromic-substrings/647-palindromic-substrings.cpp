@@ -1,25 +1,29 @@
 class Solution {
 public:
-    int n;
     int countSubstrings(string s) {
-        int num = 0;
-        n = s.length();
+        int n = s.length();
+        vector<vector<bool>> dp(n,vector<bool>(n));
+        
+        for(int i = 0; i < n; i++)
+            dp[i][i] = true;
+        
+        for(int i = 0; i < n-1; i++)
+            dp[i][i+1] = (s[i] == s[i+1]);
+        
+        for(int i = n-3; i >= 0; i--){
+            for(int j = i+2; j < n; j++){
+                dp[i][j] = dp[i+1][j-1] && (s[i] == s[j]);
+            }
+        }
+        
+        int p = 0;
         for(int i = 0; i < n; i++){
-            num += palim(s, i, i); //odd;
-            num += palim(s, i, i+1); //even
+            for(int j = i; j < n; j++){
+                if(dp[i][j])
+                    p++;
+            }
         }
-        return num;
-    }
-    
-    int palim(string s, int l, int r){
-        int a = 0;
-        while(l >= 0 && r < n){
-            if(s[l] != s[r])
-                break;
-            l--;
-            r++;
-            a++;
-        }
-        return a;
+        
+        return p;
     }
 };
