@@ -7,8 +7,6 @@ public:
         for(int i = n-1; i >= 0; i--){
             digits[i] += carry;
             carry = digits[i] / 10;
-            if(carry == 0)
-                return digits;
             digits[i] %= 10;
         }
         
