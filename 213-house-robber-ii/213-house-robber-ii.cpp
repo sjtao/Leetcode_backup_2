@@ -1,20 +1,23 @@
 class Solution {
 public:
-    int n;
-    int helper(vector<int>& nums, int s, int e){
-        vector<int> dp(n, 0);
-        dp[s] = nums[s];
-        dp[s+1] = max(nums[s], nums[s+1]);
-        for(int i = s+2; i < e; i++){
-            dp[i] = max(dp[i-1], dp[i-2]+nums[i]);
-        }
-        return dp[e-1];
-    }
     int rob(vector<int>& nums) {
-        n = nums.size();
-        if(n == 0) return 0;
+        int n = nums.size();
         if(n == 1) return nums[0];
-        if(n == 2) return max(nums[0], nums[1]);
-        return max(helper(nums, 0, n-1), helper(nums, 1, n));
+        
+        vector<int> dp1(n), dp2(n+1);
+        
+        dp1[0] = 0;
+        dp1[1] = nums[0];
+        for(int i = 2; i < n; i++)
+            dp1[i] = max(dp1[i-1], dp1[i-2]+nums[i-1]);
+        
+        dp2[0] = 0;
+        dp2[1] = 0;
+        dp2[2] = nums[1];
+        for(int i = 3; i < n+1; i++)
+            dp2[i] = max(dp2[i-1], dp2[i-2]+nums[i-1]);
+        
+        return max(dp1[n-1], dp2[n]);
+        
     }
 };
