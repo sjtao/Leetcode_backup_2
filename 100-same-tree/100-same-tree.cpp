@@ -26,19 +26,20 @@ public:
             if(p1->val != q1->val)
                 return false;
             
+            if((!p1->left && q1->left) || (!q1->left && p1->left))
+                return false;
             if(p1->left && q1->left){
                 qq.push(q1->left);
                 pp.push(p1->left);
             }
-            if((!p1->left && q1->left) || (!q1->left && p1->left))
-                return false;
             
+            if((!p1->right && q1->right) || (!q1->right && p1->right))
+                return false;
             if(p1->right && q1->right){
                 qq.push(q1->right);
                 pp.push(p1->right);
             }
-            if((!p1->right && q1->right) || (!q1->right && p1->right))
-                return false;
+            
             
         }
         
