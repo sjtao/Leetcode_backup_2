@@ -1,47 +1,41 @@
 class Solution {
 public:
+    pair<int,int> dirs[4] = {{0,1},{0,-1},{1,0},{-1,0}};
+    
     int orangesRotting(vector<vector<int>>& grid) {
+        queue<pair<int,int>> q;
         int m = grid.size();
         int n = grid[0].size();
-        
-        queue<pair<int,int>> q;
-        pair<int,int> dirs[4] = {{-1,0},{1,0},{0,-1},{0,1}};
-        
         int fresh = 0;
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
                 if(grid[i][j] == 2)
                     q.push({i,j});
-                else if(grid[i][j] == 1)
+                if(grid[i][j] == 1)
                     fresh++;
             }
         }
+        if(fresh == 0) return 0;
         
-        q.push({-1,-1}); //dividor of time step
-        int step = -1;
+        int k = -1;
         while(!q.empty()){
-            pair<int,int> rt = q.front();
-            q.pop();
-            int x = rt.first;
-            int y = rt.second;
-            if(x == -1){
-                step++;
-                if(!q.empty())
-                    q.push({-1,-1});
-            }
-            else{
-                for(int k = 0; k < 4; k++){
-                    int kx = x + dirs[k].first;
-                    int ky = y + dirs[k].second;
-                    if(kx < 0 || ky < 0 || kx >= m || ky >= n || grid[kx][ky] != 1)
+            int s = q.size();
+            for(int j = 0; j < s; j++){
+                int x = q.front().first;
+                int y = q.front().second;
+                q.pop();
+                for(int i = 0; i < 4; i++){
+                    int ix = x + dirs[i].first;
+                    int iy = y + dirs[i].second;
+                    if(ix < 0 || iy < 0 || ix >= m || iy >= n || grid[ix][iy] != 1)
                         continue;
-                    grid[kx][ky] = 2;
-                    q.push({kx,ky});
+                    grid[ix][iy] = 2;
                     fresh--;
+                    q.push({ix, iy});
                 }
             }
+            k++;
         }
-        
-        return fresh == 0 ? step : -1;
+        return fresh == 0 ? k : -1;
     }
 };
