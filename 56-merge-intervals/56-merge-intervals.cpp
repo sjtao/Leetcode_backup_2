@@ -13,7 +13,7 @@ public:
                 end   = intervals[i][1];
             }
             else{
-                start = min(start, intervals[i][0]);
+                //start = min(start, intervals[i][0]);
                 end   = max(end, intervals[i][1]);
             }
         }
