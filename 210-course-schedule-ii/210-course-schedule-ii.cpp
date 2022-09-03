@@ -1,35 +1,39 @@
 class Solution {
 public:
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-        int n = numCourses;
-        vector<int> indg(n, 0);
-        vector<vector<int>> g(n);
-        for(auto p : prerequisites){
-            indg[p[0]]++;
-            g[p[1]].push_back(p[0]); //out from p[0] to p[1] edge
+        unordered_map<int, vector<int>> mp;
+        vector<int> res;
+        vector<int> take = vector<int>(numCourses, 0);
+        
+        for(auto& p : prerequisites){
+            //[0, 1]: 1 is pre of 0
+            mp[p[1]].push_back(p[0]);
+            take[p[0]]++;
         }
         
         queue<int> q;
-        for(int i = 0; i < n; ++i){
-            if(indg[i] == 0)
+        
+        //course have no pre
+        for(int i = 0; i < numCourses; i++){
+            if(take[i] == 0)
                 q.push(i);
         }
         
-        vector<int> ans;
         while(!q.empty()){
-            int c = q.front();
+            int b = q.front();
             q.pop();
-            ans.push_back(c);
-            for(int p : g[c]){
-                indg[p]--;
-                if(indg[p] == 0)
-                    q.push(p);
+            res.push_back(b);
+            //course has b as pre
+            for(int i : mp[b]){
+                take[i]--;
+                if(take[i] == 0)
+                    q.push(i);
             }
         }
         
-        if(ans.size() != n) ans.clear(); //unable to finish all courses
+        if(res.size() != numCourses)
+            res = {};
         
-        return ans;
-        
+        return res;
     }
 };
