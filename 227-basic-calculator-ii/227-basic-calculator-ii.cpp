@@ -2,7 +2,9 @@ class Solution {
 public:
     int calculate(string s) {
         int n = s.length();
-        stack<int> st;
+        if(n == 0) return 0;
+        
+        int last = 0, res = 0;
         int i = 0;
         char sign = '+'; //plus, minus, multiply, divide
         while(i < n){
@@ -20,28 +22,18 @@ public:
                     num = num * 10 + (s[i] - '0');
                     i++;
                 }
-                if(st.empty() || sign == '+')
-                    st.push(num);
-                else if(sign == '-')
-                    st.push(-num);
-                else if(sign == '*'){
-                    num = st.top() * num;
-                    st.pop();
-                    st.push(num);
+                if(sign == '+' || sign == '-'){
+                    res += last;
+                    last = sign == '+' ? num : -num;
                 }
-                else if(sign == '/'){
-                    num = st.top() / num;
-                    st.pop();
-                    st.push(num);
-                }  
+                else if(sign == '*')
+                    last *= num;
+                else if(sign == '/')
+                    last /= num;
             }
         }
         
-        int res = 0;
-        while(!st.empty()){
-            res += st.top();
-            st.pop();
-        }
+       res += last;
         return res;
     }
 };
