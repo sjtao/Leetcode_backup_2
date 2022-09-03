@@ -1,50 +1,47 @@
 class Solution {
 public:
     int calculate(string s) {
-        stack<int> st;
         int n = s.length();
+        stack<int> st;
         int i = 0;
-        char sign;
+        char sign = '+'; //plus, minus, multiply, divide
         while(i < n){
-            if(isdigit(s[i])){
-                int a = 0;
-                while(isdigit(s[i])){
-                    a = a * 10 + (s[i++] - '0');
-                }
-                if(st.empty())
-                    st.push(a);
-                else{
-                    if(sign == '+')
-                        st.push(a);
-                    else if(sign == '-')
-                        st.push(-a);
-                    else if(sign == '*'){
-                        int b = st.top();
-                        st.pop();
-                        st.push(a * b);
-                    } 
-                    else if(sign == '/'){
-                        int b = st.top();
-                        st.pop();
-                        st.push(b / a);
-                    }
-                }
-            }
-            else if(isspace(s[i])){
+            if(isspace(s[i])){
                 while(isspace(s[i]))
                     i++;
             }
-            else{
+            
+            else if(s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/')
                 sign = s[i++];
+            
+            else if(isdigit(s[i])){
+                int num = 0;
+                while(isdigit(s[i])){
+                    num = num * 10 + (s[i] - '0');
+                    i++;
+                }
+                if(st.empty() || sign == '+')
+                    st.push(num);
+                else if(sign == '-')
+                    st.push(-num);
+                else if(sign == '*'){
+                    num = st.top() * num;
+                    st.pop();
+                    st.push(num);
+                }
+                else if(sign == '/'){
+                    num = st.top() / num;
+                    st.pop();
+                    st.push(num);
+                }  
             }
         }
         
-        int ans = 0;
+        int res = 0;
         while(!st.empty()){
-            ans += st.top();
+            res += st.top();
             st.pop();
         }
-        
-        return ans;
+        return res;
     }
 };
