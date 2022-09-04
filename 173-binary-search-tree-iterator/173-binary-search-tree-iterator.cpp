@@ -10,28 +10,29 @@
  * };
  */
 class BSTIterator {
+private:
+    vector<int> res;
+    int n, d;
 public:
-    queue<int> q;
     void inorder(TreeNode* root){
         if(!root) return;
         inorder(root->left);
-        q.push(root->val);
+        res.push_back(root->val);
         inorder(root->right);
-        return;
     }
     
     BSTIterator(TreeNode* root) {
         inorder(root);
+        n = res.size();
+        d = 0;
     }
     
     int next() {
-        int n = q.front();
-        q.pop();
-        return n;
+        return res[d++];
     }
     
     bool hasNext() {
-        return !q.empty();
+        return !(d == n);
     }
 };
 
