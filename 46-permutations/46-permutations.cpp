@@ -1,25 +1,27 @@
 class Solution {
-public:
+private:
     int n;
-    void helper(vector<int>& nums, vector<vector<int>>& ans, int d){
+    vector<vector<int>> res;
+public:
+    void permhelper(vector<int>& nums, int d){
         if(d == n){
-            ans.push_back(nums);
+            res.push_back(nums);
             return;
         }
-        
+
         for(int i = d; i < n; i++){
-            swap(nums[i], nums[d]);
-            helper(nums, ans, d+1);
+            swap(nums[d], nums[i]);
+            permhelper(nums, d+1);
             swap(nums[i], nums[d]);
         }
+        
         return;
     }
+    
     vector<vector<int>> permute(vector<int>& nums) {
-        vector<int> t;
-        vector<vector<int>> ans;
-        n = nums.size();
-        helper(nums, ans, 0);
-        return ans;
+        n = nums.size();     
+        permhelper(nums,  0);
         
+        return res;
     }
 };
