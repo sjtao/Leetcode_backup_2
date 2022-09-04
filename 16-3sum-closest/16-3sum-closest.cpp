@@ -2,25 +2,21 @@ class Solution {
 public:
     int threeSumClosest(vector<int>& nums, int target) {
         int n = nums.size();
-        //brutal force //TLE
         sort(nums.begin(), nums.end());
         int d = INT_MAX;
-        for(int i = 0; i < n-2; i++){
+        for(int i = 0; i < n && d != 0; i++){
             int l = i+1;
-            int h = n-1;
-            int m;
-            while(l < h){
-                int s = nums[i] + nums[l] + nums[h];
-                if(s == target)
-                    return s;
-                else if(s > target)
-                    h--;
-                else
-                    l++;
-                if(abs(target - s) < abs(d))
-                    d = target - s;
+            int r = n-1;
+            while(l < r){
+                int sum = nums[l] + nums[r] + nums[i];
+                int td = target - sum;
+                if(abs(d) > abs(td))
+                    d = td;
+                if(td > 0) l++;
+                else       r--;
             }
         }
+        
         return target - d;
     }
 };
