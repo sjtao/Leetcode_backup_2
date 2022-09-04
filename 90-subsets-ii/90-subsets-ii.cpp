@@ -1,25 +1,30 @@
 class Solution {
 public:
+    vector<vector<int>> res;
     int n;
-    void helper(vector<int>& nums, vector<int>& sets, vector<vector<int>>& ans, int s){
-        if(s == n) return;
+    
+    void helper(vector<int>& nums, vector<int>& tem, int d){
+        if(d == n)
+            return;
         
-        for(int i = s; i < n; i++){
-            if(i!=s && nums[i] == nums[s] || i != s && nums[i] == nums[i-1]) continue;
-            sets.push_back(nums[i]);
-            ans.push_back(sets);
-            helper(nums, sets, ans, i+1);
-            sets.pop_back();
+        for(int i = d; i < n; i++){
+            if((i != d && nums[i] == nums[d]) || (i != d && nums[i] == nums[i-1]))
+                continue;
+            tem.push_back(nums[i]);
+            res.push_back(tem);
+            helper(nums, tem, i+1);
+            tem.pop_back();
         }
+        
         return;
     }
+    
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        n = nums.size();
-        sort(nums.begin(), nums.end());
-        vector<vector<int>> ans;
-        vector<int> sets;
-        ans.push_back(sets);
-        helper(nums, sets, ans, 0);
-        return ans;
+        n = nums.size();     
+        sort(nums.begin(), nums.end()); 
+        vector<int> tem;
+        res.push_back(tem);
+        helper(nums, tem, 0);
+        return res;
     }
 };
