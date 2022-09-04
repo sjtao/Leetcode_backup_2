@@ -1,10 +1,9 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        int ans = 0;
-        for(int n : nums){
-            ans ^= n;
-        }
-        return ans;
+        int res = nums[0];
+        for(int i = 1; i < nums.size(); i++)
+            res ^= nums[i];
+        return res;
     }
 };
