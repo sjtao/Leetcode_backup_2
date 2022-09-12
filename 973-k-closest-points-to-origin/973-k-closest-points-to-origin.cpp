@@ -1,19 +1,25 @@
 class Solution {
+private:
+    typedef pair<int, pair<int, int>> pi;
 public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
-        vector<vector<int>> ans;
-        priority_queue<pair<int, pair<int, int>>> q;
+        priority_queue<pi> q;
         for(auto p : points){
-            int d = p[0] * p[0] + p[1] * p[1];
-            q.push({d, {p[0], p[1]}});
+            int x = p[0];
+            int y = p[1];
+            int d = x * x + y * y;
+            q.push({d, {x, y}});
             if(q.size() > k)
                 q.pop();
         }
+        
+        vector<vector<int>> res;
         while(!q.empty()){
-            auto d = q.top();
-            ans.push_back({d.second.first, d.second.second});
+            auto a = q.top().second;
+            res.push_back({a.first, a.second});
             q.pop();
         }
-        return ans;
+        
+        return res;
     }
 };
