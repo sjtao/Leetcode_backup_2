@@ -11,15 +11,14 @@ public:
             N = -N;
         }
         
-        double res = 1.;
+        double res = 1;
         double cur = x;
-        for(long long i = N; i > 0; i /= 2){
+        for(long long i = N; i > 0; i/=2){
             if(i % 2)
                 res *= cur;
             cur *= cur;
         }
         
         return res;
-        
     }
 };
