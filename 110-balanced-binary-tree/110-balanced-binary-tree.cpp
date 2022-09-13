@@ -13,11 +13,10 @@ class Solution {
 public:
     bool bal;
     int height(TreeNode* root){
-        if(!root) return 0;
+        if(!root || !bal) return 0;
         int left = height(root->left);
         int right = height(root->right);
-        if(abs(left-right) > 1)
-            bal = false;
+        bal = bal && (abs(left-right) <= 1);
         return 1 + max(left, right);
             
     }
