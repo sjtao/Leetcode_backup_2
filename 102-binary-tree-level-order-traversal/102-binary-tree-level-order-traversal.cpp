@@ -11,21 +11,24 @@
  */
 class Solution {
 public:
-    vector<vector<int>> ans;
-    void dfs(TreeNode* root, int level){
-        if(level == ans.size())
-            ans.push_back(vector<int> ());
-        
-        ans[level].push_back(root->val);
-        if(root->left) dfs(root->left, level+1);
-        if(root->right) dfs(root->right, level+1);
-        
-        return;
-    }
     vector<vector<int>> levelOrder(TreeNode* root) {
-        //dfs
-        if(!root) return ans;
-        dfs(root, 0);
-        return ans;
+        if(!root) return {};
+        vector<vector<int>> res;
+        vector<int> level;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            int s = q.size();
+            for(int i = 0; i < s; i++){
+                TreeNode* n = q.front();
+                q.pop();
+                level.push_back(n->val);
+                if(n->left) q.push(n->left);
+                if(n->right) q.push(n->right);
+            }
+            res.push_back(level);
+            level.clear();
+        }
+        return res;
     }
 };
