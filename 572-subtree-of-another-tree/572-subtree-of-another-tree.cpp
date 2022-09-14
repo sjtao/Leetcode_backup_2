@@ -21,17 +21,11 @@ public:
     }
     
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-        if(!root && subRoot) return false;
-        queue<TreeNode*> q;
-        q.push(root);
-        while(!q.empty()){
-            TreeNode* n = q.front();
-            q.pop();
-            if(isSameTree(n, subRoot))
-                return true;
-            if(n->left) q.push(n->left);
-            if(n->right) q.push(n->right);         
-        }
-        return false;
+        if(!root) return false;
+        
+        if(isSameTree(root, subRoot))
+            return true;
+       
+        return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot); 
     }
 };
