@@ -1,26 +1,33 @@
 class Solution {
 public:
-    pair<int, char> para[2] = {{1, '('}, {-1, ')'}};
-
-    void helper(vector<string>& ans, string s, int left, int right){
-        if(left == 0 && right == 0){
-            ans.push_back(s);
+    vector<string> res;
+    
+    void parenthesis(string& p, int left, int right, int n){
+        if(p.length() == 2*n){
+            res.push_back(p);
             return;
         }
         
-        if(left > 0)
-            helper(ans, s+"(", left-1, right);
+        if(left < n){
+            p = p + "(";
+            parenthesis(p, left+1, right, n);
+            p.pop_back();
+        }
         
-        if(right > left)
-            helper(ans, s+")", left, right-1);
+        if(right < left){
+            p = p + ")";
+            parenthesis(p, left, right+1, n);
+            p.pop_back();
+        }
         
         return;
-        
     }
+    
     vector<string> generateParenthesis(int n) {
-        vector<string> ans;
-        string s = "";
-        helper(ans, s, n, n);
-        return ans;
+        
+        string p = "";
+        parenthesis(p, 0, 0, n);
+        return res;
+        
     }
 };
