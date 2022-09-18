@@ -11,23 +11,25 @@
  */
 class Solution {
 public:
-    int res;
-    void good(TreeNode* root, int m){
-        if(!root)
-            return;
-        
-        if(root->val >= m){
-            m = root->val;
-            res++;
-        }
-        
-        good(root->left, m);
-        good(root->right, m);
-    }
-    
+
     int goodNodes(TreeNode* root) {
-        res = 0;
-        good(root, root->val);
+        if(!root) return 0;
+        
+        int res = 0;
+        queue<pair<TreeNode*, int>> q;
+        q.push({root, INT_MIN});
+        
+        while(!q.empty()){
+            TreeNode* nd = q.front().first;
+            int m = q.front().second;
+            q.pop();
+            if(nd->val >= m){
+                res++;
+                m = nd->val;
+            }
+            if(nd->left) q.push({nd->left, m});
+            if(nd->right) q.push({nd->right, m});
+        }
         return res;
     }
 };
