@@ -11,22 +11,23 @@
  */
 class Solution {
 public:
-    int node;
-    void good(TreeNode* root, int mx){
-        if(!root) return;
+    int res;
+    void good(TreeNode* root, int m){
+        if(!root)
+            return;
         
-        if(root->val >= mx){
-            mx = root->val;
-            node++;
+        if(root->val >= m){
+            m = root->val;
+            res++;
         }
         
-        good(root->left, mx);
-        good(root->right, mx);
+        good(root->left, m);
+        good(root->right, m);
     }
     
     int goodNodes(TreeNode* root) {
-        node = 0;
-        good(root, INT_MIN);
-        return node;
+        res = 0;
+        good(root, root->val);
+        return res;
     }
 };
