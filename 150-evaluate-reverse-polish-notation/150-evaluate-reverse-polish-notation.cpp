@@ -1,38 +1,36 @@
 class Solution {
 public:
-    int convert(string s){
-        int num = 0;
-        int sign = 1;
-        if(s[0] == '-') sign = -1;
-        int i = sign == 1 ? 0 : 1;
-        for(; i < s.length(); i++){
-            num = num * 10 + (s[i] - '0');
-        }
-        return sign * num;
-    }
-    
-    int evalRPN(vector<string>& token) {
-        stack<int> st;
-        int n = token.size();
+    int evalRPN(vector<string>& tokens) {
+        int n = tokens.size();
+        stack<long> st;
         for(int i = 0; i < n; i++){
-            if (token[i] == "+" || token[i] == "-" || token[i] == "*" || token[i] == "/"){
-                int a = st.top(); st.pop();
-                int b = st.top(); st.pop();
-                int c;
-                if(token[i] == "+")
-                    c = a + b;
-                else if(token[i] == "-")
-                    c = b - a;
-                else if(token[i] == "*")
-                    c = a * b;
-                else if(token[i] == "/")
-                    c = b / a;
-                st.push(c);
+            string t = tokens[i];
+            if(t == "+" || t == "-" || t == "*" || t == "/"){
+                long a = st.top(); st.pop();
+                long b = st.top(); st.pop();
+                if(t == "+") st.push(a + b);
+                else if(t == "-") st.push(b - a);
+                else if(t == "*") st.push(a * b);
+                else if(t == "/") st.push(b / a);
             }
             else{
-                st.push(convert(token[i]));
+                //number
+                long a = 0;
+                int sign = 1;
+                int j = 0;
+                if(!isdigit(t[j])){
+                    if(t[j] == '-') sign = -1;
+                    j++;
+                }
+                
+                for(; j < t.length(); j++){
+                    a = a * 10 + (t[j] - '0');
+                }
+                
+                st.push(a * sign);
             }
         }
+        
         return st.top();
     }
 };
