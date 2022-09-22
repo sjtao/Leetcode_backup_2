@@ -1,22 +1,16 @@
 class Solution {
 public:
     string reverseWords(string s) {
-        if(s.length() == 1) return s;
-        
-        string res = "";
-        string t = "";
-        for(char c : s){
-            if(isspace(c)){
-                reverse(t.begin(), t.end());
-                res += t;
-                res += c;
-                t = "";
+        int n = s.length();
+        int i = 0, j = 0;
+        auto ad = s.begin();
+        for(; i < n; i++){
+            if(s[i] == ' '){
+                reverse(ad+j, ad+i);
+                j = i+1;
             }
-            else
-                t += c;
         }
-        reverse(t.begin(), t.end());
-        res += t;
-        return res;
+        reverse(ad+j, s.end());
+        return s;
     }
 };
