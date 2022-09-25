@@ -13,13 +13,13 @@ public:
             return false;
         
         ListNode* slow = head;
-        ListNode* fast = head->next;
-        while(slow != fast){
+        ListNode* fast = head;
+        do{
             if(!fast || !fast->next)
                 return false;
             slow = slow->next;
             fast = fast->next->next;
-        }
+        }while(slow != fast);
         
         return true;
     }
