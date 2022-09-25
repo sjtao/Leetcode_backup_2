@@ -10,28 +10,49 @@
  */
 class Solution {
 public:
-    void reorderList(ListNode* head) {
-        deque<int> qe;
-        ListNode *dummy = head->next;
-        while(dummy){
-            qe.push_back(dummy->val);
-            dummy = dummy->next;
+    ListNode* findsecond(ListNode* head){
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast && fast->next){
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        
-        dummy = head;
-        while(qe.size()){
-            dummy->next = new ListNode(qe.back());
-            dummy = dummy->next;
-            qe.pop_back();
+        return slow;
+    }
+    
+    ListNode* reverse(ListNode* head){
+        if(!head || !head->next)
+            return head;
+        ListNode* prev = reverse(head->next);
+        head->next->next = head;
+        head->next = NULL;  
+        return prev;        
+    }
+    
+    ListNode* merge(ListNode* p1, ListNode* p2){
+        if(!p1) return p2;
+        if(!p2) return p1;
+        while(p2->next){
+            ListNode* tem = p1->next;
+            p1->next = p2;
+            p1 = tem;
             
-            if(qe.size()>0){
-                dummy->next = new ListNode(qe.front());
-                dummy = dummy->next;
-                qe.pop_front();
-            }
+            tem = p2->next;
+            p2->next = p1;
+            p2 = tem;
         }
-        
-        dummy = NULL;
+        return p1;
+    }
+    
+    void reorderList(ListNode* head) {
+        //find the second half
+        //reverse the second half
+        //merge first & second half
+        if(!head || !head->next)
+            return;
+        ListNode* second = findsecond(head);
+        ListNode* rev_second = reverse(second);
+        head = merge(head, rev_second);
         return;
     }
 };
