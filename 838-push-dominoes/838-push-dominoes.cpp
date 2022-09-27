@@ -1,50 +1,31 @@
 class Solution {
 public:
-    int n;
-    int push(string& dominoes){
+    string pushDominoes(string d) {
+        d = "L" + d + "R";
+        int n = d.size();
         
-        if(dominoes[0] == '.' && dominoes[1] == 'L')
-            dominoes[0] = 'l';
-        
-        if(dominoes[n-1] == '.' && dominoes[n-2] == 'R')
-            dominoes[n-1] = 'r';
-        
-        for(int i = 1; i < n-1; i++){
-            if(dominoes[i] == '.'){
-                if(dominoes[i-1] == 'R' && dominoes[i+1] == 'L')
-                    continue;
-                else if(dominoes[i-1] == 'R' && dominoes[i+1] != 'L')
-                    dominoes[i] = 'r';
-                else if(dominoes[i-1] != 'R' && dominoes[i+1] == 'L')
-                    dominoes[i] = 'l';
+        string res = "";
+        for(int i = 0, j = 1; j < n; j++){
+            if(d[j] == '.')
+                continue;
+            
+            if(i > 0)
+                res += d[i];
+            
+            int m = j-i-1;
+            if(d[i] == d[j]){
+                res += string(m, d[i]);
             }
+            else if(d[i] == 'L' && d[j] == 'R'){
+                res += string(m, '.');
+            }
+            else{
+                res += string(m/2, 'R') + string(m%2, '.') + string(m/2, 'L');
+            }
+            
+            i = j;
         }
         
-        int k = 0;
-        for(int i = 0; i < n; i++){
-            if(dominoes[i] == 'l'){
-                dominoes[i] = 'L';
-                k++;
-            }
-            else if(dominoes[i] == 'r'){
-                dominoes[i] = 'R';
-                k++;
-            }
-        }
-        
-        return k;
-    }
-    
-    string pushDominoes(string dominoes) {
-        n = dominoes.size();
-        if(n == 1)
-            return dominoes;
-        
-        int state = 0;
-        do{
-            state = push(dominoes);
-        }while(state > 0);
-        
-        return dominoes;
+        return res;
     }
 };
