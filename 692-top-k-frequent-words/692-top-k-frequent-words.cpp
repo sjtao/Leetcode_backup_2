@@ -1,11 +1,3 @@
-class Comparator {
-  public:
-    bool operator() (const pair<int, string> &p1, const pair<int, string> &p2) {
-      if(p1.first == p2.first) return p1.second < p2.second;   
-      return p1.first > p2.first;
-    }
-};
-
 class Solution {
 public:
     vector<string> topKFrequent(vector<string>& words, int k) {
@@ -13,20 +5,25 @@ public:
         for(string s : words)
             mp[s]++;
         
-        priority_queue<pair<int, string>, vector<pair<int, string>>, Comparator> pq;
-        for(auto m : mp){
-            pq.push({m.second, m.first});
-            if(pq.size() > k) 
-                pq.pop();
+        priority_queue<pair<int, string>> p;
+        for(auto& i : mp){
+            p.push({-i.second, i.first});
+            if(p.size() > k)
+                p.pop();
         }
         
-        vector<string> ans;
-        while(!pq.empty()){
-            ans.push_back(pq.top().second);
-            pq.pop();
+        vector<pair<int, string>> q;
+        while(!p.empty()){
+            q.push_back(p.top());
+            p.pop();
+        }
+        sort(q.begin(), q.end());
+        
+        vector<string> res;
+        for(auto& a : q){
+            res.push_back(a.second);
         }
         
-        reverse(ans.begin(), ans.end());
-        return ans;
+        return res;
     }
 };
