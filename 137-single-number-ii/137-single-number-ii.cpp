@@ -1,15 +1,18 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        unordered_map<int,int> mp;
-        for(int i : nums)
-            mp[i]++;
+        unordered_set<int> st;
         
-        for(auto& t : mp){
-            if(t.second != 3)
-                return t.first;
+        long tot = 0;
+        for(int i : nums){
+            tot += i;
+            st.insert(i);
         }
         
-        return INT_MIN;
+        long sum = 0;
+        for(auto i = st.begin(); i != st.end(); i++)
+            sum += *i;
+        
+        return (3 * sum - tot) / 2;
     }
 };
