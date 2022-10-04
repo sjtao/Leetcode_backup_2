@@ -17,17 +17,18 @@ public:
         queue<pair<TreeNode*, int>> q;
         q.push({root, target});
         
-        bool res = false;
         while(!q.empty()){
             TreeNode* nd = q.front().first;
             int s = q.front().second - nd->val;
             q.pop();
-            if(!nd->left && !nd->right)
-                res = res || (s == 0);
+            
+            if(!nd->left && !nd->right && s == 0)
+                return true;
+            
             if(nd->left) q.push({nd->left, s});
             if(nd->right) q.push({nd->right, s});
         }
         
-        return res;
+        return false;
     }
 };
