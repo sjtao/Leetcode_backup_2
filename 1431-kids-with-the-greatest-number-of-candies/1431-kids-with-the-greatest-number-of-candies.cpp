@@ -6,10 +6,9 @@ public:
         for(int c : candies)
             m = max(m, c);
         
-        vector<bool> res(n, true);
+        vector<bool> res(n);
         for(int i = 0; i < n; i++){
-            if(candies[i] + extraCandies < m)
-                res[i] = false;
+            res[i] = candies[i] + extraCandies >= m;
         }
         
         return res;
