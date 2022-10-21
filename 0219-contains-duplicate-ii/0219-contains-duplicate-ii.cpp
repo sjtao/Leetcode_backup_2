@@ -3,15 +3,13 @@ public:
     bool containsNearbyDuplicate(vector<int>& nums, int k) {
         //naive
         int n = nums.size();
-        unordered_map<int, int> mp;
+        set<int> st;
         for(int i = 0; i < n; i++){
-            if(mp.find(nums[i]) != mp.end()){
-                if(abs(i-mp[nums[i]]) <= k)
-                    return true;
-            }
-            
-            mp[nums[i]] = i; //the largest index of nums[i]
-            
+            if(st.count(nums[i]))
+                return true;
+            st.insert(nums[i]);
+            if(st.size() > k)
+                st.erase(nums[i-k]);
         }
         
         return false;
