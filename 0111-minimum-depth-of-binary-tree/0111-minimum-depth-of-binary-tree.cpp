@@ -11,21 +11,24 @@
  */
 class Solution {
 public:
-    int res;
-    void depth(TreeNode* root, int d){
-        if(root && !root->left && !root->right){
-            res = min(res, d);
-            return;
-        }
-        
-        if(root->left) depth(root->left, d+1);
-        if(root->right) depth(root->right, d+1);
-    }
-    
     int minDepth(TreeNode* root) {
         if(!root) return 0;
-        res = INT_MAX;
-        depth(root, 1);
+        queue<TreeNode*> q;
+        q.push(root);
+        int res = 0;
+        while(!q.empty()){
+            int s = q.size();
+            res++;
+            for(int i = 0; i < s; i++){
+                TreeNode* nd = q.front();
+                q.pop();
+                if(!nd->left && !nd->right)
+                    return res;
+                if(nd->left) q.push(nd->left);
+                if(nd->right) q.push(nd->right);
+            }
+        }
+        
         return res;
     }
 };
