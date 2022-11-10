@@ -1,13 +1,19 @@
 class Solution {
 public:
     string removeDuplicates(string s) {
-        string stk;
-        for(int i = 0; i < s.size(); i++) {
-            if(!stk.empty() && s[i] == stk.back())
-                stk.pop_back();
-            else
-                stk.push_back(s[i]);
+        int n = s.length();
+        int i = 0;
+        while(i < n-1){
+            if(s[i] == s[i+1]){
+                s.erase(i, 2);
+                n -= 2;
+                if(i > 0)
+                    i--;
+            }
+            else{
+                i++;
+            }
         }
-        return stk;
+        return s;
     }
 };
