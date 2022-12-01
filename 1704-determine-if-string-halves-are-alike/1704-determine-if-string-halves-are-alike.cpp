@@ -4,13 +4,13 @@ public:
     
     bool halvesAreAlike(string s) {
         int n = s.length() / 2;
-        int first = 0, second = 0;
+        int first = 0;
         for(int i = 0; i < n; i++){
             if(st.find(s[i]) != st.end())
                 first++;
             if(st.find(s[i+n]) != st.end())
-                second++;
+                first--;
         }
-        return first == second;
+        return first == 0;
     }
 };
