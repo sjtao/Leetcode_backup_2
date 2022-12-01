@@ -1,14 +1,15 @@
 class Solution {
 public:
-    unordered_set<char> st = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
-    
+    bool isVowel(char &c){        
+        return c == 'a' || c == 'e' || c =='i' || c == 'o' || c == 'u' || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U';        
+    }
     bool halvesAreAlike(string s) {
         int n = s.length() / 2;
         int first = 0;
         for(int i = 0; i < n; i++){
-            if(st.find(s[i]) != st.end())
+            if(isVowel(s[i]))
                 first++;
-            if(st.find(s[i+n]) != st.end())
+            if(isVowel(s[i+n]))
                 first--;
         }
         return first == 0;
